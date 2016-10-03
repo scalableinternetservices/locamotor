@@ -9,6 +9,16 @@
   </head>
 
   <body>
+
+    <h1>Doing Some <%= yield(:page_name) %> Stuffs</h1>
+    <p>
+      <a href="/main/home">Home</a>
+      <br>
+      <a href="/main/about">About</a>
+      <br>
+      <a href="/main/help">Help</a>
+    </p>
+
     <%= yield %>
   </body>
 </html>
