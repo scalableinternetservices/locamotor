@@ -1,24 +1,21 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Our application will allow users to become lenders and borrowers of vehicles of all types including cars, bicycles, and skateboards. Lenders will be able to post their vehicle with parameters such as price, time availability, as well as pickup and drop-off zones. Borrowers will be able to instantly book vehicles that fit their needs or can attempt to schedule trips ahead of time that may not fit lender parameters exactly. In this case we will attempt to match a series of trips that fit the lenders parameters and chain together borrowers so the vehicle is returned to the proper location, at the proper time.
 
-Things you may want to cover:
+Team Members:
 
-* Ruby version
+Joel Daniel Dick
 
-* System dependencies
+![picture to come](heh)
 
-* Configuration
+Aaron Magat
 
-* Database creation
+![picture to come](heh)
 
-* Database initialization
+Shane Masuda
 
-* How to run the test suite
+![picture to come](heh)
 
-* Services (job queues, cache servers, search engines, etc.)
+Aaron Zakhor
 
-* Deployment instructions
-
-* ...
+![picture to come](heh)
