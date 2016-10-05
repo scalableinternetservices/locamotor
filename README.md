@@ -6,16 +6,16 @@ Team Members:
 
 Joel Daniel Dick
 
-![picture to come](heh)
+![picture to come](super_cool_pictures/Joel.png)
 
 Aaron Magat
 
-![picture to come](heh)
+![picture to come](super_cool_pictures/AaronM.png)
 
 Shane Masuda
 
-![picture to come](heh)
+![picture to come](super_cool_pictures/Shane.png)
 
 Aaron Zakhor
 
-![picture to come](heh)
+![picture to come](super_cool_pictures/AaronZ.png)
