@@ -14,7 +14,7 @@ Aaron Magat
 
 Shane Masuda
 
-![picture to come](super_cool_pictures/Shane.png)
+![picture to come](super_cool_pictures/Shane2.png)
 
 Aaron Zakhor
 
