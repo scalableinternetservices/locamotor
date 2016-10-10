@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  get 'posts/new'
+  get 'posts/create'
+  post 'posts/create'
+
+  get 'users/new'
+
   root 'main#home'
 
   get 'main/home'
