@@ -1,8 +1,9 @@
 language: ruby
 before_install:
-  - rvm get stable --auto-dotfiles
   - rvm install 2.3.0
+  - rvm get stable --auto-dotfiles
 rvm:
  - 2.3.0
  - jruby-head
- - rbx-3.9
+
+script: rails test
