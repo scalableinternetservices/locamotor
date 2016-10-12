@@ -7,3 +7,20 @@
 
   <%= link_to "Post a Rental", '/posts/new', class: "btn btn-lg btn-primary" %>
 </div>
+
+<% Post.find_each.reverse_each do |post| %>
+  <h3><span class="label label-info">For Rent:</span></h3>
+  <label>Type:</label> <%= post.vehicle %> <br>
+  <label>Start Time:</label> <%= post.start_time %> <br>
+  <label>End Time:</label> <%= post.end_time %> <br>
+  <label>Price:</label> $<%= "%.2f" % post.price %> <br>
+  <label>Contact:</label> <%= post.email %> <br>
+  <% if post.description != '' %>
+    <label>Additional Details:</label> <%= post.description %> <br> 
+  <% end %>
+<!--     <span class="label label-info">Type:</span> <%= post.vehicle %> <br>
+  <span class="label label-info">Start Time:</span> <%= post.start_time %> <br>
+  <span class="label label-info">End Time:</span> <%= post.end_time %> <br>
+  <span class="label label-info">Price:</span> $<%= "%.2f" % post.price %> <br>
+  <span class="label label-info">Contact:</span> <%= post.email %> <br> -->
+<% end %>

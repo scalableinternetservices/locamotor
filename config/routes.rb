@@ -1,9 +1,7 @@
 Rails.application.routes.draw do
-  get 'posts/new'
-  get 'posts/create'
-  post 'posts/create'
+  resources :posts
 
-  get 'users/new'
+  resources :users
 
   root 'main#home'
 
