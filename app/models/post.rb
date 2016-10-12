@@ -12,4 +12,6 @@ class Post < ApplicationRecord
   validates :end_time, presence: true
 
   validates :price, presence: true
+
+  validates :post_type, presence: true
 end

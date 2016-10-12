@@ -18,6 +18,7 @@ class PostsController < ApplicationController
     @post.price = post_args[:dollar_amount]
     @post.description = post_args[:description]
     @post.claimed_by = ''
+    @post.post_type = post_args[:post_type] == "Renting out" ? "FR" : "RR"
 
     # Save the post in DB if the post is valid
     if @post.valid?

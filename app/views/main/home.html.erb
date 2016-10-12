@@ -9,7 +9,11 @@
 </div>
 
 <% Post.find_each.reverse_each do |post| %>
-  <h3><span class="label label-info">For Rent:</span></h3>
+  <% if post.post_type == "FR" %>
+    <h3><span class="label label-info">For Rent:</span></h3>
+  <% else %>
+    <h3><span class="label label-info">Looking For:</span></h3>
+  <% end %>
   <label>Type:</label> <%= post.vehicle %> <br>
   <label>Start Time:</label> <%= post.start_time %> <br>
   <label>End Time:</label> <%= post.end_time %> <br>
