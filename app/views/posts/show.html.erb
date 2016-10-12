@@ -1,0 +1,18 @@
+<h1>Claim Post</h1>
+
+<label>Type:</label> <%= @post.vehicle %> <br>
+  <label>Start Time:</label> <%= @post.start_time %> <br>
+  <label>End Time:</label> <%= @post.end_time %> <br>
+  <label>Price:</label> $<%= "%.2f" % @post.price %> <br>
+  <label>Contact:</label> <%= @post.email %> <br>
+  <% if @post.description != '' %>
+    <label>Additional Details:</label> <%= @post.description %> <br> 
+  <% end %>
+<%= form_for(@post, :url => {:action => "claim", :id => @post.id}) do |f| %>
+  <div class="form-group">
+    <label for="post_details">Name</label>
+    <textarea class="form-control" name="post[claimed_by]" id="claimed_by" rows="1"></textarea>
+  </div>
+
+ <%= f.submit "Claim", class: "btn btn-md btn-primary" %>
+<% end %>

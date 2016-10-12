@@ -18,6 +18,11 @@
   <% if post.description != '' %>
     <label>Additional Details:</label> <%= post.description %> <br> 
   <% end %>
+  <% if post.claimed_by == '' %>
+    <%= link_to "Claim", '/posts/' + post.id.to_s, class: "btn btn-sm btn-secondary" %> <br>
+  <% else %>
+    <label>Claimed By:</label> <%= post.claimed_by %> <br>
+  <% end %>
 <!--     <span class="label label-info">Type:</span> <%= post.vehicle %> <br>
   <span class="label label-info">Start Time:</span> <%= post.start_time %> <br>
   <span class="label label-info">End Time:</span> <%= post.end_time %> <br>
