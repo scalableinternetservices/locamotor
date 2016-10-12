@@ -4,6 +4,5 @@ before_install:
   - rvm get stable --auto-dotfiles
 rvm:
  - 2.3.0
- - jruby-head
 
 script: bundle exec rails test
