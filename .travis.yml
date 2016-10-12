@@ -6,4 +6,4 @@ rvm:
  - 2.3.0
  - jruby-head
 
-script: rails test
+script: bundle exec rails test
