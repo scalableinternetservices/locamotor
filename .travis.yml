@@ -1,0 +1,8 @@
+language: ruby
+before_install:
+  - rvm install 2.3.0
+  - rvm get stable --auto-dotfiles
+rvm:
+ - 2.3.0
+
+script: bundle exec rails test
