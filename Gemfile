@@ -39,6 +39,14 @@ group :test do
   gem 'rake'
 end
 
+platforms :rbx do
+gem 'rubysl', '~> 2.0' # if using anything in the ruby standard library
+gem 'psych'               # if using yaml
+gem 'racc'                  # if using gems like ruby_parser or parser
+gem 'minitest'            # if using minitest
+gem 'rubinius-coverage'    # if using code coverage
+end
+
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console'
