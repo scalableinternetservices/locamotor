@@ -160,8 +160,14 @@ DEPENDENCIES
   jbuilder (~> 2.5)
   jquery-rails
   listen (~> 3.0.5)
+  minitest
+  psych
   puma (~> 3.0)
+  racc
   rails (~> 5.0.0, >= 5.0.0.1)
+  rake
+  rubinius-coverage
+  rubysl (~> 2.0)
   sass-rails (~> 5.0)
   spring
   spring-watcher-listen (~> 2.0.0)
