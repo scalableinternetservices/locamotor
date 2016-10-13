@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-  resources :posts
+  get 'sessions/new'
 
+  resources :posts
   resources :users
 
   root 'main#home'
@@ -8,7 +9,11 @@ Rails.application.routes.draw do
   get 'main/home'
   get 'main/help'
   get 'main/about'
-
+  get  '/signup',  to: 'users#new'
+  get    '/login',   to: 'sessions#new'
+  post   '/login',   to: 'sessions#create'
+  delete '/logout',  to: 'sessions#destroy'
+  
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   #root 'application#home'
 end
