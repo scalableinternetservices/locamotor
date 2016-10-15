@@ -1,0 +1,9 @@
+<h1>Claim Post</h1>
+<%= form_for(@post) do |f| %>
+  <div class="form-group">
+    <label for="post_details">Name</label>
+    <textarea class="form-control" name="post[claimed_by]" id="claimed_by" rows="1"></textarea>
+  </div>
+
+ <%= f.submit "Claim", class: "btn btn-md btn-primary" %>
+<% end %>

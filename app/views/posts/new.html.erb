@@ -1,0 +1,55 @@
+<h1>New Post</h1>
+<%= form_for(@post) do |f| %>
+  <div class="form-group">
+    <%= f.label :email %>
+    <%= f.email_field :email, class: "form-control", id: "op_input_email", placeholder: "Email Address" %>
+
+    <br>
+
+    <label for="type_select">You are...</label>
+    <select class="form-control" id="type_select" name="post[post_type]">
+      <option>Renting out</option>
+      <option>Looking to rent</option>
+    </select>
+
+    <br>
+
+    <label for="vehicle_select">Select Vehicle</label>
+    <select class="form-control" id="vehicle_select" name="post[vehicle]">
+      <option>Car</option>
+      <option>Truck</option>
+      <option>Bike</option>
+      <option>Boat</option>
+      <option>Other</option>
+    </select>
+
+    <br>
+
+    <label for="post_start_time">Select Rental Start Time (UTC) </label>
+    <input class="form-control" name="post[start_time]" type="datetime-local" value="2016-01-01T12:00:00" id="post_start_time">
+
+    <br>
+
+    <label for="post_end_time">Select Rental End Time (UTC) </label>
+    <input class="form-control"  name="post[end_time]" type="datetime-local" value="2016-01-01T12:00:00" id="post_end_time">
+
+    <br>
+
+    <label for="post_amount">Amount (in dollars)</label>
+    <div class="input-group">
+      <div class="input-group-addon">$</div>
+      <input type="text" name="post[dollar_amount]" class="form-control" id="post_amount" placeholder="Amount">
+    </div>
+
+    <br>
+
+    <label for="post_details">Additional Details</label>
+    <textarea class="form-control" name="post[description]" id="post_details" rows="3"></textarea>
+  </div>
+
+ <%= f.submit "Make Post!", class: "btn btn-md btn-primary" %>
+<% end %>
+
+
+<!-- <%= link_to "Make Post!", '/posts/create', class: "btn btn-md btn-primary" %> -->
+
