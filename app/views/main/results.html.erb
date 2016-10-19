@@ -1,15 +1,5 @@
-<% provide(:page_name, "Home") %>
-
-<div class="center jumbotron">
-  <h1>Welcome to Locamotor</h1>
-
-  <h2>Check out our posts!</h2>
-
-  <%= link_to "Post a Rental", '/posts/new', class: "btn btn-lg btn-primary" %>
-  <%= link_to "Search Posts", '/search', class: "btn btn-lg btn-primary" %>
-</div>
-
-<% Post.find_each.reverse_each do |post| %>
+<h1>Search Results</h1>
+<% @posts.reverse_each do |post| %>
   <% if post.post_type == "FR" %>
     <h3><span class="label label-info">For Rent:</span></h3>
   <% else %>

@@ -1,0 +1,35 @@
+<h1>Search Posts</h1>
+<%= form_tag("/search/results", method: "get", :url => {:action => "results"}) do %>
+  <%= label_tag("Vehicle Type:") %>
+  <%= check_box_tag 'vehicle_type[]', 'Car' %>
+  <%= label_tag(:vehicle_car, "Car") %>
+  <%= check_box_tag 'vehicle_type[]', 'Truck' %>
+  <%= label_tag(:vehicle_truck, "Truck") %>
+  <%= check_box_tag 'vehicle_type[]', 'Bike' %>
+  <%= label_tag(:vehicle_bike, "Bike") %>
+  <%= check_box_tag 'vehicle_type[]', 'Boat' %>
+  <%= label_tag(:vehicle_boat, "Boat") %>
+  <%= check_box_tag 'vehicle_type[]', 'Other' %>
+  <%= label_tag(:vehicle_other, "Other") %>
+
+  <br>
+
+  <label for="post_start_time">Select Rental Start Time (UTC) </label> <%= check_box_tag 'search_start', true %>
+  <input class="form-control" name="start_time" type="datetime-local" value="2016-01-01T12:00:00" id="post_start_time">
+
+  <br>
+
+  <label for="post_end_time">Select Rental End Time (UTC) </label> <%= check_box_tag 'search_end', true %>
+  <input class="form-control"  name="end_time" type="datetime-local" value="2016-01-01T12:00:00" id="post_end_time">
+
+  <br>
+
+  <label for="post_amount">Max Price (in dollars)</label> <%= check_box_tag 'search_price', true %>
+    <div class="input-group">
+      <div class="input-group-addon">$</div>
+      <input type="text" name="max_price" class="form-control" id="post_amount" placeholder="Amount">
+    </div>
+
+  <%= submit_tag("Search") %>
+<% end %>
+
