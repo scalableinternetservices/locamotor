@@ -28,6 +28,10 @@ class PostsController < ApplicationController
     redirect_to "/main/home"
   end
 
+  def search
+
+  end
+
   def show
     post_id = params[:id]
     @post = Post.find(post_id)

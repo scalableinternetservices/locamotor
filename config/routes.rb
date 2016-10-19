@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   get 'main/home'
   get 'main/help'
   get 'main/about'
+  get 'search', to: 'main#search'
+  get 'search/results', to: 'main#results'
   get '/posts/:id', to: 'posts#show'
   patch '/posts/:id/claim', to: 'posts#claim'
 
