@@ -14,5 +14,21 @@
       <%= yield %>
       <%= render 'layouts/footer' %>
     </div>
+    
+    <div class="container">
+      <% flash.each do |key, value| %>
+        <div class="alert alert-<%= key %>">
+          <%= value %>
+        </div>
+      <% end %>
+    </div>
+    
+    <div class="alert">
+      <%=h flash[:alert]%>
+    </div>
+    <div class="notice">
+      <%=h flash[:notice]%>
+    </div>
+    
   </body>
 </html>
