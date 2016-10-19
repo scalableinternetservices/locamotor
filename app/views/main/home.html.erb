@@ -4,7 +4,6 @@
   <h1>Welcome to Locamotor</h1>
 
   <h2>Check out our posts!</h2>
-
   <%= link_to "Post a Rental", '/posts/new', class: "btn btn-lg btn-primary" %>
   <%= link_to "Search Posts", '/search', class: "btn btn-lg btn-primary" %>
 </div>
@@ -22,6 +21,16 @@
   <label>Contact:</label> <%= post.email %> <br>
   <% if post.description != '' %>
     <label>Additional Details:</label> <%= post.description %> <br> 
+  <% end %>
+  <% if post.start_location %>
+    <label>Starting Location:</label> <button id=<%= "map#{post.id}" %> class="map-link"> <%= post.start_location.address %> </button> <br>
+    <% lat_long = "#{post.start_location.latitude},#{post.start_location.longitude}&zoom=13" %>
+    <% map_link = "https://www.google.com/maps/embed/v1/place?key=AIzaSyACRTQrluJMiM7ILeSMxjaqxsJ45LeJscE&q=" + lat_long %>
+    <iframe width="300" height="300" frameborder="0" style="border:0" class="something" id=<%= "map#{post.id}map" %>
+      src=<%= map_link %>
+      allowfullscreen>
+    </iframe>
+    <br>
   <% end %>
   <% if post.claimed_by == '' %>
     <%= link_to "Claim", '/posts/' + post.id.to_s, class: "btn btn-sm btn-secondary" %> <br>
