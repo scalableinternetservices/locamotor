@@ -25,11 +25,21 @@
   <br>
 
   <label for="post_amount">Max Price (in dollars)</label> <%= check_box_tag 'search_price', true %>
-    <div class="input-group">
-      <div class="input-group-addon">$</div>
-      <input type="text" name="max_price" class="form-control" id="post_amount" placeholder="Amount">
-    </div>
+  <div class="input-group">
+    <div class="input-group-addon">$</div>
+    <input type="text" name="max_price" class="form-control" id="post_amount" placeholder="Amount">
+  </div>
 
-  <%= submit_tag("Search") %>
+  <br>
+
+  <div class="form-group">
+    <label for="location">Location</label> <%= check_box_tag 'search_location', true %>
+    <input type="text" name="location_start" class="form-control" id="location" placeholder="Location">
+    <input type="text" name="max_distance" class="form-control" id="location" placeholder="Max Distance Away">
+  </div>
+
+  <br>
+
+  <%= submit_tag("Search", class: "btn btn-md btn-primary") %>
 <% end %>
 

@@ -9,9 +9,4 @@
 
 <% Post.find_each.reverse_each do |post| %>
   <%= render partial: "shared/post_display", locals: {post: post} %>
-<!--     <span class="label label-info">Type:</span> <%= post.vehicle %> <br>
-  <span class="label label-info">Start Time:</span> <%= post.start_time %> <br>
-  <span class="label label-info">End Time:</span> <%= post.end_time %> <br>
-  <span class="label label-info">Price:</span> $<%= "%.2f" % post.price unless post.price.nil? %> <br>
-  <span class="label label-info">Contact:</span> <%= post.email %> <br> -->
 <% end %>
