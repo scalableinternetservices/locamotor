@@ -2,41 +2,13 @@
 
 <div class="center jumbotron">
   <h1>Welcome to Locamotor</h1>
-
   <h2>Check out our posts!</h2>
   <%= link_to "Post a Rental", '/posts/new', class: "btn btn-lg btn-primary" %>
   <%= link_to "Search Posts", '/search', class: "btn btn-lg btn-primary" %>
 </div>
 
 <% Post.find_each.reverse_each do |post| %>
-  <% if post.post_type == "FR" %>
-    <h3><span class="label label-info">For Rent:</span></h3>
-  <% else %>
-    <h3><span class="label label-info">Looking For:</span></h3>
-  <% end %>
-  <label>Type:</label> <%= post.vehicle %> <br>
-  <label>Start Time:</label> <%= post.start_time %> <br>
-  <label>End Time:</label> <%= post.end_time %> <br>
-  <label>Price:</label> $<%= "%.2f" % post.price unless post.price.nil? %> <br>
-  <label>Contact:</label> <%= post.email %> <br>
-  <% if post.description != '' %>
-    <label>Additional Details:</label> <%= post.description %> <br> 
-  <% end %>
-  <% if post.start_location %>
-    <label>Starting Location:</label> <button id=<%= "map#{post.id}" %> class="map-link"> <%= post.start_location.address %> </button> <br>
-    <% lat_long = "#{post.start_location.latitude},#{post.start_location.longitude}&zoom=13" %>
-    <% map_link = "https://www.google.com/maps/embed/v1/place?key=AIzaSyACRTQrluJMiM7ILeSMxjaqxsJ45LeJscE&q=" + lat_long %>
-    <iframe width="300" height="300" frameborder="0" style="border:0" class="something" id=<%= "map#{post.id}map" %>
-      src=<%= map_link %>
-      allowfullscreen>
-    </iframe>
-    <br>
-  <% end %>
-  <% if post.claimed_by == '' %>
-    <%= link_to "Claim", '/posts/' + post.id.to_s, class: "btn btn-sm btn-secondary" %> <br>
-  <% else %>
-    <label>Claimed By:</label> <%= post.claimed_by %> <br>
-  <% end %>
+  <%= render partial: "shared/post_display", locals: {post: post} %>
 <!--     <span class="label label-info">Type:</span> <%= post.vehicle %> <br>
   <span class="label label-info">Start Time:</span> <%= post.start_time %> <br>
   <span class="label label-info">End Time:</span> <%= post.end_time %> <br>
