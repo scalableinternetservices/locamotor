@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161012235231) do
+ActiveRecord::Schema.define(version: 20161019020646) do
+
+  create_table "locations", force: :cascade do |t|
+    t.float    "latitude"
+    t.float    "longitude"
+    t.string   "address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "post_id"
+  end
 
   create_table "posts", force: :cascade do |t|
     t.string   "email"
@@ -26,6 +35,8 @@ ActiveRecord::Schema.define(version: 20161012235231) do
     t.string   "state"
     t.string   "country"
     t.string   "post_type"
+    t.integer  "creator_id"
+    t.integer  "claimer_id"
   end
 
   create_table "users", force: :cascade do |t|

@@ -20,6 +20,8 @@ class PostsController < ApplicationController
     @post.claimed_by = ''
     @post.post_type = post_args[:post_type] == "Renting out" ? "FR" : "RR"
 
+    @start_location = @post.build_start_location(address: post_args[:location])
+
     # Save the post in DB if the post is valid
     if @post.valid?
         @post.save
