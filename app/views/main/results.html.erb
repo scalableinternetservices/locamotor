@@ -14,7 +14,7 @@
     <label>Additional Details:</label> <%= post.description %> <br> 
   <% end %>
   <% if post.claimed_by == '' %>
-    <%= link_to "Claim", '/posts/find/' + post.id.to_s, class: "btn btn-sm btn-secondary" %> <br>
+    <%= link_to "Claim", '/posts/' + post.id.to_s, class: "btn btn-sm btn-secondary" %> <br>
   <% else %>
     <label>Claimed By:</label> <%= post.claimed_by %> <br>
   <% end %>
