@@ -5,6 +5,9 @@ Rails.application.routes.draw do
 
   root 'main#home'
 
+  get 'users/new'
+  get 'posts/new'
+  get  '/signup',  to: 'users#new'
   get 'main/home'
   get 'main/help'
   get 'main/about'
