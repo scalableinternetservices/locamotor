@@ -3,6 +3,8 @@ class Post < ApplicationRecord
   # belongs_to :claimer, :class_name => "User"
   has_one :start_location, :foreign_key => "post_id", :class_name => "Location"
 
+  has_many :photos
+
   before_save { self.email = email.downcase }
   validates :vehicle, presence: true, length: { maximum: 50 }
 
