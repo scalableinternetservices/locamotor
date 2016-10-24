@@ -4,6 +4,13 @@ Rails.application.routes.draw do
   resources :users
   resources :photos
 
+
+
+
+  resources :conversations, only: [:index, :create] do
+    resources :messages, only: [:index, :create]
+  end
+
   root 'main#home'
 
   get 'users/new'
