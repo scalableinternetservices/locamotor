@@ -1,0 +1,41 @@
+<% this_user_set = User.where("id == #{params[:id]}") %>
+
+<% if this_user_set.size() == 0 %>
+
+  <h1> This User Does Not Exist </h1>
+
+<% else %>
+  <% this_user = this_user_set.first() %>
+
+  <% if current_user and params[:id].to_i == current_user.id %>
+    <h1>Your Requests:</h1>
+  <% else %>
+    <h1> <%= this_user.email %>'s Requests:</h1>
+  <% end %>
+
+  <% request_set = Post.where("creator_id == #{params[:id]} and post_type == 'RR'") %>
+  <% offer_set = Post.where("creator_id == #{params[:id]} and post_type == 'FR'") %>
+
+  <% if request_set.size() == 0 %>
+    <p> No Requests </p>
+  <% else %>
+    <% request_set.find_each.reverse_each do |post| %>
+      <%= render partial: "shared/post_display", locals: {post: post} %>
+    <% end %>
+  <% end %>
+
+  <% if current_user and params[:id].to_i == current_user.id %>
+    <h1>Your Offers:</h1>
+  <% else %>
+    <h1> <%= this_user.email %>'s Offers:</h1>
+  <% end %>
+
+  <% if offer_set.size() == 0 %>
+    <p> No Offers </p>
+  <% else %>
+    <% offer_set.find_each.reverse_each do |post| %>
+      <%= render partial: "shared/post_display", locals: {post: post} %>
+    <% end %>
+  <% end %>
+
+<% end %>
