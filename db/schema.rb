@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161020195600) do
+ActiveRecord::Schema.define(version: 20161026215154) do
 
   create_table "locations", force: :cascade do |t|
     t.float    "latitude"
@@ -29,7 +29,6 @@ ActiveRecord::Schema.define(version: 20161020195600) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
-    t.index ["post_id"], name: "index_photos_on_post_id"
   end
 
   create_table "posts", force: :cascade do |t|
