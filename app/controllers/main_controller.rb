@@ -19,9 +19,10 @@ class MainController < ApplicationController
   	@end_time = params[:end_time]
   	@search_price = params[:search_price]
   	@max_price = params[:max_price]
+    @search_location = params[:search_location]
 
   	model_query = Post
-  	if !@vehicle_type.nil?
+  	if !@vehicle_types.nil?
   		model_query = model_query.where(:vehicle => @vehicle_types)
   	end
   	if !@search_start.nil?
@@ -35,6 +36,22 @@ class MainController < ApplicationController
   	if !@search_price.nil?
   		model_query = model_query.where("price <= ?", @max_price)
   	end
-  	@posts = model_query.find_each;
+    post_no_location = model_query.find_each
+    @posts = Array.new
+    # TODO: Likely will need to refactor this, seems like it's more expensive than it needs to be
+    if !@search_location.nil?
+      valid_locations = Location.near(params[:location_start], params[:max_distance].to_i)
+      puts valid_locations.length
+      post_no_location.each do |p|
+        valid_locations.each do |l|
+          if p.id == l.post_id
+            @posts.push(p)
+          end
+        end
+      end
+    else
+      @posts = model_query.find_each;
+    end
+
   end
 end

@@ -1,10 +1,22 @@
 Rails.application.routes.draw do
+  devise_for :users
   resources :posts
 
   resources :users
+  resources :photos
+
+
+
+
+  resources :conversations, only: [:index, :create] do
+    resources :messages, only: [:index, :create]
+  end
 
   root 'main#home'
 
+  get 'users/new'
+  get 'posts/new'
+  get  '/signup',  to: 'users#new'
   get 'main/home'
   get 'main/help'
   get 'main/about'
