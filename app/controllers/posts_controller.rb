@@ -23,7 +23,7 @@ class PostsController < ApplicationController
     # For Rent or Renting Out
     @post.post_type = post_args[:post_type] == "Renting out" ? "FR" : "RR"
     @start_location = @post.build_start_location(address: post_args[:location])
-    
+
     puts @post
     # Save the post in DB if the post is valid
     if @post.valid?
@@ -32,6 +32,7 @@ class PostsController < ApplicationController
       if params[:images]
         params[:images].each do |image|
           @post.photos.create(image: image)
+        end
       end
       
       @photos = @post.photos
