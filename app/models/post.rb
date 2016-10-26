@@ -1,5 +1,5 @@
 class Post < ApplicationRecord
-  # belongs_to :creator, :class_name => "User"
+  belongs_to :creator, :class_name => "User"
   # belongs_to :claimer, :class_name => "User"
   has_one :start_location, :foreign_key => "post_id", :class_name => "Location"
 
@@ -8,8 +8,8 @@ class Post < ApplicationRecord
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
   validates :email, presence: true, length: { maximum: 255 },
-                    format: { with: VALID_EMAIL_REGEX },
-                    uniqueness: { case_sensitive: false }
+                    format: { with: VALID_EMAIL_REGEX }
+                  #  uniqueness: { case_sensitive: false }
 
   validates :start_time, presence: true
 
