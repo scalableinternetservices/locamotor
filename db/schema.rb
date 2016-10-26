@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161020034729) do
+ActiveRecord::Schema.define(version: 20161020195600) do
 
   create_table "locations", force: :cascade do |t|
     t.float    "latitude"
@@ -21,11 +21,22 @@ ActiveRecord::Schema.define(version: 20161020034729) do
     t.integer  "post_id"
   end
 
+  create_table "photos", force: :cascade do |t|
+    t.integer  "post_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.index ["post_id"], name: "index_photos_on_post_id"
+  end
+
   create_table "posts", force: :cascade do |t|
     t.string   "email"
     t.string   "vehicle"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
     t.datetime "start_time"
     t.text     "description"
     t.decimal  "price"
@@ -37,6 +48,14 @@ ActiveRecord::Schema.define(version: 20161020034729) do
     t.string   "post_type"
     t.integer  "creator_id"
     t.integer  "claimer_id"
+    t.string   "photos_file_name"
+    t.string   "photos_content_type"
+    t.integer  "photos_file_size"
+    t.datetime "photos_updated_at"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
   end
 
   create_table "users", force: :cascade do |t|

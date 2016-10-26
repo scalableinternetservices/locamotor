@@ -3,6 +3,7 @@ require 'date'
 class PostsController < ApplicationController
   def new
     @post = Post.new
+    
   end
 
   # Create the post
@@ -21,17 +22,19 @@ class PostsController < ApplicationController
     @post.claimed_by = ''
     # For Rent or Renting Out
     @post.post_type = post_args[:post_type] == "Renting out" ? "FR" : "RR"
-
     @start_location = @post.build_start_location(address: post_args[:location])
-    #@post.creator_id = current_user.id
+    
     puts @post
     # Save the post in DB if the post is valid
     if @post.valid?
-
-      puts "We can save"
       @post.save
-    else
-      puts "We cannot save"
+        
+      if params[:images]
+        params[:images].each do |image|
+          @post.photos.create(image: image)
+      end
+      
+      @photos = @post.photos
     end
 
     redirect_to "/main/home"
@@ -41,9 +44,14 @@ class PostsController < ApplicationController
 
   end
 
+  def edit
+    @photos = @post.photos
+  end
+
   def show
     post_id = params[:id]
     @post = Post.find(post_id)
+    @photos = @post.photos
   end
 
   def claim

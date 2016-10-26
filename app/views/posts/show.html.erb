@@ -8,6 +8,11 @@
   <% if @post.description != '' %>
     <label>Additional Details:</label> <%= @post.description %> <br> 
   <% end %>
+
+  <label> Photos </label>
+   <div id="photos">
+            <%= render 'photos/list' %>
+          </div>
 <%= form_for(@post, :url => {:action => "claim", :id => @post.id}) do |f| %>
   <div class="form-group">
     <label for="post_details">Name</label>
