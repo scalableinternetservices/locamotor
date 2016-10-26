@@ -40,7 +40,6 @@ class MainController < ApplicationController
     @posts = Array.new
     # TODO: Likely will need to refactor this, seems like it's more expensive than it needs to be
     if !@search_location.nil?
-      puts "fuck"
       valid_locations = Location.near(params[:location_start], params[:max_distance].to_i)
       puts valid_locations.length
       post_no_location.each do |p|
