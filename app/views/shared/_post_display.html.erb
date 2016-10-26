@@ -4,6 +4,8 @@
 <% else %>
   <h3><span class="label label-info">Looking For:</span></h3>
 <% end %>
+<% poster = User.find(post.creator_id) %>
+<label>Contact:</label> <%= link_to "#{poster.email}", "/users/#{post.creator_id}" %> <br>
 <label>Type:</label> <%= post.vehicle %> <br>
 <label>Start Time:</label> <%= post.start_time %> <br>
 <label>End Time:</label> <%= post.end_time %> <br>
@@ -23,7 +25,9 @@
   <br>
 <% end %>
 <% if post.claimed_by == '' %>
-  <%= link_to "Claim", '/posts/' + post.id.to_s, class: "btn btn-sm btn-secondary" %> <br>
+  <%= link_to "Message", '/posts/' + post.id.to_s, class: "btn btn-xs btn-primary" %> <br>
 <% else %>
   <label>Claimed By:</label> <%= post.claimed_by %> <br>
 <% end %>
+
+
