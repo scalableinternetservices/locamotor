@@ -1,0 +1,16 @@
+<% @messages.each do |message| %>
+	<div class="panel panel-default">
+		<div class="panel-body">
+		<% if message.user.avatar.present? %>
+			<%= image_tag message.user.avatar.url, class: "img-circle avatar-small" %><% end %>
+			<strong><%= message.user.fullname %></strong>
+
+			<span class="pull-right"><%= message.message_time %></span>
+			<br>
+			<div class="row-space-2">
+				<%= message.content %>
+			</div>
+		</div>
+	</div>
+
+<% end %>

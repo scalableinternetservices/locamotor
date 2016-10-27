@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161021002022) do
+ActiveRecord::Schema.define(version: 20161026215154) do
 
   create_table "conversations", force: :cascade do |t|
     t.integer  "sender_id"
@@ -18,7 +18,6 @@ ActiveRecord::Schema.define(version: 20161021002022) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end
-
 
   create_table "locations", force: :cascade do |t|
     t.float    "latitude"
@@ -54,9 +53,9 @@ ActiveRecord::Schema.define(version: 20161021002022) do
     t.string   "vehicle"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
-    t.datetime "start_time"
     t.text     "description"
     t.decimal  "price"
+    t.datetime "start_time"
     t.datetime "end_time"
     t.string   "claimed_by"
     t.string   "city"
