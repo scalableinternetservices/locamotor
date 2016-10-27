@@ -5,13 +5,13 @@ source 'https://rubygems.org'
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 
 # Geocoder for location
-gem 'geocoder'
-gem 'devise'
+gem 'geocoder', '1.4.0'
+gem 'devise', '4.2.0'
 # Bootstrap
 gem 'bootstrap-sass', '3.3.6'
 
 # Adding photos to posts
-gem 'paperclip'
+gem 'paperclip', '5.1.0'
 
 # Use sqlite3 as the database for Active Record
 
@@ -56,7 +56,7 @@ group :development do
 end
 
 group :production do
-  gem 'pg'
+  gem 'pg', '~> 0.19'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
