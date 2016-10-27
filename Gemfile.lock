@@ -188,13 +188,13 @@ DEPENDENCIES
   bootstrap-sass (= 3.3.6)
   byebug
   coffee-rails (~> 4.2)
-  devise
-  geocoder
+  devise (= 4.2.0)
+  geocoder (= 1.4.0)
   jbuilder (~> 2.5)
   jquery-rails
   listen (~> 3.0.5)
-  paperclip
-  pg
+  paperclip (= 5.1.0)
+  pg (~> 0.19)
   puma (~> 3.0)
   rails (~> 5.0.0, >= 5.0.0.1)
   sass-rails (~> 5.0)
