@@ -1,4 +1,4 @@
-<% this_user_set = User.where("id == #{params[:id]}") %>
+<% this_user_set = User.where("id = #{params[:id]}") %>
 
 <% if this_user_set.size() == 0 %>
 
@@ -13,8 +13,8 @@
     <h1> <%= this_user.email %>'s Requests:</h1>
   <% end %>
 
-  <% request_set = Post.where("creator_id == #{params[:id]} and post_type == 'RR'") %>
-  <% offer_set = Post.where("creator_id == #{params[:id]} and post_type == 'FR'") %>
+  <% request_set = Post.where("creator_id = #{params[:id]} and post_type = 'RR'") %>
+  <% offer_set = Post.where("creator_id = #{params[:id]} and post_type = 'FR'") %>
 
   <% if request_set.size() == 0 %>
     <p> No Requests </p>
