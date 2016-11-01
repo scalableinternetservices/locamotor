@@ -1,6 +1,7 @@
 class MessagesController < ApplicationController
+  before_action :authenticate_user!
+
   before_action do
-    puts "okay"
     if Conversation.where("id = #{params[:conversation_id]}").empty?
       redirect_to "/main/home"
     else

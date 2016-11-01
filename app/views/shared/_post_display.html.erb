@@ -2,7 +2,7 @@
 <% if post.post_type == "FR" %>
   <h3><span class="label label-info">For Rent:</span></h3>
 <% else %>
-  <h3><span class="label label-info">Looking For:</span></h3>
+  <h3><span class="label label-warning">Looking For:</span></h3>
 <% end %>
 <% poster = User.find(post.creator_id) %>
 <label>Contact:</label> <%= link_to "#{poster.email}", "/users/#{post.creator_id}" %> <br>
@@ -26,7 +26,7 @@
 <% end %>
 <% if post.claimed_by == '' %>
   <% if current_user %>
-    <%= link_to "Send Message", conversations_path(sender_id: current_user.id, recipient_id: post.creator_id, num_messages_to_show: 10), method: 'post', class: "btn btn-xs btn-primary" %> <br>
+    <%= link_to "Send Message", conversations_path(sender_id: current_user.id, recipient_id: post.creator_id, num_messages_to_show: 10), method: 'post', class: "btn btn-xs btn-primary" %> <br> <br>
   <% end %>
 <% else %>
   <label>Claimed By:</label> <%= post.claimed_by %> <br>
