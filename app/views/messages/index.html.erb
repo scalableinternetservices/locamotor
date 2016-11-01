@@ -1,0 +1,25 @@
+<% if @more_to_show %>
+  <div class="center-btn">
+    <%= link_to "See More", conversation_messages_path(@conversation.id, num_messages_to_show: @num_messages_to_show + 5), method: :get, :class => 'btn btn-xs btn-info' %>
+  </div>
+<% end %>
+
+<div class="ui segment">
+  <%= render partial: "shared/message_display", collection: @messages, as: :message %>
+</div>
+
+<br>
+
+<%= form_for [@conversation, @message], html: {class: "ui reply form"} do |f| %>
+  <span class="label label-primary">Write Message:</span> <br>
+
+  <div class="field">
+    <%= f.text_area :content, class: "form-control" %>
+  </div>
+
+  <%= f.text_field :user_id, value: current_user.id, type: "hidden" %> <br>
+
+  <div>
+    <%= f.submit "Send Message", class: "btn btn-xs btn-primary" %>
+  </div>
+<% end %>

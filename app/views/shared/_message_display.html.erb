@@ -1,0 +1,17 @@
+<% if message.content %>
+  <% user = User.find(message.user_id) %>
+
+  <div>
+    <% if user.id == current_user.id %>
+      <span class="label label-success label-name"><%= user.email %></span> <span class="label-time"> <%= message.message_time %> </span>
+    <% else %>
+      <span class="label label-danger label-name"><%= user.email %></span> <span class="label-time"> <%= message.message_time %> </span>
+    <% end %>
+  </div>
+
+  <div class="message-display">
+    <%= message.content %>
+  </div>
+  <br>
+
+<% end %>

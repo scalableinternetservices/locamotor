@@ -1,36 +1,47 @@
-# class MessagesController < ApplicationController
-# 	before_action :authenticate_user!
-# 	before_action :set_conversation
+class MessagesController < ApplicationController
+  before_action :authenticate_user!
 
-# 	def index
-# 		if current_user == @conversation.sender || current_user == @conversation.recipient
-# 			@other = current_user == @conversation.sender ? @conversation.recipient : @conversation.sender
-# 			@messages = @conversation.messages.order("created_at DESC")
-# 		else
-# 			redirect_to conversations_path, alert: "You can't view this."
-# 		end
-# 	end
+  before_action do
+    if Conversation.where("id = #{params[:conversation_id]}").empty?
+      redirect_to "/main/home"
+    else
+      @conversation = Conversation.find(params[:conversation_id])
+    end
+    
+  end
 
-# 	def create
-# 		@message = @conversation.messages.new(message_params)
-# 		@message = @conversation.messages.order("created_at DESC")
+  def index
+    puts "index for messages"
 
-# 		if @message.save
-# 			redirect_to conversation_messages_path(@conversation)
-# 		end
-		
-# 	end
+    if @conversation.sender_id != current_user.id and @conversation.recipient_id != current_user.id
+      redirect_to "/main/home"
+    end
+    @messages = @conversation.messages
+    @num_messages_to_show = params[:num_messages_to_show].to_i
+    @more_to_show = false
+    if @messages.length > @num_messages_to_show
+      @more_to_show = true
+      @messages = @messages[-@num_messages_to_show..-1]
+    end
 
+    @message = @conversation.messages.new
+  end
 
-# 	private
+  def new
+    puts "new for messages"
+    @message = @conversation.messages.new
+  end
 
-# 		def set_conversation
-# 			@conversation = Conversation.find(params[:conversation_id])
-			
-# 		end
+  def create
+    puts "create for messages"
+    @message = @conversation.messages.new(message_params)
+    if @message.save
+      redirect_to conversation_messages_path(@conversation, num_messages_to_show: 10)
+    end
+  end
 
-# 		def messages_param
-# 			params.require(:message).permit(:content, :user_id)
-			
-# 		end
-# end
+  private
+    def message_params
+      params.require(:message).permit(:content, :user_id)
+    end
+end
