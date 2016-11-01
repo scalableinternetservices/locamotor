@@ -1,30 +1,46 @@
 class MessagesController < ApplicationController
   before_action do
-   @conversation = Conversation.find(params[:conversation_id])
+    puts "okay"
+    if Conversation.where("id = #{params[:conversation_id]}").empty?
+      redirect_to "/main/home"
+    else
+      @conversation = Conversation.find(params[:conversation_id])
+    end
+    
   end
-def index
- @messages = @conversation.messages
-  if @messages.length > 10
-   @over_ten = true
-   @messages = @messages[-10..-1]
+
+  def index
+    puts "index for messages"
+
+    if @conversation.sender_id != current_user.id and @conversation.recipient_id != current_user.id
+      redirect_to "/main/home"
+    end
+    @messages = @conversation.messages
+    @num_messages_to_show = params[:num_messages_to_show].to_i
+    @more_to_show = false
+    if @messages.length > @num_messages_to_show
+      @more_to_show = true
+      @messages = @messages[-@num_messages_to_show..-1]
+    end
+
+    @message = @conversation.messages.new
   end
-  if params[:m]
-   @over_ten = false
-   @messages = @conversation.messages
+
+  def new
+    puts "new for messages"
+    @message = @conversation.messages.new
   end
-@message = @conversation.messages.new
- end
-def new
- @message = @conversation.messages.new
-end
-def create
- @message = @conversation.messages.new(message_params)
- if @message.save
-  redirect_to conversation_messages_path(@conversation)
- end
-end
-private
- def message_params
-  params.require(:message).permit(:content, :user_id)
- end
+
+  def create
+    puts "create for messages"
+    @message = @conversation.messages.new(message_params)
+    if @message.save
+      redirect_to conversation_messages_path(@conversation, num_messages_to_show: 10)
+    end
+  end
+
+  private
+    def message_params
+      params.require(:message).permit(:content, :user_id)
+    end
 end
