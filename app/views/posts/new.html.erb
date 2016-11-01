@@ -50,6 +50,14 @@
 
     <br>
 
+    <%= radio_button_tag(:auto_book, "auto_book", checked = true) %>
+    <%= label_tag(:auto_book_true, "Allow Autobooking") %>
+    <br>
+    <%= radio_button_tag(:auto_book, "confirmation") %>
+    <%= label_tag(:auto_book_false, "Require Confirmation") %>
+
+    <br>
+
     <label for="post_details">Additional Details</label>
     <textarea class="form-control" name="post[description]" id="post_details" rows="3"></textarea>
   </div>

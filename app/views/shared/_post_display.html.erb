@@ -24,10 +24,15 @@
   </iframe>
   <br>
 <% end %>
-<% if post.claimed_by == '' %>
-  <%= link_to "Message", '/posts/' + post.id.to_s, class: "btn btn-xs btn-primary" %> <br>
+<h3>Current Reservations for this Vehicle:</h3>
+<% Reservation.where(post_id: post.id, confirmed: true).find_each do |reservation| %>
+<label>Reservation Start Time:</label> <%= reservation.start_time %> <br>
+<label>Reservation End Time:</label> <%= reservation.end_time %> <br>
+<% end %>
+<% if post.auto_book == "auto_book" %>
+    <%= link_to "Book Now", '/posts/' + post.id.to_s, class: "btn btn-xs btn-primary" %> <br>
 <% else %>
-  <label>Claimed By:</label> <%= post.claimed_by %> <br>
+  <%= link_to "Request Reservation", '/posts/' + post.id.to_s, class: "btn btn-xs btn-primary" %> <br>
 <% end %>
 
 

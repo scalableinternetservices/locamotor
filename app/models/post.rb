@@ -5,6 +5,8 @@ class Post < ApplicationRecord
 
   has_many :photos
 
+  has_many :reservations, :foreign_key => "post_id", :class_name => "Reservation"
+
   before_save { self.email = email.downcase }
   validates :vehicle, presence: true, length: { maximum: 50 }
 
@@ -22,4 +24,6 @@ class Post < ApplicationRecord
   validates :price, presence: true
 
   validates :post_type, presence: true
+
+#  validates :auto_book, presence: true
 end
