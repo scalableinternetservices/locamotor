@@ -9,6 +9,6 @@
   <%= link_to "Search Posts", '/search', class: "btn btn-lg btn-primary" %>
 </div>
 
-<% Post.find_each.reverse_each do |post| %>
+<% Post.last(10).reverse_each do |post| %>
   <%= render partial: "shared/post_display", locals: {post: post} %>
 <% end %>
