@@ -1,5 +1,6 @@
  <div class=”ui list”>
   <div class=”item”>
+    <h3 , style="padding-left: 10px", style = "padding-bottom: 5x">Messages</h3>
    <% @conversations.each do |conversation| %>
    <% if conversation.sender_id == current_user.id ||      conversation.recipient_id == current_user.id %>
     <% if conversation.sender_id == current_user.id %>
@@ -7,22 +8,28 @@
     <% else %>
       <% recipient = User.find(conversation.sender_id) %>
     <% end %>
-    <%= link_to recipient.email,   conversation_messages_path(conversation)%>
+    <%= link_to recipient.email,   conversation_messages_path(conversation),
+      class: "waves-light btn btn-primary" %>
+      <br>
    <% end %>
+    <span class="pull-right"></span>
+   <br>
   <% end %>
   </div>
  </div>
 </div>
 
+    
+
 <div class=”ui segment”>
- <h3>All Users</h3>
-  <div class=”ui list”>
-   <% @users.each do |user| %>
+ <h3 , style="padding-left: 10px">All Users</h3>
+  <div class="collection">
+    <% @users.each do |user| %>
     <% if user.id != current_user.id %>
-     <div class=”item”>
-   <%= user.email %> <%= link_to "Send Message", conversations_path(sender_id: current_user.id, recipient_id: user.id), method: 'post', class: "btn btn-primary" %>
- </div>
-  <% end %>
- <% end %>
- </div>
+     <div class="collection-item", style="padding-left: 10px">
+      <%= user.email %> <%= link_to "Send Message", conversations_path(sender_id: current_user.id, recipient_id: user.id), method: 'post', class: "waves-effect waves-light btn " %>
+     </div>
+    <% end %>
+   <% end %>
+  </div>
 </div>
