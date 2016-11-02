@@ -81,6 +81,8 @@ ActiveRecord::Schema.define(version: 20161101001351) do
     t.integer  "post_id"
     t.integer  "user_id"
     t.boolean  "confirmed"
+    t.boolean  "approved"
+    t.string   "rname"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["post_id"], name: "index_reservations_on_post_id"

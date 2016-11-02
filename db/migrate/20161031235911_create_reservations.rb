@@ -6,6 +6,8 @@ class CreateReservations < ActiveRecord::Migration[5.0]
       t.references :post
       t.references :user
       t.boolean :confirmed
+      t.boolean :approved
+      t.string :rname
 
       t.timestamps
     end

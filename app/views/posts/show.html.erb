@@ -18,6 +18,8 @@
           </div>
 <h2>Reservation Info</h2>
 <%= form_for(@post, :url => {:action => "claim", :id => @post.id, :confirmed => @post.auto_book}) do |f| %>
+  <%= label_tag(:name, "Name:") %>
+  <%= text_field_tag(:name) %>
   <div class="form-group">
     <label for="reservation_start_time">Select Reservation Start Time (UTC) </label>
     <input class="form-control" name="reservation[start_time]" type="datetime-local" value="2016-01-01T12:00:00" id="reservation_start_time">

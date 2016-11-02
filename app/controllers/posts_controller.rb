@@ -67,8 +67,10 @@ class PostsController < ApplicationController
     @reservation.start_time = DateTime.parse(reservation_args[:start_time])
     @reservation.end_time = DateTime.parse(reservation_args[:end_time])
     @reservation.post_id = post_id
+    @reservation.rname = params[:name]
     if params[:confirmed] == "auto_book"
       @reservation.confirmed = true
+      @reservation.approved = true
     else
       @reservation.confirmed = false
     end

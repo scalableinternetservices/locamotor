@@ -23,15 +23,3 @@
     allowfullscreen>
   </iframe>
 <% end %>
-<h4>Confirmed Reservations for this Vehicle:</h4>
-<% Reservation.where(post_id: post.id, confirmed: true, approved: true).find_each do |reservation| %>
-  <label>Name:</label> <%= reservation.rname %> <br>
-  <label>Reservation Start Time:</label> <%= reservation.start_time %> <br>
-  <label>Reservation End Time:</label> <%= reservation.end_time %> <br>
-<% end %>
-<h4>Denied Reservations for this Vehicle:</h4>
-<% Reservation.where(post_id: post.id, confirmed: true, approved: false).find_each do |reservation| %>
-  <label>Name:</label> <%= reservation.rname %> <br>
-  <label>Reservation Start Time:</label> <%= reservation.start_time %> <br>
-  <label>Reservation End Time:</label> <%= reservation.end_time %> <br>
-<% end %>
