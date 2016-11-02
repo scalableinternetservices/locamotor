@@ -7,6 +7,33 @@
 <% else %>
   <% this_user = this_user_set.first() %>
 
+  <div class="user-rating">
+    <span class="label label-success"><%= "User Rating: #{this_user.get_rating.round(2)} / 5" %>&nbsp <%= "(#{this_user.get_num_reviews} reviews)" %></span> <br> <br>
+  </div>
+
+  <% if ! @can_rate %>
+    <%= form_for @rating, html: {class: 'form-inline', multipart: true} do |f| %>
+      <div class="form-group rating-row">
+        <div class="input-group">
+          <input type="text" class="form-control" name="rating[given_rating]" placeholder="Rating">
+        </div>
+        <button type="submit" class="btn btn-xs btn-primary">Rate User</button>
+      </div>
+
+      <%= f.text_field :rater_id, value: current_user.id, type: "hidden" %> <br>
+      <%= f.text_field :rated_id, value: this_user.id, type: "hidden" %> <br>
+    <% end %>
+  <% else %>
+    <div class="user-rating">
+      <% if current_user.id == this_user.id %>
+        <span class="label label-default"> Cannot rate yourself </span>
+      <% else %>
+        <span class="label label-default"> Already rated this user </span>
+      <% end %>
+    </div>
+  <% end %>
+
+
   <% if current_user and params[:id].to_i == current_user.id %>
     <h1>Your Requests:</h1>
   <% else %>
