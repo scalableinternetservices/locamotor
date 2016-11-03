@@ -16,7 +16,10 @@
 <% if post.description != '' %>
   <label>Additional Details:</label> <%= post.description %> <br> 
 <% end %>
-  <% @photos = post.photos %>
+
+<div id="photos">
+  <%= render 'photos/list' %>
+</div>
 
 <% if post.start_location %>
   <label>Starting Location:</label> <button id=<%= "map#{post.id}" %> class="map-link"> <%= post.start_location.address %> </button> <br>
