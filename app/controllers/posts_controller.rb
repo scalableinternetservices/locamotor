@@ -25,10 +25,13 @@ class PostsController < ApplicationController
 
 
     @post.auto_book = params[:auto_book]
+    @location = Location.new(address: post_args[:location])
 
+    @location.save
+
+    @post.start_location_id = @location.id 
     # For Rent or Renting Out
     @post.post_type = post_args[:post_type] == "Renting out" ? "FR" : "RR"
-    @start_location = @post.build_start_location(address: post_args[:location])
 
     puts @post
     # Save the post in DB if the post is valid
