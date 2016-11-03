@@ -1,4 +1,6 @@
 <% post %>
+  <% @photos = post.photos %>
+
 <% if post.post_type == "FR" %>
   <h3><span class="label label-info">For Rent:</span></h3>
 <% else %>
@@ -14,6 +16,8 @@
 <% if post.description != '' %>
   <label>Additional Details:</label> <%= post.description %> <br> 
 <% end %>
+  <% @photos = post.photos %>
+
 <% if post.start_location %>
   <label>Starting Location:</label> <button id=<%= "map#{post.id}" %> class="map-link"> <%= post.start_location.address %> </button> <br>
   <% lat_long = "#{post.start_location.latitude},#{post.start_location.longitude}&zoom=13" %>
