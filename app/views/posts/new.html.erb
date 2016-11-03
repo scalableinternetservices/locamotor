@@ -1,9 +1,8 @@
 <h1>New Post</h1>
 <%= form_for @post, html: {multipart: true} do |f| %>
+  <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>"/>
   <div class="form-group">
-    <%= f.label :email %>
-    <%= f.email_field :email, class: "form-control", id: "op_input_email", placeholder: "Email Address" %>
-
+    <%= f.email_field :email, value: current_user.email, type: "hidden", class: "form-control", id: "op_input_email", placeholder: "Email Address" %>
     <br>
 
     <label for="type_select">You are...</label>

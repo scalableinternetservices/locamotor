@@ -1,8 +1,10 @@
 <% post %>
+  <% @photos = post.photos %>
+
 <% if post.post_type == "FR" %>
   <h3><span class="label label-info">For Rent:</span></h3>
 <% else %>
-  <h3><span class="label label-info">Looking For:</span></h3>
+  <h3><span class="label label-warning">Looking For:</span></h3>
 <% end %>
 <% poster = User.find(post.creator_id) %>
 <label>Contact:</label> <%= link_to "#{poster.email}", "/users/#{post.creator_id}" %> <br>
@@ -14,6 +16,11 @@
 <% if post.description != '' %>
   <label>Additional Details:</label> <%= post.description %> <br> 
 <% end %>
+
+<div id="photos">
+  <%= render 'photos/list' %>
+</div>
+
 <% if post.start_location %>
   <label>Starting Location:</label> <button id=<%= "map#{post.id}" %> class="map-link"> <%= post.start_location.address %> </button> <br>
   <% lat_long = "#{post.start_location.latitude},#{post.start_location.longitude}&zoom=13" %>
@@ -22,6 +29,9 @@
     src=<%= map_link %>
     allowfullscreen>
   </iframe>
+<% end %>
+<% if current_user %>
+  <%= link_to "Send Message", conversations_path(sender_id: current_user.id, recipient_id: post.creator_id, num_messages_to_show: 10), method: 'post', class: "btn btn-xs btn-primary" %> <br> <br>
 <% end %>
 <h4>Confirmed Reservations for this Vehicle:</h4>
 <% Reservation.where(post_id: post.id, confirmed: true, approved: true).find_each do |reservation| %>
