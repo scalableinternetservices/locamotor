@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   resources :users
   resources :photos
+  resources :route_requests
 
   resources :conversations, only: [:index, :create] do
     resources :messages, only: [:index, :create]
@@ -13,6 +14,8 @@ Rails.application.routes.draw do
 
   get 'users/new'
   get 'posts/new'
+  get 'routerequests/new', to: 'routes#new'
+  post 'routerequests/create', to: 'routes#create'
   get '/signup',  to: 'users#new'
   get 'main/home'
   get 'main/help'

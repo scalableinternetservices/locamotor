@@ -21,6 +21,7 @@ class PostsController < ApplicationController
     @post.end_time = DateTime.parse(post_args[:end_time])
     @post.price = post_args[:dollar_amount]
     @post.description = post_args[:description]
+    @post.max_radius = post_args[:max_radius]
 
 
 

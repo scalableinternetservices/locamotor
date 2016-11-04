@@ -1,0 +1,6 @@
+<h1>Route Requests</h1>
+<% RouteRequest.find_each do |route| %>
+<label>Start Time:</label> <%= route.start_time %> <br>
+<label>Start Location:</label> <%= route.start_location_id %> <br>
+<label>End Location:</label> <%= route.end_location_id %> <br>
+<% end %>
