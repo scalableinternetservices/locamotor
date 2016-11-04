@@ -1,0 +1,14 @@
+<h1>New Route Request</h1>
+<%= form_for @route_request, :url => {:controller => "route_requests", :action => "create"} do |f| %>
+  <label for="post_start_time">Select Pickup Time (UTC) </label>
+  <input class="form-control" name="routes[start_time]" type="datetime-local" value="2016-01-01T12:00:00" id="post_start_time">
+  <div class="form-group">
+    <label for="start_location">Start Location</label>
+    <input type="text" name="routes[start_location]" class="form-control" id="start_location" placeholder="Location">
+  </div>
+  <div class="form-group">
+    <label for="end_location">End Location</label>
+    <input type="text" name="routes[end_location]" class="form-control" id="end_location" placeholder="Location">
+  </div>
+  <%= f.submit "Find Route", class: "btn btn-md btn-primary" %>
+<% end %>

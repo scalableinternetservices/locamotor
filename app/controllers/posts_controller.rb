@@ -21,10 +21,18 @@ class PostsController < ApplicationController
     @post.end_time = DateTime.parse(post_args[:end_time])
     @post.price = post_args[:dollar_amount]
     @post.description = post_args[:description]
-    @post.claimed_by = ''
+    @post.max_radius = post_args[:max_radius]
+
+
+
+    @post.auto_book = params[:auto_book]
+    @location = Location.new(address: post_args[:location])
+
+    @location.save
+
+    @post.start_location_id = @location.id 
     # For Rent or Renting Out
     @post.post_type = post_args[:post_type] == "Renting out" ? "FR" : "RR"
-    @start_location = @post.build_start_location(address: post_args[:location])
 
     puts @post
     # Save the post in DB if the post is valid
@@ -58,14 +66,25 @@ class PostsController < ApplicationController
   end
 
   def claim
-    post_args = params[:post]
+    reservation_args = params[:reservation]
     post_id = params[:id]
 
-    @post = Post.find(post_id)
-    @post.claimed_by = post_args[:claimed_by]
+    @reservation = current_user.reservations.build()
+    @reservation.start_time = DateTime.parse(reservation_args[:start_time])
+    @reservation.end_time = DateTime.parse(reservation_args[:end_time])
+    @reservation.post_id = post_id
+    @reservation.rname = params[:name]
+    if params[:confirmed] == "auto_book"
+      @reservation.confirmed = true
+      @reservation.approved = true
+    else
+      @reservation.confirmed = false
+    end
 
-    if @post.valid?
-        @post.save
+    if @reservation.valid?
+        @reservation.save
+    else
+      puts @reservation.errors.messages
     end
 
     redirect_to "/main/home"

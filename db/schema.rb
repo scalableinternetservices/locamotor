@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161026215154) do
+ActiveRecord::Schema.define(version: 20161103215126) do
 
   create_table "conversations", force: :cascade do |t|
     t.integer  "sender_id"
@@ -25,7 +25,6 @@ ActiveRecord::Schema.define(version: 20161026215154) do
     t.string   "address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "post_id"
   end
 
   create_table "messages", force: :cascade do |t|
@@ -57,7 +56,6 @@ ActiveRecord::Schema.define(version: 20161026215154) do
     t.decimal  "price"
     t.datetime "start_time"
     t.datetime "end_time"
-    t.string   "claimed_by"
     t.string   "city"
     t.string   "state"
     t.string   "country"
@@ -72,6 +70,33 @@ ActiveRecord::Schema.define(version: 20161026215154) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.integer  "reservation"
+    t.string   "auto_book"
+    t.float    "max_radius"
+    t.integer  "start_location_id"
+  end
+
+  create_table "reservations", force: :cascade do |t|
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.integer  "post_id"
+    t.integer  "user_id"
+    t.boolean  "confirmed"
+    t.boolean  "approved"
+    t.string   "rname"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_reservations_on_post_id"
+    t.index ["user_id"], name: "index_reservations_on_user_id"
+  end
+
+  create_table "route_requests", force: :cascade do |t|
+    t.datetime "start_time"
+    t.integer  "start_location_id"
+    t.integer  "end_location_id"
+    t.integer  "user_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
   create_table "users", force: :cascade do |t|

@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   resources :users
   resources :photos
+  resources :route_requests
 
   resources :conversations, only: [:index, :create] do
     resources :messages, only: [:index, :create]
@@ -13,7 +14,9 @@ Rails.application.routes.draw do
 
   get 'users/new'
   get 'posts/new'
-  get  '/signup',  to: 'users#new'
+  get 'routerequests/new', to: 'routes#new'
+  post 'routerequests/create', to: 'routes#create'
+  get '/signup',  to: 'users#new'
   get 'main/home'
   get 'main/help'
   get 'main/about'
@@ -21,6 +24,7 @@ Rails.application.routes.draw do
   get 'search/results', to: 'main#results'
   get '/posts/:id', to: 'posts#show'
   patch '/posts/:id/claim', to: 'posts#claim'
+  patch '/reservations/:id/approval', to: 'reservations#approval'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   #root 'application#home'

@@ -1,5 +1,8 @@
-<h1>Claim Post</h1>
-
+<% if @post.auto_book == "auto_book" %>
+  <h1>Book Now</h1>
+<% else %>
+  <h1>Make Reservation</h1>
+<% end %>
 <label>Type:</label> <%= @post.vehicle %> <br>
   <label>Start Time:</label> <%= @post.start_time %> <br>
   <label>End Time:</label> <%= @post.end_time %> <br>
@@ -10,6 +13,7 @@
   <% end %>
 
   <label> Photos </label>
+
   <div id="photos">
    <%= render 'photos/list' %>
   </div>
@@ -17,12 +21,25 @@
     <%= @post.email %> <%= link_to "Send Message", conversations_path(sender_id: current_user.id, recipient_id: @post.creator.id), method: 'post', class: "btn btn-primary" %>
   </div>
   
-  
-<%= form_for(@post, :url => {:action => "claim", :id => @post.id}) do |f| %>
+<h2>Reservation Info</h2>
+<%= form_for(@post, :url => {:action => "claim", :id => @post.id, :confirmed => @post.auto_book}) do |f| %>
+  <%= label_tag(:name, "Name:") %>
+  <%= text_field_tag(:name) %>
+
+
   <div class="form-group">
-    <label for="post_details">Name</label>
-    <textarea class="form-control" name="post[claimed_by]" id="claimed_by" rows="1"></textarea>
+    <label for="reservation_start_time">Select Reservation Start Time (UTC) </label>
+    <input class="form-control" name="reservation[start_time]" type="datetime-local" value="2016-01-01T12:00:00" id="reservation_start_time">
+
+    <br>
+
+    <label for="reservation_end_time">Select Reservation End Time (UTC) </label>
+    <input class="form-control"  name="reservation[end_time]" type="datetime-local" value="2016-01-01T12:00:00" id="reservation_end_time">
   </div>
 
- <%= f.submit "Claim", class: "btn btn-md btn-primary" %>
+ <% if @post.auto_book == "auto_book" %>
+    <%= f.submit "Book Now", class: "btn btn-md btn-primary" %>
+  <% else %>
+    <%= f.submit "Submit Reservation", class: "btn btn-md btn-primary" %>
+  <% end %>
 <% end %>

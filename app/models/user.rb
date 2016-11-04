@@ -5,6 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable#, :confirmable
   has_many :created_posts, :foreign_key => "creator_id", :class_name => "Post"
   has_many :claimed_posts, :foreign_key => "claimer_id", :class_name => "Post"
+  has_many :reservations, :class_name => "Reservation"
+  has_many :route_requests, :class_name => "RouteRequest"
 
   before_save { self.email = email.downcase }
   # validates :name, presence: true, length: { maximum: 50 }
