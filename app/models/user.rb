@@ -5,6 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable#, :confirmable
   has_many :created_posts, :foreign_key => "creator_id", :class_name => "Post"
   has_many :claimed_posts, :foreign_key => "claimer_id", :class_name => "Post"
+  has_many :reservations, :class_name => "Reservation"
+  has_many :route_requests, :class_name => "RouteRequest"
 
   # The id's of users that this user has rated
   has_many :ratings_for, :foreign_key => "rated_id", :class_name => "Rating"

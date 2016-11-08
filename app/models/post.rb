@@ -1,9 +1,11 @@
 class Post < ApplicationRecord
   belongs_to :creator, :class_name => "User"
   # belongs_to :claimer, :class_name => "User"
-  has_one :start_location, :foreign_key => "post_id", :class_name => "Location"
+  belongs_to :start_location, :class_name => "Location"
 
   has_many :photos
+
+  has_many :reservations, :foreign_key => "post_id", :class_name => "Reservation"
 
   before_save { self.email = email.downcase }
   validates :vehicle, presence: true, length: { maximum: 50 }
@@ -22,4 +24,6 @@ class Post < ApplicationRecord
   validates :price, presence: true
 
   validates :post_type, presence: true
+
+#  validates :auto_book, presence: true
 end

@@ -21,15 +21,17 @@
   </div>
 </div>
 
-<!-- <div class="ui segment">
-  <h3>All Users</h3>
-  <div class="ui list">
+    
+
+<!-- <div class=”ui segment”>
+ <h3 , style="padding-left: 10px">All Users</h3>
+  <div class="collection">
     <% @users.each do |user| %>
-      <% if user.id != current_user.id %>
-        <div class="item">
-          <%= user.email %> <%= link_to "Send Message", conversations_path(sender_id: current_user.id, recipient_id: user.id), method: 'post', class: "btn btn-primary" %>
-        </div>
-      <% end %>
+    <% if user.id != current_user.id %>
+     <div class="collection-item", style="padding-left: 10px">
+      <%= user.email %> <%= link_to "Send Message", conversations_path(sender_id: current_user.id, recipient_id: user.id), method: 'post', class: "waves-effect waves-light btn " %>
+     </div>
     <% end %>
+   <% end %>
   </div>
 </div> -->

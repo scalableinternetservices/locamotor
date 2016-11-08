@@ -35,6 +35,20 @@
 
 
   <% if current_user and params[:id].to_i == current_user.id %>
+    <h1>Your Reservations:</h1>
+  <% else %>
+    <h1> <%= this_user.email %>'s Reservations:</h1>
+  <% end %>
+
+  <% Reservation.where(user_id: params[:id]).find_each do |reservation| %>
+    <% post = Post.find(reservation.post_id)%>
+    <%= render partial: "shared/post_display_no_reservations", locals: {post: post} %>
+    <label>Name:</label> <%= reservation.rname %> <br>
+    <label>Reservation Start Time:</label> <%= reservation.start_time %> <br>
+    <label>Reservation End Time:</label> <%= reservation.end_time %> <br>
+  <% end %>
+
+  <% if current_user and params[:id].to_i == current_user.id %>
     <h1>Your Requests:</h1>
   <% else %>
     <h1> <%= this_user.email %>'s Requests:</h1>
@@ -62,6 +76,16 @@
   <% else %>
     <% offer_set.find_each.reverse_each do |post| %>
       <%= render partial: "shared/post_display", locals: {post: post} %>
+      <% if current_user and params[:id].to_i == current_user.id %>
+        <h4>Unconfirmed Reservations for this Vehicle</h4>
+        <% Reservation.where(post_id: post.id, confirmed: false).find_each do |reservation| %>
+          <label>Name:</label> <%= reservation.rname %> <br>
+          <label>Reservation Start Time:</label> <%= reservation.start_time %> <br>
+          <label>Reservation End Time:</label> <%= reservation.end_time %> <br>
+          <%= link_to "Confirm Reservation", '/reservations/' + reservation.id.to_s + '/approval?status=approve', method: :patch, class: "btn btn-xs btn-primary" %><br>
+          <%= link_to "Deny Reservation", '/reservations/' + reservation.id.to_s + '/approval?status=deny', method: :patch, class: "btn btn-xs btn-primary" %><br>
+        <% end %>
+      <% end %>
     <% end %>
   <% end %>
 
