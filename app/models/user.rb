@@ -21,8 +21,6 @@ class User < ApplicationRecord
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
 
-  validates :rating, :inclusion => { :in => 0..5 }
-
   def okie
     puts "#{email}"
   end
