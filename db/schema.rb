@@ -76,6 +76,14 @@ ActiveRecord::Schema.define(version: 20161103215126) do
     t.integer  "start_location_id"
   end
 
+  create_table "ratings", force: :cascade do |t|
+    t.integer  "rated_id"
+    t.integer  "rater_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.decimal  "rated_value"
+  end
+
   create_table "reservations", force: :cascade do |t|
     t.datetime "start_time"
     t.datetime "end_time"

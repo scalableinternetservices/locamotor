@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
   root 'main#home'
 
+  post 'ratings', to: 'ratings#new'
   get 'users/new'
   get 'posts/new'
   get 'routerequests/new', to: 'routes#new'
