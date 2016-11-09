@@ -1,0 +1,9 @@
+<h1>Here are the possible routes:</h1>
+
+<% @completedRoutes.each do |completedRoute| %>
+  <% completedRoute.each.reverse_each do |post| %>
+    <%= render partial: "shared/post_display", locals: {post: post} %>
+  <% end %>
+<% end %>
+
+    
