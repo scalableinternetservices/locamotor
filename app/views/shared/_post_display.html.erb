@@ -17,9 +17,6 @@
   <label>Additional Details:</label> <%= post.description %> <br> 
 <% end %>
 
-<div id="photos">
-  <%= render 'photos/list' %>
-</div>
 
 <% if post.start_location %>
   <label>Starting Location:</label> <button id=<%= "map#{post.id}" %> class="map-link"> <%= post.start_location.address %> </button> <br>
