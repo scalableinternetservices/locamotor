@@ -1,10 +1,12 @@
 class RouteRequestsController < ApplicationController
 
-  @completedRoutes = Array.new
+  before_action do
+    @completedRoutes = Array.new
   
-  @allPosts = Array.new
-  Post.all.each do |post|
-    @allPosts << post
+    @allPosts = Array.new
+    Post.all.each do |post|
+      @allPosts << post
+    end
   end
   
   def newLocation(startLocation, endLocation, distance)
@@ -21,7 +23,7 @@ class RouteRequestsController < ApplicationController
   
   def getNearbyPosts(startLocation)
     @nearbyPosts = Array.new
-    @allPosts.all.each do |post|
+    @allPosts.each do |post|
       if Location.find(post.start_location_id).distance_to(startLocation) < post.max_radius
         @nearbyPosts << post
       end
@@ -67,7 +69,7 @@ class RouteRequestsController < ApplicationController
       @route_request.save
     end
     
-    appendRoute(Array.new, @start_Location, @end_Location) 
+    appendRoute(Array.new, @start_location, @end_location) 
     @completedRoutes.sort_by{|route| netCost(route)}
   end
 
