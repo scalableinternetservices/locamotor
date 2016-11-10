@@ -44,7 +44,7 @@ class MainController < ApplicationController
       puts valid_locations.length
       post_no_location.each do |p|
         valid_locations.each do |l|
-          if p.id == l.post_id
+          if p.start_location_id == l.id
             @posts.push(p)
           end
         end
