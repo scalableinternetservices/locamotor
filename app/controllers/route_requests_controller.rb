@@ -21,10 +21,10 @@ class RouteRequestsController < ApplicationController
    return @finalLocation
   end
   
-  def getNearbyPosts(startLocation)
+  def getNearbyPosts(startLocation, ignoredPosts)
     @nearbyPosts = Array.new
     @allPosts.each do |post|
-      if Location.find(post.start_location_id).distance_to(startLocation) < post.max_radius
+      if (Location.find(post.start_location_id).distance_to(startLocation) < post.max_radius) && !post.in?(ignoredPosts)
         @nearbyPosts << post
       end
     end
@@ -36,7 +36,7 @@ class RouteRequestsController < ApplicationController
       @completedRoutes << singleRoute
       return
     end
-    getNearbyPosts(startLocation).each do |post|
+    getNearbyPosts(startLocation, singleRoute).each do |post|
       @newSingleRoute = singleRoute.dup
       @newSingleRoute << post
       appendRoute(@newSingleRoute, newLocation(startLocation, endLocation, post.max_radius - Location.find(post.start_location_id).distance_to(startLocation)), endLocation)
