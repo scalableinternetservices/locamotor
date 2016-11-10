@@ -70,7 +70,7 @@ class RouteRequestsController < ApplicationController
     end
     
     appendRoute(Array.new, @start_location, @end_location) 
-    @completedRoutes.sort_by{|route| netCost(route)}
+    @completedRoutes = @completedRoutes.sort_by{|route| netCost(route)}
   end
 
   def new
