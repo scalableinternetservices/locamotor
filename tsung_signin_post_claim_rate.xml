@@ -9,7 +9,7 @@
 
   <!-- Server side setup -->
   <servers>
-    <server host="www.locamotor-load-test.pyaxtkrft7.us-west-2.elasticbeanstalk.com" port="80" type="tcp"></server>
+    <server host="www.locamotor-load.pyaxtkrft7.us-west-2.elasticbeanstalk.com" port="80" type="tcp"></server>
   </servers>
 
 
@@ -31,7 +31,22 @@
   <sessions>
     <session name="http-example" probability="100" type="ts_http">
 
-<!--       <request>
+      <!-- Create random -->
+      <setdynvars sourcetype="random_number" start="1" end="100">
+        <var name="rndint" />
+      </setdynvars>
+
+      <setdynvars sourcetype="random_number" start="1" end="100">
+        <var name="rndintTwo" />
+      </setdynvars>
+
+      <setdynvars sourcetype="random_string" length="13">
+        <var name="rndname" />
+      </setdynvars>
+
+
+      <!-- Sign in -->
+      <request>
         <dyn_variable name="authenticity_token"></dyn_variable>
         <http url='/users/sign_in' version='1.1' method='GET'></http>
       </request>
@@ -45,20 +60,12 @@
         <var name="authenticity_token" />
       </setdynvars>
 
-      <setdynvars sourcetype="random_number" start="1" end="100">
-        <var name="rndint" />
-      </setdynvars>
-
-      <setdynvars sourcetype="random_string" length="13">
-        <var name="rndname" />
-      </setdynvars>
-
       <request subst="true">
         <http url='/users/sign_in' method='POST' version='1.1' contents="authenticity_token=%%_authenticity_token%%&amp;user[email]=user%%_rndint%%%40gmail.com&amp;user[password]=1234567&amp;user[remember_me]=0" content_type="application/x-www-form-urlencoded"> </http>
       </request>
 
 
-
+      <!-- Create post -->
       <request>
         <dyn_variable name="authenticity_token"></dyn_variable>
         <http url='/posts/new' version='1.1' method='GET'></http>
@@ -74,12 +81,17 @@
       </setdynvars>
 
       <request subst="true">
+        <dyn_variable name="post_id" re="PostID: (.*)\r"/>
         <http url='/posts' method='POST' version='1.1' contents="authenticity_token=%%_authenticity_token%%&amp;post[email]=user%%_rndint%%%40gmail.com&amp;post[post_type]=Renting%20out&amp;post[vehicle]=Boat&amp;post[start_time]=2016-01-01T12%3A00%3A00&amp;post[end_time]=2016-06-06T18%3A06&amp;post[dollar_amount]=5&amp;post[location]=Goleta%2C%20CA&amp;post[description]=tsung%20here%20%%_rndname%%&amp;auto_book=auto_book&amp;post[max_radius]=100" content_type="application/x-www-form-urlencoded"> </http>
-      </request> -->
+      </request>
+
+      <!-- Sign out -->
+      <request subst="true">
+        <http url='/users/sign_out' method='GET' version='1.1' contents="authenticity_token=%%_authenticity_token%%" content_type="application/x-www-form-urlencoded"> </http>
+      </request>
 
 
-      <!-- Second client -->
-
+      <!-- Second client sign in -->
       <request>
         <dyn_variable name="authenticity_token"></dyn_variable>
         <http url='/users/sign_in' version='1.1' method='GET'></http>
@@ -94,17 +106,14 @@
         <var name="authenticity_token" />
       </setdynvars>
 
-      <setdynvars sourcetype="random_number" start="1" end="100">
-        <var name="rndintTwo" />
-      </setdynvars>
-
       <request subst="true">
-        <http url='/users/sign_in' method='POST' version='1.1' contents="authenticity_token=%%_authenticity_token%%&amp;user[email]=user3%40gmail.com&amp;user[password]=1234567&amp;user[remember_me]=0" content_type="application/x-www-form-urlencoded"> </http>
+        <http url='/users/sign_in' method='POST' version='1.1' contents="authenticity_token=%%_authenticity_token%%&amp;user[email]=user%%_rndintTwo%%%40gmail.com&amp;user[password]=1234567&amp;user[remember_me]=0" content_type="application/x-www-form-urlencoded"> </http>
       </request>      
 
-      <request>
+      <!-- Claim post -->
+      <request subst="true">
         <dyn_variable name="authenticity_token"></dyn_variable>
-        <http url='/posts/3' version='1.1' method='GET'></http>
+        <http url='/posts/%%_post_id%%' version='1.1' method='GET'></http>
       </request>
 
       <setdynvars sourcetype="eval"
@@ -115,7 +124,7 @@
       </setdynvars>
 
       <request subst="true">
-        <http url='/posts/3/claim' method='PATCH' version='1.1' contents="authenticity_token=%%_authenticity_token%%&amp;name=bobby&amp;reservation[start_time]=2016-01-01T12%3A00%3A00&amp;reservation[end_time]=2016-06-06T18%3A06&amp;auto_book=confirmed&amp;commit=Book Now" content_type="application/x-www-form-urlencoded"> </http>
+        <http url='/posts/%%_post_id%%/claim' method='PATCH' version='1.1' contents="authenticity_token=%%_authenticity_token%%&amp;name=billy&amp;reservation[start_time]=2016-01-01T12%3A00%3A00&amp;reservation[end_time]=2016-06-06T18%3A06&amp;confirmed=auto_book&amp;commit=Book Now" content_type="application/x-www-form-urlencoded"> </http>
       </request>
     </session>
   </sessions>

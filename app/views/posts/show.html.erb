@@ -24,9 +24,7 @@
 <h2>Reservation Info</h2>
 <%= form_for(@post, :url => {:action => "claim", :id => @post.id, :confirmed => @post.auto_book}) do |f| %>
   <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>"/>
-  <%= label_tag(:name, "Name:") %>
-  <%= text_field_tag(:name) %>
-
+  <input name="name" type="hidden" value="<%= current_user.email %>"/>
 
   <div class="form-group">
     <label for="reservation_start_time">Select Reservation Start Time (UTC) </label>
