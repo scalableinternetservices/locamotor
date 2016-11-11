@@ -124,7 +124,27 @@
       </setdynvars>
 
       <request subst="true">
-        <http url='/posts/%%_post_id%%/claim' method='PATCH' version='1.1' contents="authenticity_token=%%_authenticity_token%%&amp;name=billy&amp;reservation[start_time]=2016-01-01T12%3A00%3A00&amp;reservation[end_time]=2016-06-06T18%3A06&amp;confirmed=auto_book&amp;commit=Book Now" content_type="application/x-www-form-urlencoded"> </http>
+        <http url='/posts/%%_post_id%%/claim' method='PATCH' version='1.1' contents="authenticity_token=%%_authenticity_token%%&amp;name=user%%_rndintTwo%%%40gmail.com&amp;reservation[start_time]=2016-01-01T12%3A00%3A00&amp;reservation[end_time]=2016-06-06T18%3A06&amp;confirmed=auto_book&amp;commit=Book Now" content_type="application/x-www-form-urlencoded"> </http>
+      </request>
+
+
+      <!-- Rate user that offered post -->
+      <request subst="true">
+        <dyn_variable name="authenticity_token"></dyn_variable>
+        <http url='/users/%%_rndint%%' version='1.1' method='GET'></http>
+      </request>
+
+      <thinktime value="3" random="true"></thinktime>
+
+      <setdynvars sourcetype="eval"
+                  code='fun({Pid,DynVars})->
+                        {ok,Val}=ts_dynvars:lookup(authenticity_token,DynVars),
+                        re:replace(Val,"[+]","%2B",[global, {return,list}]) end.'>
+        <var name="authenticity_token" />
+      </setdynvars>
+
+      <request subst="true">
+        <http url='/ratings' method='POST' version='1.1' contents="authenticity_token=%%_authenticity_token%%&amp;rating[given_rating]=5&amp;rating[rater_id]=%%_rndintTwo%%&amp;rating[rated_id]=%%_rndint%%" content_type="application/x-www-form-urlencoded"> </http>
       </request>
     </session>
   </sessions>
