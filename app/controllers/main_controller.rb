@@ -37,6 +37,7 @@ class MainController < ApplicationController
   		model_query = model_query.where("price <= ?", @max_price)
   	end
     post_no_location = model_query.find_each
+    first_result = true
     @posts = Array.new
     # TODO: Likely will need to refactor this, seems like it's more expensive than it needs to be
     if !@search_location.nil?
@@ -53,5 +54,8 @@ class MainController < ApplicationController
       @posts = model_query.find_each;
     end
 
+    if @posts.size > 0
+      response.headers["FirstPostID"] = @posts.first.id
+    end
   end
 end
