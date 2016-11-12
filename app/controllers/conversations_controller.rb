@@ -4,6 +4,7 @@ class ConversationsController < ApplicationController
   def index
     @users = User.all
     @conversations = Conversation.all
+    @show = false
   end
 
   def create
@@ -14,7 +15,8 @@ class ConversationsController < ApplicationController
       @conversation = Conversation.create!(conversation_params)
      end
 
-     response.headers["ConversationID"] = @conversation.id
+    @show = true
+    response.headers["ConversationID"] = @conversation.id
     redirect_to conversation_messages_path(@conversation.id, num_messages_to_show: params[:num_messages_to_show])
   end
 
