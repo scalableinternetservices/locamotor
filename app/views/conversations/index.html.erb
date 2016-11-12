@@ -1,29 +1,32 @@
 <h1> Conversations </h1>
 
-<% if @show %>
-  <div class="ui list">
-    <div class="item">
-      <% @conversations.each do |conversation| %>
-        <% if conversation.sender_id == current_user.id || conversation.recipient_id == current_user.id %>
-          <% if conversation.sender_id == current_user.id %>
-            <% recipient = User.find(conversation.recipient_id) %>
-          <% else %>
-            <% recipient = User.find(conversation.sender_id) %>
-          <% end %>
-          <%= link_to recipient.email, conversation_messages_path(conversation, num_messages_to_show: 10)%> <br>
-          <% last_message = conversation.messages[conversation.messages.length - 1] %>
+<div class="ui list">
+  <div class="item">
+    <% @conversations.each do |conversation| %>
+      <% if conversation.sender_id == current_user.id || conversation.recipient_id == current_user.id %>
+        <% if conversation.sender_id == current_user.id %>
+          <% recipient = User.find(conversation.recipient_id) %>
+        <% else %>
+          <% recipient = User.find(conversation.sender_id) %>
+        <% end %>
+        <%= link_to recipient.email, conversation_messages_path(conversation, num_messages_to_show: 10)%> <br>
+        <% last_message = conversation.messages[conversation.messages.length - 1] %>
+        <% if last_message != nil %>
           <% if last_message.user_id == current_user.id %>
             <div class="text-preview"> You: <%= last_message.content %> </div> <br>
           <% else %>
             <div class="text-preview"> <%= recipient.email %>: <%= last_message.content %> </div> <br>
           <% end %>
+        <% else %>
+          <div class="text-preview"> No messages </div> <br>
         <% end %>
       <% end %>
-    </div>
+    <% end %>
   </div>
-<% else %>
-  <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>"/>
-<% end %>
+</div>
+
+<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>"/>
+
     
 
 <!-- <div class=”ui segment”>
