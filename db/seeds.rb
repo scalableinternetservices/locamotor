@@ -7,8 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 location = Location.create! :address =>'Goleta'
-
-for i in 1..100
-	user = User.create! :email => 'user' + i.to_s + '@gmail.com', :password => '1234567', :password_confirmation => '1234567'
-	post = Post.create! :email => 'user' + i.to_s + '@gmail.com', :vehicle => 'car', :start_time => DateTime.parse('01/01/2016, 12:00PM'), :end_time => DateTime.parse('01/01/2016, 12:00PM'), :price => '10', :max_radius => '25', :auto_book => 'auto_book', :start_location_id => location.id, :post_type => 'FR', :creator_id => user.id
+100.times do |count|
+  user = User.create(email: "user#{count+1}@gmail.com", password: "1234567", password_confirmation: "1234567")
+  Post.create! :email => "user#{count+1}@gmail.com", :vehicle => 'car', :start_time => DateTime.parse('01/01/2016, 12:00PM'), :end_time => DateTime.parse('01/01/2016, 12:00PM'), :price => '10', :max_radius => '25', :auto_book => 'auto_book', :start_location_id => location.id, :post_type => 'FR', :creator_id => user.id
 end

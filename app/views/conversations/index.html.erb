@@ -11,15 +11,21 @@
         <% end %>
         <%= link_to recipient.email, conversation_messages_path(conversation, num_messages_to_show: 10)%> <br>
         <% last_message = conversation.messages[conversation.messages.length - 1] %>
-        <% if last_message.user_id == current_user.id %>
-          <div class="text-preview"> You: <%= last_message.content %> </div> <br>
+        <% if last_message != nil %>
+          <% if last_message.user_id == current_user.id %>
+            <div class="text-preview"> You: <%= last_message.content %> </div> <br>
+          <% else %>
+            <div class="text-preview"> <%= recipient.email %>: <%= last_message.content %> </div> <br>
+          <% end %>
         <% else %>
-          <div class="text-preview"> <%= recipient.email %>: <%= last_message.content %> </div> <br>
+          <div class="text-preview"> No messages </div> <br>
         <% end %>
       <% end %>
     <% end %>
   </div>
 </div>
+
+<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>"/>
 
     
 
