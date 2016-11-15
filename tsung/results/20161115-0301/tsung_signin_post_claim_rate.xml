@@ -1,0 +1,137 @@
+<?xml version="1.0"?><tsung loglevel="notice" version="1.0">
+
+  <clients>
+    <client host="localhost" use_controller_vm="true" maxusers="15000"/>
+  </clients>
+
+  <servers>
+    <server host="www.locamotor-tsung-baseline.pyaxtkrft7.us-west-2.elasticbeanstalk.com" port="80" type="tcp"/>
+  </servers>
+
+
+  <load>
+    <arrivalphase phase="1" duration="10" unit="second">
+      <users arrivalrate="4" unit="second"/>
+    </arrivalphase>
+  </load>
+
+  <options>
+    <option name="global_ack_timeout" value="2000"/>
+
+    <option type="ts_http" name="user_agent">
+      <user_agent probability="100">Mozilla/5.0 (Windows; U; Windows NT 5.2; fr-FR; rv:1.7.8) Gecko/20050511 Firefox/1.0.4</user_agent>
+    </option>
+  </options>
+
+  <sessions>
+    <session name="http-example" probability="100" type="ts_http">
+
+      <setdynvars sourcetype="random_number" start="1" end="100">
+        <var name="rndint"/>
+      </setdynvars>
+
+      <setdynvars sourcetype="random_number" start="1" end="100">
+        <var name="rndintTwo"/>
+      </setdynvars>
+
+      <setdynvars sourcetype="random_string" length="13">
+        <var name="rndname"/>
+      </setdynvars>
+
+
+      <request>
+        <dyn_variable name="authenticity_token"/>
+        <http url="/users/sign_in" version="1.1" method="GET"/>
+      </request>
+
+      <thinktime value="3" random="true"/>
+
+      <setdynvars sourcetype="eval" code="fun({Pid,DynVars})->                         {ok,Val}=ts_dynvars:lookup(authenticity_token,DynVars),                         re:replace(Val,&quot;[+]&quot;,&quot;%2B&quot;,[global, {return,list}]) end.">
+        <var name="authenticity_token"/>
+      </setdynvars>
+
+      <transaction name="signin_1_time">
+        <request subst="true">
+          <http url="/users/sign_in" method="POST" version="1.1" contents="authenticity_token=%%_authenticity_token%%&amp;user[email]=user%%_rndint%%%40gmail.com&amp;user[password]=1234567&amp;user[remember_me]=0" content_type="application/x-www-form-urlencoded"> </http>
+        </request>
+      </transaction>
+
+
+      <request>
+        <dyn_variable name="authenticity_token"/>
+        <http url="/posts/new" version="1.1" method="GET"/>
+      </request>
+
+      <thinktime value="3" random="true"/>
+
+      <setdynvars sourcetype="eval" code="fun({Pid,DynVars})->                         {ok,Val}=ts_dynvars:lookup(authenticity_token,DynVars),                         re:replace(Val,&quot;[+]&quot;,&quot;%2B&quot;,[global, {return,list}]) end.">
+        <var name="authenticity_token"/>
+      </setdynvars>
+
+      <transaction name="post_create_time">
+        <request subst="true">
+          <dyn_variable name="post_id" re="PostID: (.*)\r"/>
+          <http url="/posts" method="POST" version="1.1" contents="authenticity_token=%%_authenticity_token%%&amp;post[email]=user%%_rndint%%%40gmail.com&amp;post[post_type]=Renting%20out&amp;post[vehicle]=Boat&amp;post[start_time]=2016-01-01T12%3A00%3A00&amp;post[end_time]=2016-06-06T18%3A06&amp;post[dollar_amount]=5&amp;post[location]=Goleta%2C%20CA&amp;post[description]=tsung%20here%20%%_rndname%%&amp;auto_book=auto_book&amp;post[max_radius]=100" content_type="application/x-www-form-urlencoded"> </http>
+        </request>
+      </transaction>
+
+      <request subst="true">
+        <http url="/users/sign_out" method="GET" version="1.1" contents="authenticity_token=%%_authenticity_token%%" content_type="application/x-www-form-urlencoded"> </http>
+      </request>
+
+
+      <request>
+        <dyn_variable name="authenticity_token"/>
+        <http url="/users/sign_in" version="1.1" method="GET"/>
+      </request>
+
+      <thinktime value="3" random="true"/>
+
+      <setdynvars sourcetype="eval" code="fun({Pid,DynVars})->                         {ok,Val}=ts_dynvars:lookup(authenticity_token,DynVars),                         re:replace(Val,&quot;[+]&quot;,&quot;%2B&quot;,[global, {return,list}]) end.">
+        <var name="authenticity_token"/>
+      </setdynvars>
+
+      <transaction name="signin_2_time">
+        <request subst="true">
+          <http url="/users/sign_in" method="POST" version="1.1" contents="authenticity_token=%%_authenticity_token%%&amp;user[email]=user%%_rndintTwo%%%40gmail.com&amp;user[password]=1234567&amp;user[remember_me]=0" content_type="application/x-www-form-urlencoded"> </http>
+        </request>
+      </transaction>      
+
+      <request subst="true">
+        <dyn_variable name="authenticity_token"/>
+        <http url="/posts/%%_post_id%%" version="1.1" method="GET"/>
+      </request>
+
+      <setdynvars sourcetype="eval" code="fun({Pid,DynVars})->                         {ok,Val}=ts_dynvars:lookup(authenticity_token,DynVars),                         re:replace(Val,&quot;[+]&quot;,&quot;%2B&quot;,[global, {return,list}]) end.">
+        <var name="authenticity_token"/>
+      </setdynvars>
+
+      <transaction name="claim_time">
+        <request subst="true">
+          <http url="/posts/%%_post_id%%/claim" method="PATCH" version="1.1" contents="authenticity_token=%%_authenticity_token%%&amp;name=user%%_rndintTwo%%%40gmail.com&amp;reservation[start_time]=2016-01-01T12%3A00%3A00&amp;reservation[end_time]=2016-06-06T18%3A06&amp;confirmed=auto_book&amp;commit=Book Now" content_type="application/x-www-form-urlencoded"> </http>
+        </request>
+      </transaction>
+
+
+      <transaction name="user_view_time">
+        <request subst="true">
+          <dyn_variable name="authenticity_token"/>
+          <http url="/users/%%_rndint%%" version="1.1" method="GET"/>
+        </request>
+      </transaction>
+
+      <thinktime value="3" random="true"/>
+
+      <setdynvars sourcetype="eval" code="fun({Pid,DynVars})->                         {ok,Val}=ts_dynvars:lookup(authenticity_token,DynVars),                         re:replace(Val,&quot;[+]&quot;,&quot;%2B&quot;,[global, {return,list}]) end.">
+        <var name="authenticity_token"/>
+      </setdynvars>
+
+      <transaction name="rating_time">
+        <request subst="true">
+          <http url="/ratings" method="POST" version="1.1" contents="authenticity_token=%%_authenticity_token%%&amp;rating[given_rating]=5&amp;rating[rater_id]=%%_rndintTwo%%&amp;rating[rated_id]=%%_rndint%%" content_type="application/x-www-form-urlencoded"> </http>
+        </request>
+      </transaction>
+    </session>
+  </sessions>
+
+</tsung>

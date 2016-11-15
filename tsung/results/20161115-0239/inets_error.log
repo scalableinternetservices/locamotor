@@ -1,0 +1,48 @@
+[15/Nov/2016:02:40:07 -0000] access to /favicon.ico failed for 0:0:0:0:0:FFFF:A9E7:4633, reason: 
+"httpd_file: Can't access /home/ec2-user/.tsung/log/20161115-0239/favicon.ico: File not found"
+[15/Nov/2016:02:40:08 -0000] access to /assets/ico/favicon.ico failed for 0:0:0:0:0:FFFF:A9E7:4633, reason: 
+"httpd_file: Can't access /home/ec2-user/.tsung/log/20161115-0239/assets/ico/favicon.ico: File not found"
+[15/Nov/2016:02:41:46 -0000] access to /favicon.ico failed for 0:0:0:0:0:FFFF:A9E7:4633, reason: 
+"httpd_file: Can't access /home/ec2-user/.tsung/log/20161115-0239/favicon.ico: File not found"
+[15/Nov/2016:02:42:55 -0000] access to /es/images/graphes-Transactions-mean_tn.png failed for 0:0:0:0:0:FFFF:A9E7:4633, reason: 
+"mod_esi: Client not authorized to evaluate: images/graphes-Transactions-mean_tn.png"
+[15/Nov/2016:02:42:55 -0000] access to /es/images/graphes-Perfs-mean_tn.png failed for 0:0:0:0:0:FFFF:A9E7:4633, reason: 
+"mod_esi: Client not authorized to evaluate: images/graphes-Perfs-mean_tn.png"
+[15/Nov/2016:02:42:55 -0000] access to /es/images/graphes-Perfs-rate_tn.png failed for 0:0:0:0:0:FFFF:A9E7:4633, reason: 
+"mod_esi: Client not authorized to evaluate: images/graphes-Perfs-rate_tn.png"
+[15/Nov/2016:02:42:55 -0000] access to /es/images/graphes-Users_Arrival-rate_tn.png failed for 0:0:0:0:0:FFFF:A9E7:4633, reason: 
+"mod_esi: Client not authorized to evaluate: images/graphes-Users_Arrival-rate_tn.png"
+[15/Nov/2016:02:42:55 -0000] access to /es/images/graphes-Transactions-rate_tn.png failed for 0:0:0:0:0:FFFF:A9E7:4633, reason: 
+"mod_esi: Client not authorized to evaluate: images/graphes-Transactions-rate_tn.png"
+[15/Nov/2016:02:42:55 -0000] access to /es/images/graphes-Size-rate_tn.png failed for 0:0:0:0:0:FFFF:A9E7:4633, reason: 
+"mod_esi: Client not authorized to evaluate: images/graphes-Size-rate_tn.png"
+[15/Nov/2016:02:42:56 -0000] access to /es/images/graphes-cpu-mean_tn.png failed for 0:0:0:0:0:FFFF:A9E7:4633, reason: 
+"mod_esi: Client not authorized to evaluate: images/graphes-cpu-mean_tn.png"
+[15/Nov/2016:02:42:56 -0000] access to /es/images/graphes-freemem-mean_tn.png failed for 0:0:0:0:0:FFFF:A9E7:4633, reason: 
+"mod_esi: Client not authorized to evaluate: images/graphes-freemem-mean_tn.png"
+[15/Nov/2016:02:42:56 -0000] access to /es/images/graphes-Users-simultaneous_tn.png failed for 0:0:0:0:0:FFFF:A9E7:4633, reason: 
+"mod_esi: Client not authorized to evaluate: images/graphes-Users-simultaneous_tn.png"
+[15/Nov/2016:02:42:56 -0000] access to /es/images/graphes-load-mean_tn.png failed for 0:0:0:0:0:FFFF:A9E7:4633, reason: 
+"mod_esi: Client not authorized to evaluate: images/graphes-load-mean_tn.png"
+[15/Nov/2016:02:42:56 -0000] access to /es/images/graphes-HTTP_CODE-rate_tn.png failed for 0:0:0:0:0:FFFF:A9E7:4633, reason: 
+"mod_esi: Client not authorized to evaluate: images/graphes-HTTP_CODE-rate_tn.png"
+[15/Nov/2016:02:42:57 -0000] access to /es/images/graphes-Transactions-mean.png failed for 0:0:0:0:0:FFFF:A9E7:4633, reason: 
+"mod_esi: Client not authorized to evaluate: images/graphes-Transactions-mean.png"
+[15/Nov/2016:02:45:25 -0000] server crash for 0:0:0:0:0:FFFF:A9E7:4633, reason: 
+"Error reading request: No request received on keep-alive connection before server side timeout"
+
+[15/Nov/2016:02:45:26 -0000] server crash for 0:0:0:0:0:FFFF:A9E7:4633, reason: 
+"Error reading request: No request received on keep-alive connection before server side timeout"
+
+[15/Nov/2016:02:45:26 -0000] server crash for 0:0:0:0:0:FFFF:A9E7:4633, reason: 
+"Error reading request: No request received on keep-alive connection before server side timeout"
+
+[15/Nov/2016:02:45:26 -0000] server crash for 0:0:0:0:0:FFFF:A9E7:4633, reason: 
+"Error reading request: No request received on keep-alive connection before server side timeout"
+
+[15/Nov/2016:02:45:26 -0000] server crash for 0:0:0:0:0:FFFF:A9E7:4633, reason: 
+"Error reading request: No request received on keep-alive connection before server side timeout"
+
+[15/Nov/2016:02:45:27 -0000] server crash for 0:0:0:0:0:FFFF:A9E7:4633, reason: 
+"Error reading request: No request received on keep-alive connection before server side timeout"
+
