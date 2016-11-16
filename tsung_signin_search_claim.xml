@@ -35,15 +35,11 @@
         <var name="rndint" />
       </setdynvars>
 
-      <setdynvars sourcetype="random_number" start="1" end="100">
-        <var name="rndint2" />
-      </setdynvars>
-
       <setdynvars sourcetype="random_string" length="13">
         <var name="rndname" />
       </setdynvars>
 
-      <!-- Sign in -->
+      <!-- Sign in-->
       <request>
         <dyn_variable name="authenticity_token"></dyn_variable>
         <http url='/users/sign_in' version='1.1' method='GET'></http>
@@ -62,14 +58,17 @@
         <http url='/users/sign_in' method='POST' version='1.1' contents="authenticity_token=%%_authenticity_token%%&amp;user[email]=user%%_rndint%%%40gmail.com&amp;user[password]=1234567&amp;user[remember_me]=0" content_type="application/x-www-form-urlencoded"> </http>
       </request>
 
-
-      <!-- Rate user -->
-      <request>
-        <dyn_variable name="authenticity_token"></dyn_variable>
-        <http url='/users/1' version='1.1' method='GET'></http>
+      <!-- Search -->
+      <request subst="true">
+        <dyn_variable name="random_post_id" re="RandomPostID: (.*)\r"/>
+        <http url='/search/results' method='POST' version='1.1' contents="authenticity_token=%%_authenticity_token%%&amp;vehicle=Car&amp;post[start_time]=2016-01-01T12%3A00%3A00&amp;post[end_time]=2016-06-06T18%3A06&amp;post[dollar_amount]=5&amp;post[location]=Goleta%2C%20CA&amp;search_price=true&amp;auto_book=auto_book&amp;post[max_radius]=100" content_type="application/x-www-form-urlencoded"> </http>
       </request>
 
-      <thinktime value="3" random="true"></thinktime>
+      <!-- Claim post -->
+      <request subst="true">
+        <dyn_variable name="authenticity_token"></dyn_variable>
+        <http url='/posts/%%_random_post_id%%' version='1.1' method='GET'></http>
+      </request>
 
       <setdynvars sourcetype="eval"
                   code='fun({Pid,DynVars})->
@@ -79,7 +78,7 @@
       </setdynvars>
 
       <request subst="true">
-        <http url='/ratings' method='POST' version='1.1' contents="authenticity_token=%%_authenticity_token%%&amp;rating[given_rating]=5&amp;rating[rater_id]=%%_rndint%%&amp;rating[rated_id]=1" content_type="application/x-www-form-urlencoded"> </http>
+        <http url='/posts/%%_random_post_id%%/claim' method='PATCH' version='1.1' contents="authenticity_token=%%_authenticity_token%%&amp;name=user%%_rndint%%%40gmail.com&amp;reservation[start_time]=2016-01-01T12%3A00%3A00&amp;reservation[end_time]=2016-06-06T18%3A06&amp;confirmed=auto_book&amp;commit=Book Now" content_type="application/x-www-form-urlencoded"> </http>
       </request>
     </session>
   </sessions>

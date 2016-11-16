@@ -55,7 +55,20 @@ class MainController < ApplicationController
     end
 
     if @posts.size > 0
-      response.headers["FirstPostID"] = @posts.first.id
+      num_range = @posts.count
+      rand_choice = rand(num_range)
+      puts "asdfjlskfjsdlkjslk"
+      puts num_range
+      puts rand_choice
+      i = 0
+      @posts.each do |ps|
+        if i == rand_choice
+          response.headers["RandomPostID"] = ps.id
+          break
+        end
+        i = i + 1
+      end
     end
   end
 end
+
