@@ -9,13 +9,22 @@
 
   <!-- Server side setup -->
   <servers>
-    <server host="www.locamotor-load.pyaxtkrft7.us-west-2.elasticbeanstalk.com" port="80" type="tcp"></server>
+    <server host="www.locamotor-tsung-baseline.pyaxtkrft7.us-west-2.elasticbeanstalk.com" port="80" type="tcp"></server>
   </servers>
 
 
   <load>
-    <arrivalphase phase="1" duration="1" unit="second">
+    <arrivalphase phase="1" duration="30" unit="second">
       <users arrivalrate="1" unit="second"></users>
+    </arrivalphase>
+    <arrivalphase phase="2" duration="10" unit="second">
+      <users arrivalrate="2" unit="second"></users>
+    </arrivalphase>
+    <arrivalphase phase="3" duration="10" unit="second">
+      <users arrivalrate="4" unit="second"></users>
+    </arrivalphase>
+    <arrivalphase phase="4" duration="10" unit="second">
+      <users arrivalrate="8" unit="second"></users>
     </arrivalphase>
   </load>
 
@@ -60,9 +69,11 @@
         <var name="authenticity_token" />
       </setdynvars>
 
-      <request subst="true">
-        <http url='/users/sign_in' method='POST' version='1.1' contents="authenticity_token=%%_authenticity_token%%&amp;user[email]=user%%_rndint%%%40gmail.com&amp;user[password]=1234567&amp;user[remember_me]=0" content_type="application/x-www-form-urlencoded"> </http>
-      </request>
+      <transaction name = "signin_1">
+        <request subst="true">
+          <http url='/users/sign_in' method='POST' version='1.1' contents="authenticity_token=%%_authenticity_token%%&amp;user[email]=user%%_rndint%%%40gmail.com&amp;user[password]=1234567&amp;user[remember_me]=0" content_type="application/x-www-form-urlencoded"> </http>
+        </request>
+      </transaction>
 
 
       <!-- Create post -->
@@ -80,17 +91,21 @@
         <var name="authenticity_token" />
       </setdynvars>
 
-      <request subst="true">
-        <dyn_variable name="post_id" re="PostID: (.*)\r"/>
-        <http url='/posts' method='POST' version='1.1' contents="authenticity_token=%%_authenticity_token%%&amp;post[email]=user%%_rndint%%%40gmail.com&amp;post[post_type]=Renting%20out&amp;post[vehicle]=Boat&amp;post[start_time]=2016-01-01T12%3A00%3A00&amp;post[end_time]=2016-06-06T18%3A06&amp;post[dollar_amount]=5&amp;post[location]=Goleta%2C%20CA&amp;post[description]=tsung%20here%20%%_rndname%%&amp;auto_book=auto_book&amp;post[max_radius]=100" content_type="application/x-www-form-urlencoded"> </http>
-      </request>
+      <transaction name = "post_submit">
+        <request subst="true">
+          <dyn_variable name="post_id" re="PostID: (.*)\r"/>
+          <http url='/posts' method='POST' version='1.1' contents="authenticity_token=%%_authenticity_token%%&amp;post[email]=user%%_rndint%%%40gmail.com&amp;post[post_type]=Renting%20out&amp;post[vehicle]=Boat&amp;post[start_time]=2016-01-01T12%3A00%3A00&amp;post[end_time]=2016-06-06T18%3A06&amp;post[dollar_amount]=5&amp;post[location]=Goleta%2C%20CA&amp;post[description]=tsung%20here%20%%_rndname%%&amp;auto_book=auto_book&amp;post[max_radius]=100" content_type="application/x-www-form-urlencoded"> </http>
+        </request>
+      </transaction>
 
 
       <!-- Create conversation -->
-      <request>
-        <dyn_variable name="authenticity_token"></dyn_variable>
-        <http url='/conversations' version='1.1' method='GET'></http>
-      </request>
+      <transaction name = "get_convo_page">
+        <request>
+          <dyn_variable name="authenticity_token"></dyn_variable>
+          <http url='/conversations' version='1.1' method='GET'></http>
+        </request>
+      </transaction>
 
       <setdynvars sourcetype="eval"
                   code='fun({Pid,DynVars})->
@@ -99,35 +114,39 @@
         <var name="authenticity_token" />
       </setdynvars>
 
-      <request subst="true">
-        <dyn_variable name="conversation_id" re="ConversationID: (.*)\r"/>
-        <http url='/conversations' method='POST' version='1.1' contents="authenticity_token=%%_authenticity_token%%&amp;sender_id=%%_rndint%%&amp;num_messages_to_show=10&amp;recipient_id=%%_rndintTwo%%" content_type="application/x-www-form-urlencoded"> </http>
-      </request>
+      <transaction name = "create_convo">
+        <request subst="true">
+          <dyn_variable name="conversation_id" re="ConversationID: (.*)\r"/>
+          <http url='/conversations' method='POST' version='1.1' contents="authenticity_token=%%_authenticity_token%%&amp;sender_id=%%_rndint%%&amp;num_messages_to_show=10&amp;recipient_id=%%_rndintTwo%%" content_type="application/x-www-form-urlencoded"> </http>
+        </request>
+      </transaction>
 
 
       <!-- Send 5 message -->
-      <for from="1" to="5" incr="1" var="counter">
-        <!-- Create random message -->
-        <setdynvars sourcetype="random_string" length="30">
-          <var name="rndmessage" />
-        </setdynvars>
+      <transaction name = "send_5_messages_1">
+        <for from="1" to="5" incr="1" var="counter">
+          <!-- Create random message -->
+          <setdynvars sourcetype="random_string" length="30">
+            <var name="rndmessage" />
+          </setdynvars>
 
-        <request subst="true">
-          <dyn_variable name="authenticity_token"></dyn_variable>
-          <http url='/conversations/%%_conversation_id/messages' version='1.1' contents='num_messages_to_show=10' method='GET'></http>
-        </request>
+          <request subst="true">
+            <dyn_variable name="authenticity_token"></dyn_variable>
+            <http url='/conversations/%%_conversation_id/messages' version='1.1' contents='num_messages_to_show=10' method='GET'></http>
+          </request>
 
-        <setdynvars sourcetype="eval"
-                    code='fun({Pid,DynVars})->
-                          {ok,Val}=ts_dynvars:lookup(authenticity_token,DynVars),
-                          re:replace(Val,"[+]","%2B",[global, {return,list}]) end.'>
-          <var name="authenticity_token" />
-        </setdynvars>
+          <setdynvars sourcetype="eval"
+                      code='fun({Pid,DynVars})->
+                            {ok,Val}=ts_dynvars:lookup(authenticity_token,DynVars),
+                            re:replace(Val,"[+]","%2B",[global, {return,list}]) end.'>
+            <var name="authenticity_token" />
+          </setdynvars>
 
-        <request subst="true">
-          <http url='/conversations/%%_conversation_id%%/messages' method='POST' version='1.1' contents="authenticity_token=%%_authenticity_token%%&amp;message[user_id]=%%_rndint%%&amp;message[content]=%%_rndmessage%%&amp;conversation_id=%%_conversation_id%%&amp;commit=Send%20Message" content_type="application/x-www-form-urlencoded"> </http>
-        </request>
-      </for>
+          <request subst="true">
+            <http url='/conversations/%%_conversation_id%%/messages' method='POST' version='1.1' contents="authenticity_token=%%_authenticity_token%%&amp;message[user_id]=%%_rndint%%&amp;message[content]=%%_rndmessage%%&amp;conversation_id=%%_conversation_id%%&amp;commit=Send%20Message" content_type="application/x-www-form-urlencoded"> </http>
+          </request>
+        </for>
+      </transaction>
 
 
       <!-- Sign out -->
@@ -151,41 +170,47 @@
         <var name="authenticity_token" />
       </setdynvars>
 
-      <request subst="true">
-        <http url='/users/sign_in' method='POST' version='1.1' contents="authenticity_token=%%_authenticity_token%%&amp;user[email]=user%%_rndintTwo%%%40gmail.com&amp;user[password]=1234567&amp;user[remember_me]=0" content_type="application/x-www-form-urlencoded"> </http>
-      </request>      
+      <transaction name = "signin_2">
+        <request subst="true">
+          <http url='/users/sign_in' method='POST' version='1.1' contents="authenticity_token=%%_authenticity_token%%&amp;user[email]=user%%_rndintTwo%%%40gmail.com&amp;user[password]=1234567&amp;user[remember_me]=0" content_type="application/x-www-form-urlencoded"> </http>
+        </request>
+      </transaction>      
 
 
       <!-- Send 5 message -->
-      <for from="1" to="5" incr="1" var="counter">
-        <!-- Create random message -->
-        <setdynvars sourcetype="random_string" length="30">
-          <var name="rndmessage" />
-        </setdynvars>
+      <transaction name = "send_5_messages_2">
+        <for from="1" to="5" incr="1" var="counter">
+          <!-- Create random message -->
+          <setdynvars sourcetype="random_string" length="30">
+            <var name="rndmessage" />
+          </setdynvars>
 
-        <request subst="true">
-          <dyn_variable name="authenticity_token"></dyn_variable>
-          <http url='/conversations/%%_conversation_id/messages' version='1.1' contents='num_messages_to_show=10' method='GET'></http>
-        </request>
+          <request subst="true">
+            <dyn_variable name="authenticity_token"></dyn_variable>
+            <http url='/conversations/%%_conversation_id/messages' version='1.1' contents='num_messages_to_show=10' method='GET'></http>
+          </request>
 
-        <setdynvars sourcetype="eval"
-                    code='fun({Pid,DynVars})->
-                          {ok,Val}=ts_dynvars:lookup(authenticity_token,DynVars),
-                          re:replace(Val,"[+]","%2B",[global, {return,list}]) end.'>
-          <var name="authenticity_token" />
-        </setdynvars>
+          <setdynvars sourcetype="eval"
+                      code='fun({Pid,DynVars})->
+                            {ok,Val}=ts_dynvars:lookup(authenticity_token,DynVars),
+                            re:replace(Val,"[+]","%2B",[global, {return,list}]) end.'>
+            <var name="authenticity_token" />
+          </setdynvars>
 
-        <request subst="true">
-          <http url='/conversations/%%_conversation_id%%/messages' method='POST' version='1.1' contents="authenticity_token=%%_authenticity_token%%&amp;message[user_id]=%%_rndintTwo%%&amp;message[content]=%%_rndmessage%%&amp;conversation_id=%%_conversation_id%%&amp;commit=Send%20Message" content_type="application/x-www-form-urlencoded"> </http>
-        </request>
-      </for>
+          <request subst="true">
+            <http url='/conversations/%%_conversation_id%%/messages' method='POST' version='1.1' contents="authenticity_token=%%_authenticity_token%%&amp;message[user_id]=%%_rndintTwo%%&amp;message[content]=%%_rndmessage%%&amp;conversation_id=%%_conversation_id%%&amp;commit=Send%20Message" content_type="application/x-www-form-urlencoded"> </http>
+          </request>
+        </for>
+      </transaction>
 
 
       <!-- Claim post -->
-      <request subst="true">
-        <dyn_variable name="authenticity_token"></dyn_variable>
-        <http url='/posts/%%_post_id%%' version='1.1' method='GET'></http>
-      </request>
+      <transaction name = "view_post">
+        <request subst="true">
+          <dyn_variable name="authenticity_token"></dyn_variable>
+          <http url='/posts/%%_post_id%%' version='1.1' method='GET'></http>
+        </request>
+      </transaction>
 
       <setdynvars sourcetype="eval"
                   code='fun({Pid,DynVars})->
@@ -194,9 +219,11 @@
         <var name="authenticity_token" />
       </setdynvars>
 
-      <request subst="true">
-        <http url='/posts/%%_post_id%%/claim' method='PATCH' version='1.1' contents="authenticity_token=%%_authenticity_token%%&amp;name=user%%_rndintTwo%%%40gmail.com&amp;reservation[start_time]=2016-01-01T12%3A00%3A00&amp;reservation[end_time]=2016-06-06T18%3A06&amp;confirmed=auto_book&amp;commit=Book Now" content_type="application/x-www-form-urlencoded"> </http>
-      </request>
+      <transaction name = "claim_post">
+        <request subst="true">
+          <http url='/posts/%%_post_id%%/claim' method='PATCH' version='1.1' contents="authenticity_token=%%_authenticity_token%%&amp;name=user%%_rndintTwo%%%40gmail.com&amp;reservation[start_time]=2016-01-01T12%3A00%3A00&amp;reservation[end_time]=2016-06-06T18%3A06&amp;confirmed=auto_book&amp;commit=Book Now" content_type="application/x-www-form-urlencoded"> </http>
+        </request>
+      </transaction>
     </session>
   </sessions>
 

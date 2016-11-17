@@ -1,0 +1,87 @@
+# stats: dump at 1479247012
+stats: users 0 2
+stats: {load,"tsung_controller@ip-172-31-31-196"} 1 0.03125 0 0.03125 0.03125 0 0
+stats: {cpu,"tsung_controller@ip-172-31-31-196"} 1 6.447188588808254 0 6.447188588808254 6.447188588808254 0 0
+stats: {freemem,"tsung_controller@ip-172-31-31-196"} 1 3065.23046875 0 3065.23046875 3065.23046875 0 0
+stats: session 10 80.635107421875 34.365089973426 183.7099609375 68.06787109375 0 0
+stats: users_count 10 10
+stats: finish_users_count 10 10
+stats: error_connect_nxdomain 36 36
+stats: error_abort_max_conn_retries 9 9
+# stats: dump at 1479247022
+stats: users 0 2
+stats: {load,"tsung_controller@ip-172-31-31-196"} 1 0.1015625 0.0 0.1015625 0.03125 0.03125 1
+stats: {recvpackets,"tsung_controller@ip-172-31-31-196"} 1 87 0 87 87 0 0
+stats: {sentpackets,"tsung_controller@ip-172-31-31-196"} 1 84 0 84 84 0 0
+stats: {cpu,"tsung_controller@ip-172-31-31-196"} 1 1.9723865877712032 0.0 6.447188588808254 1.9723865877712032 6.447188588808254 1
+stats: {freemem,"tsung_controller@ip-172-31-31-196"} 1 3064.7265625 0.0 3065.23046875 3064.7265625 3065.23046875 1
+stats: session 7 68.92954799107143 0.39321476586494347 183.7099609375 68.031005859375 80.635107421875 10
+stats: users_count 7 17
+stats: finish_users_count 7 17
+stats: error_connect_nxdomain 28 64
+stats: error_abort_max_conn_retries 7 16
+# stats: dump at 1479247032
+stats: users 1 2
+stats: {load,"tsung_controller@ip-172-31-31-196"} 1 0.078125 0.0 0.1015625 0.03125 0.06640625 2
+stats: {recvpackets,"tsung_controller@ip-172-31-31-196"} 1 209.0 0.0 209 87 87.0 1
+stats: {sentpackets,"tsung_controller@ip-172-31-31-196"} 1 172.0 0.0 172 84 84.0 1
+stats: {cpu,"tsung_controller@ip-172-31-31-196"} 1 1.2871287128712872 0.0 6.447188588808254 1.2871287128712872 4.209787588289728 2
+stats: {freemem,"tsung_controller@ip-172-31-31-196"} 1 3064.22265625 0.0 3065.23046875 3064.22265625 3064.978515625 2
+stats: session 9 68.71666124131944 0.5381088434870377 183.7099609375 67.862060546875 75.81517118566177 17
+stats: users_count 10 27
+stats: finish_users_count 9 26
+stats: error_connect_nxdomain 36 100
+stats: error_abort_max_conn_retries 9 25
+# stats: dump at 1479247042
+stats: users 0 2
+stats: {load,"tsung_controller@ip-172-31-31-196"} 1 0.0703125 0.0 0.1015625 0.03125 0.0703125 3
+stats: {recvpackets,"tsung_controller@ip-172-31-31-196"} 1 81.0 0.0 209 81 148.0 2
+stats: {sentpackets,"tsung_controller@ip-172-31-31-196"} 1 81.0 0.0 172 81 128.0 2
+stats: {cpu,"tsung_controller@ip-172-31-31-196"} 1 1.2833168805528135 0.0 6.447188588808254 1.2833168805528135 3.2355679631502476 3
+stats: {freemem,"tsung_controller@ip-172-31-31-196"} 1 3064.21484375 0.0 3065.23046875 3064.21484375 3064.7265625 3
+stats: session 11 69.510498046875 2.6503659217364537 183.7099609375 67.109130859375 73.35799466646634 26
+stats: users_count 10 37
+stats: finish_users_count 11 37
+stats: error_connect_nxdomain 44 144
+stats: newphase 1 1
+stats: error_abort_max_conn_retries 11 36
+# stats: dump at 1479247052
+stats: users 0 2
+stats: {load,"tsung_controller@ip-172-31-31-196"} 1 0.05859375 0.0 0.1015625 0.03125 0.0703125 4
+stats: {recvpackets,"tsung_controller@ip-172-31-31-196"} 1 222.0 0.0 222 81 125.66666666666667 3
+stats: {sentpackets,"tsung_controller@ip-172-31-31-196"} 1 184.0 0.0 184 81 112.33333333333333 3
+stats: {cpu,"tsung_controller@ip-172-31-31-196"} 1 1.383399209486166 0.0 6.447188588808254 1.2833168805528135 2.7475051925008893 4
+stats: {freemem,"tsung_controller@ip-172-31-31-196"} 1 3063.98046875 0.0 3065.23046875 3063.98046875 3064.5986328125 4
+stats: session 25 68.41901367187498 0.7680419344331373 183.7099609375 66.806884765625 72.21414432010135 37
+stats: users_count 25 62
+stats: finish_users_count 25 62
+stats: error_connect_nxdomain 100 244
+stats: newphase 1 2
+stats: error_abort_max_conn_retries 25 61
+# stats: dump at 1479247062
+stats: users 1 4
+stats: {load,"tsung_controller@ip-172-31-31-196"} 1 0.05078125 0.0 0.1015625 0.03125 0.06796875 5
+stats: {recvpackets,"tsung_controller@ip-172-31-31-196"} 1 495.0 0.0 495 81 149.75 4
+stats: {sentpackets,"tsung_controller@ip-172-31-31-196"} 1 429.0 0.0 429 81 130.25 4
+stats: {cpu,"tsung_controller@ip-172-31-31-196"} 1 2.5540275049115913 0.0 6.447188588808254 1.2833168805528135 2.4746839958979447 5
+stats: {freemem,"tsung_controller@ip-172-31-31-196"} 1 3063.85546875 0.0 3065.23046875 3063.85546875 3064.475 5
+stats: session 78 68.3215864132612 3.662083906171333 183.7099609375 64.885986328125 70.68384970388105 62
+stats: users_count 79 141
+stats: finish_users_count 78 140
+stats: error_connect_nxdomain 303 547
+stats: newphase 1 3
+stats: error_abort_max_conn_retries 75 136
+# stats: dump at 1479247070
+stats: users 0 4
+stats: {load,"tsung_controller@ip-172-31-31-196"} 1 0.0390625 0.0 0.1015625 0.03125 0.06510416666666667 6
+stats: {recvpackets,"tsung_controller@ip-172-31-31-196"} 1 660.0 0.0 660 81 218.8 5
+stats: {sentpackets,"tsung_controller@ip-172-31-31-196"} 1 660.0 0.0 660 81 190.0 5
+stats: {cpu,"tsung_controller@ip-172-31-31-196"} 1 4.150197628458498 0.0 6.447188588808254 1.2833168805528135 2.4879079140668856 6
+stats: {freemem,"tsung_controller@ip-172-31-31-196"} 1 3063.7265625 0.0 3065.23046875 3063.7265625 3064.3717447916665 6
+stats: session 19 69.68814247532895 2.594212228049904 183.7099609375 64.885986328125 69.36773158482143 140
+stats: users_count 18 159
+stats: finish_users_count 19 159
+stats: error_connect_nxdomain 89 636
+stats: newphase 0 3
+stats: error_abort_max_conn_retries 23 159
+EndMonitor:{1479,247070,167179}
