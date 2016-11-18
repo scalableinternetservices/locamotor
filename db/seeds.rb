@@ -13,14 +13,14 @@ location = Location.create! :address =>'Goleta'
 end
 
 inserts = []
-100.times do
+10.times do
   inserts.push "('user1@gmail.com', 'Truck', '2016-11-17 17:00:00', '2016-11-17 17:00:00', 'skeddit', 1, '2016-01-02 01:00:00', '2016-06-05 01:00:00', 1, 'auto_book_true', 100, 1)"
 end
 sql = "INSERT INTO posts (email, vehicle, created_at, updated_at, description, price, start_time, end_time, creator_id, auto_book, max_radius, start_location_id) VALUES #{inserts.join(", ")}"
 ActiveRecord::Base.connection.insert_sql(sql)
 
 inserts = []
-200.times do
+100.times do
   inserts.push "('user1@gmail.com', 'Bike', '2016-11-17 17:00:00', '2016-11-17 17:00:00', 'skeddit', 2, '2016-01-02 01:00:00', '2016-06-05 01:00:00', 1, 'auto_book_true', 100, 1)"
 end
 sql = "INSERT INTO posts (email, vehicle, created_at, updated_at, description, price, start_time, end_time, creator_id, auto_book, max_radius, start_location_id) VALUES #{inserts.join(", ")}"
