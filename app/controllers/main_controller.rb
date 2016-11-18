@@ -33,7 +33,7 @@ class MainController < ApplicationController
   		model_query = model_query.where("start_time <= ?", @end_time)
   		model_query = model_query.where("end_time >= ?",  @end_time)
   	end
-  	if !@max_price.nil?
+  	if !@search_price.nil?
   		model_query = model_query.where("price <= ?", @max_price)
   	end
     post_no_location = model_query.find_each
