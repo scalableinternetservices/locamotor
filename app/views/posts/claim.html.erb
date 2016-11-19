@@ -1,4 +1,5 @@
 <h1>Claim Post</h1>
+<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>"/>
 <%= form_for(@post) do |f| %>
   <div class="form-group">
     <label for="post_details">Name</label>
