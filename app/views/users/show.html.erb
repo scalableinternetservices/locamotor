@@ -40,13 +40,14 @@
     <h1> <%= this_user.email %>'s Reservations:</h1>
   <% end %>
 
-  <% Reservation.where(user_id: params[:id]).find_each do |reservation| %>
+  <% @reservation_set.each do |reservation| %>
     <% post = Post.find(reservation.post_id)%>
     <%= render partial: "shared/post_display_no_reservations", locals: {post: post} %>
     <label>Name:</label> <%= reservation.rname %> <br>
     <label>Reservation Start Time:</label> <%= reservation.start_time %> <br>
     <label>Reservation End Time:</label> <%= reservation.end_time %> <br>
   <% end %>
+  <%= will_paginate @reservation_set %>
 
   <% if current_user and params[:id].to_i == current_user.id %>
     <h1>Your Requests:</h1>
@@ -60,9 +61,10 @@
   <% if request_set.size() == 0 %>
     <p> No Requests </p>
   <% else %>
-    <% request_set.find_each.reverse_each do |post| %>
+    <% @request_set.reverse_each do |post| %>
       <%= render partial: "shared/post_display", locals: {post: post} %>
     <% end %>
+    <%= will_paginate @request_set %>
   <% end %>
 
   <% if current_user and params[:id].to_i == current_user.id %>
@@ -74,7 +76,7 @@
   <% if offer_set.size() == 0 %>
     <p> No Offers </p>
   <% else %>
-    <% offer_set.find_each.reverse_each do |post| %>
+    <% @offer_set.reverse_each do |post| %>
       <%= render partial: "shared/post_display", locals: {post: post} %>
       <% if current_user and params[:id].to_i == current_user.id %>
         <h4>Unconfirmed Reservations for this Vehicle</h4>
@@ -87,6 +89,7 @@
         <% end %>
       <% end %>
     <% end %>
+    <%= will_paginate @offer_set %>
   <% end %>
 
 <% end %>
