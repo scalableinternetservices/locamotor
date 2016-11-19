@@ -47,7 +47,7 @@
     <label>Reservation Start Time:</label> <%= reservation.start_time %> <br>
     <label>Reservation End Time:</label> <%= reservation.end_time %> <br>
   <% end %>
-  <%= will_paginate @reservation_set %>
+  <%= will_paginate @reservation_set, :param_name => 'reservation_page' %>
 
   <% if current_user and params[:id].to_i == current_user.id %>
     <h1>Your Requests:</h1>
@@ -64,7 +64,7 @@
     <% @request_set.reverse_each do |post| %>
       <%= render partial: "shared/post_display", locals: {post: post} %>
     <% end %>
-    <%= will_paginate @request_set %>
+    <%= will_paginate @request_set, :param_name => 'request_page' %>
   <% end %>
 
   <% if current_user and params[:id].to_i == current_user.id %>
@@ -89,7 +89,7 @@
         <% end %>
       <% end %>
     <% end %>
-    <%= will_paginate @offer_set %>
+    <%= will_paginate @offer_set, :param_name => 'offer_page' %>
   <% end %>
 
 <% end %>
