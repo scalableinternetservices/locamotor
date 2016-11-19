@@ -9,7 +9,7 @@
 
   <!-- Server side setup -->
   <servers>
-    <server host="www.locamotor-tsung.pyaxtkrft7.us-west-2.elasticbeanstalk.com" port="80" type="tcp"></server>
+    <server host="www.locamotor-tsung-baseline.pyaxtkrft7.us-west-2.elasticbeanstalk.com" port="80" type="tcp"></server>
   </servers>
 
 
@@ -59,9 +59,10 @@
       </request>
 
       <!-- Search -->
+      <!-- Search -->
       <request subst="true">
         <dyn_variable name="random_post_id" re="RandomPostID: (.*)\r"/>
-        <http url='/search/results' method='GET' version='1.1' contents="authenticity_token=%%_authenticity_token%%&amp;vehicle=Car&amp;post[start_time]=2016-01-01T12%3A00%3A00&amp;post[end_time]=2016-06-06T18%3A06&amp;post[dollar_amount]=5&amp;post[location]=Goleta%2C%20CA&amp;search_price=true&amp;auto_book=auto_book&amp;post[max_radius]=100" content_type="application/x-www-form-urlencoded"> </http>
+        <http url='/search/results?utf8=%E2%9C%93&amp;vehicle_type%5B%5D=Other&amp;start_time=&amp;end_time=&amp;max_price=&amp;location_start=&amp;max_distance=&amp;commit=Search' method='GET' version='1.1' content_type="application/x-www-form-urlencoded"> </http>
       </request>
 
       <!-- Claim post -->
