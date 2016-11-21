@@ -38,7 +38,7 @@ class MainController < ApplicationController
       model_query = model_query.where("price <= ?", @max_price)
     end
     
-    @posts = model_query.paginate(page: params[:page], per_page: 1)
+    @posts = model_query.paginate(page: params[:page], per_page: 25)
 
     # search based on id
     if !@search_location.nil?
