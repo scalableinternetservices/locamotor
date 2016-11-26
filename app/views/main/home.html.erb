@@ -12,6 +12,7 @@
 </div>
 
 <% Post.last(10).reverse_each do |post| %>
+
   <%= render partial: "shared/post_display", locals: {post: post} %>
   <% if post.auto_book == "auto_book" %>
     <%= link_to "Book Now", '/posts/' + post.id.to_s, class: "btn btn-xs btn-primary" %>

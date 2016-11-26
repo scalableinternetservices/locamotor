@@ -43,3 +43,9 @@
   <%= submit_tag("Search", class: "btn btn-md btn-primary") %>
 <% end %>
 
+<%= form_tag("/search/all", method: "get", :url => {:action => "all_posts"}) do %>
+  <br>
+  <%= submit_tag("View All Posts", class: "btn btn-md btn-primary") %>
+<% end %>
+
+

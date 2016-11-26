@@ -10,6 +10,11 @@ gem 'devise', '4.2.0'
 # Bootstrap
 gem 'bootstrap-sass', '3.3.6'
 
+#Memcached
+gem 'dalli'
+gem 'memcachier'
+gem 'cache_digests'
+
 # Adding photos to posts
 gem 'paperclip', '5.1.0'
 

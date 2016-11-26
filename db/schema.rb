@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 20161103215126) do
     t.decimal  "price"
     t.datetime "start_time"
     t.datetime "end_time"
+    t.string   "claimed_by"
     t.string   "city"
     t.string   "state"
     t.string   "country"
@@ -72,7 +73,7 @@ ActiveRecord::Schema.define(version: 20161103215126) do
     t.datetime "image_updated_at"
     t.integer  "reservation"
     t.string   "auto_book"
-    t.float    "max_radius"
+    t.decimal  "max_radius"
     t.integer  "start_location_id"
   end
 

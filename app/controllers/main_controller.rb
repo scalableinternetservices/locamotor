@@ -11,6 +11,12 @@ class MainController < ApplicationController
   def search
   end
 
+  def all
+    model_query = Post
+    @posts = Array.new
+    @posts = model_query.find_each;
+  end
+
   def results
   	@vehicle_types = params[:vehicle_type]
   	@search_start = params[:search_start]
