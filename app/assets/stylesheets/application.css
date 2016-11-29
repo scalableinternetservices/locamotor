@@ -13,7 +13,6 @@
  *= require_tree .
  *= require_self
  */
- @import “materialize”;
 
 .panel{
 	border-radius: 0px;
