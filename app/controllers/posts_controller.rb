@@ -23,14 +23,28 @@ class PostsController < ApplicationController
     @post.description = post_args[:description]
     @post.max_radius = post_args[:max_radius]
 
-
-
     @post.auto_book = params[:auto_book]
-    @location = Location.new(address: post_args[:location])
+    full_address = post_args[:street] + " " + post_args[:city] + ", " + post_args[:state]
+    @location = Location.new(address: full_address)
 
     @location.save
 
+    @location = Location.new(address: full_address)
+
+    general_address = post_args[:city] + ", " + post_args[:state]
+    general_location_array = Location.where(address: "#{general_address}")
+
+    if general_location_array.size > 0
+      @general_location = general_location_array[0]
+      puts "found general location"
+    else
+      @general_location = Location.new(address: general_address)
+      puts "did not find general location"
+    end
+
     @post.start_location_id = @location.id 
+    @post.general_location_id = @general_location.id
+
     # For Rent or Renting Out
     @post.post_type = post_args[:post_type] == "Renting out" ? "FR" : "RR"
 
