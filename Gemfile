@@ -4,9 +4,15 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 
+# Pagination
+gem 'will_paginate', '~> 3.1.0'
+
 # Geocoder for location
 gem 'geocoder', '1.4.0'
+
+# Devise for users
 gem 'devise', '4.2.0'
+
 # Bootstrap
 gem 'bootstrap-sass', '3.3.6'
 

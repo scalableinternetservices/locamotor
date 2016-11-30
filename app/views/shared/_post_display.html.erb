@@ -47,3 +47,11 @@
   <label>Reservation Start Time:</label> <%= reservation.start_time %> <br>
   <label>Reservation End Time:</label> <%= reservation.end_time %> <br>
 <% end %>
+
+  <% if post.auto_book == "auto_book" %>
+    <%= link_to "Book Now", '/posts/' + post.id.to_s, class: "btn btn-xs btn-primary" %>
+    <br>
+  <% else %>
+    <%= link_to "Request Reservation", '/posts/' + post.id.to_s, class: "btn btn-xs btn-primary" %>
+    <br>
+  <% end %>
