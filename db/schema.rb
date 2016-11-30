@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 20161103215126) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "conversations", force: :cascade do |t|
     t.integer  "sender_id"
     t.integer  "recipient_id"
@@ -33,8 +36,8 @@ ActiveRecord::Schema.define(version: 20161103215126) do
     t.integer  "user_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-    t.index ["conversation_id"], name: "index_messages_on_conversation_id"
-    t.index ["user_id"], name: "index_messages_on_user_id"
+    t.index ["conversation_id"], name: "index_messages_on_conversation_id", using: :btree
+    t.index ["user_id"], name: "index_messages_on_user_id", using: :btree
   end
 
   create_table "photos", force: :cascade do |t|
@@ -56,7 +59,6 @@ ActiveRecord::Schema.define(version: 20161103215126) do
     t.decimal  "price"
     t.datetime "start_time"
     t.datetime "end_time"
-    t.string   "claimed_by"
     t.string   "city"
     t.string   "state"
     t.string   "country"
@@ -95,8 +97,8 @@ ActiveRecord::Schema.define(version: 20161103215126) do
     t.string   "rname"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["post_id"], name: "index_reservations_on_post_id"
-    t.index ["user_id"], name: "index_reservations_on_user_id"
+    t.index ["post_id"], name: "index_reservations_on_post_id", using: :btree
+    t.index ["user_id"], name: "index_reservations_on_user_id", using: :btree
   end
 
   create_table "route_requests", force: :cascade do |t|
@@ -126,9 +128,11 @@ ActiveRecord::Schema.define(version: 20161103215126) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
-    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "messages", "conversations"
+  add_foreign_key "messages", "users"
 end

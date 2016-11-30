@@ -1,5 +1,7 @@
 class MainController < ApplicationController
   def home
+    # Get the most recent posts
+    @recent_posts = Post.GetRecent
   end
 
   def help
