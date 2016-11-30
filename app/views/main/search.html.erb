@@ -34,9 +34,18 @@
   <br>
 
   <div class="form-group">
-    <label for="location">Location</label> <%= check_box_tag 'search_location', true %>
-    <input type="text" name="location_start" class="form-control" id="location" placeholder="Location">
-    <input type="text" name="max_distance" class="form-control" id="location" placeholder="Max Distance Away">
+    <label for="location">Amongst Cities</label> <%= check_box_tag 'search_location_across', true, false, class: :location_check %>
+    <input type="text" name="city_a" class="form-control" id="city_location" placeholder="City">
+    <input type="text" name="state_a" class="form-control" id="state_location" placeholder="State">
+    <input type="text" name="max_distance_a" class="form-control" id="location" placeholder="Max distance away from this city (miles)">
+  </div>
+
+  <div class="form-group">
+    <label for="location">Within City</label> <%= check_box_tag 'search_location_within', true, false, class: :location_check %>
+    <input type="text" name="street" class="form-control" id="street_location" placeholder="Street Address">
+    <input type="text" name="city" class="form-control" id="city_location" placeholder="City">
+    <input type="text" name="state" class="form-control" id="state_location" placeholder="State">
+    <input type="text" name="max_distance" class="form-control" id="location" placeholder="Max distance away from location (miles)">
   </div>
 
   <br>

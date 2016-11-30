@@ -4,7 +4,6 @@ class RatingsController < ApplicationController
   end
 
   def new
-    puts "hello there"
     post_args = params[:rating]
     @rating = current_user.ratings_of.build()
     @rating.rated_id = post_args[:rated_id].to_i

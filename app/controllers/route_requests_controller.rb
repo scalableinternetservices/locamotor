@@ -15,7 +15,7 @@ class RouteRequestsController < ApplicationController
     else
       @ratio = 1
     end
-   @finalLocation = Location.new
+   @finalLocation = FullLocation.new
    @finalLocation.latitude = (endLocation.latitude - startLocation.latitude) * @ratio + startLocation.latitude
    @finalLocation.longitude = (endLocation.longitude - startLocation.longitude) * @ratio + startLocation.longitude
    return @finalLocation
@@ -24,7 +24,7 @@ class RouteRequestsController < ApplicationController
   def getNearbyPosts(startLocation, ignoredPosts)
     @nearbyPosts = Array.new
     @allPosts.each do |post|
-      if (Location.find(post.start_location_id).distance_to(startLocation) < post.max_radius) && !post.in?(ignoredPosts)
+      if (FullLocation.find(post.start_location_id).distance_to(startLocation) < post.max_radius) && !post.in?(ignoredPosts)
         @nearbyPosts << post
       end
     end
@@ -39,7 +39,7 @@ class RouteRequestsController < ApplicationController
     getNearbyPosts(startLocation, singleRoute).each do |post|
       @newSingleRoute = singleRoute.dup
       @newSingleRoute << post
-      appendRoute(@newSingleRoute, newLocation(startLocation, endLocation, post.max_radius - Location.find(post.start_location_id).distance_to(startLocation)), endLocation)
+      appendRoute(@newSingleRoute, newLocation(startLocation, endLocation, post.max_radius - FullLocation.find(post.start_location_id).distance_to(startLocation)), endLocation)
     end
   end
   
@@ -56,8 +56,8 @@ class RouteRequestsController < ApplicationController
 
   	@route_request = current_user.route_requests.build()
   	@route_request.start_time = DateTime.parse(routes_args[:start_time])
-  	@start_location = Location.new(address: routes_args[:start_location])
-  	@end_location = Location.new(address: routes_args[:end_location])
+  	@start_location = FullLocation.new(address: routes_args[:start_location])
+  	@end_location = FullLocation.new(address: routes_args[:end_location])
 
     @start_location.save
     @end_location.save

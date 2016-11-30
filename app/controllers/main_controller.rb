@@ -20,7 +20,8 @@ class MainController < ApplicationController
     @end_time = params[:end_time]
     @search_price = params[:search_price]
     @max_price = params[:max_price]
-    @search_location = params[:search_location]
+    @search_location_across = params[:search_location_across]
+    @search_location_within = params[:search_location_within]
 
     model_query = Post
     if !@vehicle_types.nil?
@@ -38,22 +39,66 @@ class MainController < ApplicationController
       model_query = model_query.where("price <= ?", @max_price)
     end
     
-    @posts = model_query.paginate(page: params[:page], per_page: 1)
+    @posts = model_query.paginate(page: params[:page], per_page: 10)
 
-    # search based on id
-    if !@search_location.nil?
-      # Get all the locations within the correct distance of the start location
-      valid_location = Location.near("Irvine, CA", 100, order: 'distance')
+    # Search locations within a city
+    if !@search_location_within.nil?
+      # Get distance
+      distance = params[:max_distance].to_i
 
-      # So this puts lets the next statement work for some reason...
-      puts valid_location
+      # Get addresses
+      full_address = FullLocation.GetFullAddress(params[:street], params[:city], params[:state])
+      general_location = GeneralLocation.GetGeneralAddress(params[:city], params[:state])
 
-      # Get the ids of all the valid locations
-      valid_ids = valid_location.ids
+      # Get all the general location
+      general_location_records = GeneralLocation.where(address: general_location)#GeneralLocation.where(address: general_location)
 
-      # Get the posts where the start_location_id is valid
-      @posts = model_query.where(start_location_id: valid_ids).paginate(page: params[:page], per_page: 10)
+      # Check if there are any general locations near the search address
+      if general_location_records.size > 0
+        # Get all full addresses from the found general location
+        valid_locations = Array.new()
+        general_location_records.each do |glr|
+          glr.get_full_locations_near(full_address, distance, valid_locations)
+        end
+
+        # Get the posts where the start_location_id is valid
+        @posts = model_query.where(start_location_id: valid_locations).paginate(page: params[:page], per_page: 10)
+      else
+        # There is no recorded general location for this full address, so there is no post that can fulfill this query
+        @posts = nil
+      end
     end
+
+    # Search location across cities
+    if !@search_location_across.nil?
+      puts "Doing across"
+      # Get distance
+      distance = params[:max_distance_a].to_i
+
+      # Get addresses
+      general_location = GeneralLocation.GetGeneralAddress(params[:city_a], params[:state_a])
+      puts "general location is #{general_location}"
+      # Get all general locations near this address
+      general_location_records = GeneralLocation.near(general_location, distance)#GeneralLocation.where(address: general_location)
+
+      # Check if there are any general locations near the search address
+      if general_location_records.size > 0
+        puts "looking over general"
+        # Get all full addresses from the found general locations
+        valid_locations = Array.new()
+        general_location_records.each do |glr|
+          valid_locations.concat(glr.full_locations.ids)
+        end
+
+        # Get the posts where the start_location_id is valid
+        @posts = model_query.where(start_location_id: valid_locations).paginate(page: params[:page], per_page: 10)
+      else
+        # There is no recorded general location for this full address, so there is no post that can fulfill this query
+        puts "There ain't nothing here"
+        @posts = nil
+      end
+    end
+
 
     if @posts.size > 0
       num_range = @posts.count

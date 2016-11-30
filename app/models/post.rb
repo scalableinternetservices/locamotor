@@ -1,7 +1,7 @@
 class Post < ApplicationRecord
   belongs_to :creator, :class_name => "User"
   # belongs_to :claimer, :class_name => "User"
-  belongs_to :start_location, :class_name => "Location"
+  belongs_to :start_location, :class_name => "FullLocation"
 
   has_many :photos
 

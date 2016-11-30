@@ -24,22 +24,38 @@ class PostsController < ApplicationController
     @post.max_radius = post_args[:max_radius]
 
     @post.auto_book = params[:auto_book]
-    full_address = post_args[:street] + " " + post_args[:city] + ", " + post_args[:state]
-    @location = Location.new(address: full_address)
-    @location.save
 
-    general_address = post_args[:city] + ", " + post_args[:state]
-    general_location_array = Location.where(address: "#{general_address}")
+    # Get general location as a string
+    general_address = GeneralLocation.GetGeneralAddress(post_args[:city], post_args[:state])
+    puts general_address
 
+    # See if this general location already exists
+    general_location_array = GeneralLocation.where(address: "#{general_address}")
     if general_location_array.size > 0
+      puts "This general location exists"
       @general_location = general_location_array[0]
     else
-      @general_location = Location.new(address: general_address)
+      puts "Creating this general location"
+      @general_location = GeneralLocation.new(address: general_address)
       @general_location.save
     end
 
+    full_address = FullLocation.GetFullAddress(post_args[:street], post_args[:city], post_args[:state])
+    puts full_address
+    @location = FullLocation.new(address: full_address)
+    @location.general_location_id = @general_location.id
+
+    if @location.valid?
+      puts "location was valid"
+      @location.save
+    else
+      puts "Location was not valid"
+      @location.errors.full_messages.to_sentence
+      puts "why not valid"
+    end
+
     @post.start_location_id = @location.id 
-    @post.general_location_id = @general_location.id
+    # @post.general_location_id = @general_location.id
 
     # For Rent or Renting Out
     @post.post_type = post_args[:post_type] == "Renting out" ? "FR" : "RR"
