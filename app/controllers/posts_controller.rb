@@ -26,20 +26,16 @@ class PostsController < ApplicationController
     @post.auto_book = params[:auto_book]
     full_address = post_args[:street] + " " + post_args[:city] + ", " + post_args[:state]
     @location = Location.new(address: full_address)
-
     @location.save
-
-    @location = Location.new(address: full_address)
 
     general_address = post_args[:city] + ", " + post_args[:state]
     general_location_array = Location.where(address: "#{general_address}")
 
     if general_location_array.size > 0
       @general_location = general_location_array[0]
-      puts "found general location"
     else
       @general_location = Location.new(address: general_address)
-      puts "did not find general location"
+      @general_location.save
     end
 
     @post.start_location_id = @location.id 
@@ -60,6 +56,9 @@ class PostsController < ApplicationController
       end
       
       @photos = @post.photos
+    else
+      puts "that thing wasn't valid"
+      puts @post.errors.full_messages.to_sentence
     end
 
     response.headers["PostID"] = @post.id

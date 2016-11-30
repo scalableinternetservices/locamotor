@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161103215126) do
+ActiveRecord::Schema.define(version: 20161129104508) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(version: 20161103215126) do
     t.string   "auto_book"
     t.decimal  "max_radius"
     t.integer  "start_location_id"
+    t.integer  "general_location_id"
   end
 
   create_table "ratings", force: :cascade do |t|
