@@ -30,12 +30,7 @@
 
   <sessions>
     <session name="http-example" probability="100" type="ts_http">
-      <!-- Create random integer -->
-      <setdynvars sourcetype="random_number" start="1" end="100">
-        <var name="rndint" />
-      </setdynvars>
 
-      <!-- Sign in -->
       <request>
         <dyn_variable name="authenticity_token"></dyn_variable>
         <http url='/users/sign_in' version='1.1' method='GET'></http>
@@ -50,8 +45,36 @@
         <var name="authenticity_token" />
       </setdynvars>
 
+      <setdynvars sourcetype="random_number" start="1" end="100">
+        <var name="rndint" />
+      </setdynvars>
+
+      <setdynvars sourcetype="random_string" length="13">
+        <var name="rndname" />
+      </setdynvars>
+
       <request subst="true">
         <http url='/users/sign_in' method='POST' version='1.1' contents="authenticity_token=%%_authenticity_token%%&amp;user[email]=user%%_rndint%%%40gmail.com&amp;user[password]=1234567&amp;user[remember_me]=0" content_type="application/x-www-form-urlencoded"> </http>
+      </request>
+
+
+
+      <request>
+        <dyn_variable name="authenticity_token"></dyn_variable>
+        <http url='/posts/new' version='1.1' method='GET'></http>
+      </request>
+
+      <thinktime value="3" random="true"></thinktime>
+
+      <setdynvars sourcetype="eval"
+                  code='fun({Pid,DynVars})->
+                        {ok,Val}=ts_dynvars:lookup(authenticity_token,DynVars),
+                        re:replace(Val,"[+]","%2B",[global, {return,list}]) end.'>
+        <var name="authenticity_token" />
+      </setdynvars>
+
+      <request subst="true">
+        <http url='/posts' method='POST' version='1.1' contents="authenticity_token=%%_authenticity_token%%&amp;post[email]=user%%_rndint%%%40gmail.com&amp;post[post_type]=Renting%20out&amp;post[vehicle]=Boat&amp;post[start_time]=2016-01-01T12%3A00%3A00&amp;post[end_time]=2016-06-06T18%3A06&amp;post[dollar_amount]=5&amp;post[location]=Goleta%2C%20CA&amp;post[description]=tsung%20here%20%%_rndname%%&amp;post[auto_book]=confirmation&amp;post[max_radius]=100" content_type="application/x-www-form-urlencoded"> </http>
       </request>
     </session>
   </sessions>

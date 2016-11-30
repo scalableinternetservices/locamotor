@@ -13,6 +13,8 @@ class ConversationsController < ApplicationController
      else
       @conversation = Conversation.create!(conversation_params)
      end
+
+    response.headers["ConversationID"] = @conversation.id
     redirect_to conversation_messages_path(@conversation.id, num_messages_to_show: params[:num_messages_to_show])
   end
 

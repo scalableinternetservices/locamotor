@@ -30,7 +30,7 @@ class Post < ApplicationRecord
   # Get the 10 most recent posts every 10 seconds, cache results
   def self.GetRecent
     Rails.cache.fetch("most_recent", expires_in: 10.seconds) do
-      Post.last(10)
+      Post.last(100)
     end
   end
 end

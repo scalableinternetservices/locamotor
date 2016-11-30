@@ -11,8 +11,10 @@
   <%= link_to "View Requests", '/route_requests/index', class: "btn btn-lg btn-primary" %>
 </div>
 
+<%= will_paginate @posts %>
 <% @recent_posts.reverse_each do |post| %>
   <% cache(post, expires_in: 30.seconds) do %>
     <%= render partial: "shared/post_display", locals: {post: post} %>
   <% end %>
 <% end %>
+<%= will_paginate @posts %>

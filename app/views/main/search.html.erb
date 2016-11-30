@@ -1,4 +1,5 @@
 <h1>Search Posts</h1>
+<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>"/>
 <%= form_tag("/search/results", method: "get", :url => {:action => "results"}) do %>
   <%= label_tag("Vehicle Type:") %>
   <%= check_box_tag 'vehicle_type[]', 'Car' %>

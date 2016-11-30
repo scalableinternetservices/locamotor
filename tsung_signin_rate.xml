@@ -30,9 +30,17 @@
 
   <sessions>
     <session name="http-example" probability="100" type="ts_http">
-      <!-- Create random integer -->
+      <!-- Create random elements -->
       <setdynvars sourcetype="random_number" start="1" end="100">
         <var name="rndint" />
+      </setdynvars>
+
+      <setdynvars sourcetype="random_number" start="1" end="100">
+        <var name="rndint2" />
+      </setdynvars>
+
+      <setdynvars sourcetype="random_string" length="13">
+        <var name="rndname" />
       </setdynvars>
 
       <!-- Sign in -->
@@ -52,6 +60,26 @@
 
       <request subst="true">
         <http url='/users/sign_in' method='POST' version='1.1' contents="authenticity_token=%%_authenticity_token%%&amp;user[email]=user%%_rndint%%%40gmail.com&amp;user[password]=1234567&amp;user[remember_me]=0" content_type="application/x-www-form-urlencoded"> </http>
+      </request>
+
+
+      <!-- Rate user -->
+      <request>
+        <dyn_variable name="authenticity_token"></dyn_variable>
+        <http url='/users/1' version='1.1' method='GET'></http>
+      </request>
+
+      <thinktime value="3" random="true"></thinktime>
+
+      <setdynvars sourcetype="eval"
+                  code='fun({Pid,DynVars})->
+                        {ok,Val}=ts_dynvars:lookup(authenticity_token,DynVars),
+                        re:replace(Val,"[+]","%2B",[global, {return,list}]) end.'>
+        <var name="authenticity_token" />
+      </setdynvars>
+
+      <request subst="true">
+        <http url='/ratings' method='POST' version='1.1' contents="authenticity_token=%%_authenticity_token%%&amp;rating[given_rating]=5&amp;rating[rater_id]=%%_rndint%%&amp;rating[rated_id]=1" content_type="application/x-www-form-urlencoded"> </http>
       </request>
     </session>
   </sessions>

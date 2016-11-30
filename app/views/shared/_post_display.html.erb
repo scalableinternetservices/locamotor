@@ -21,29 +21,31 @@
     <%= render 'photos/list' %>
   </div>
 
-  <% if post.start_location %>
-    <label>Starting Location:</label> <button id=<%= "map#{post.id}" %> class="map-link"> <%= post.start_location.address %> </button> <br>
-    <% lat_long = "#{post.start_location.latitude},#{post.start_location.longitude}&zoom=13" %>
-    <% map_link = "https://www.google.com/maps/embed/v1/place?key=AIzaSyACRTQrluJMiM7ILeSMxjaqxsJ45LeJscE&q=" + lat_long %>
-    <iframe width="300" height="300" frameborder="0" style="border:0" class="something" id=<%= "map#{post.id}map" %>
-      src=<%= map_link %>
-      allowfullscreen>
-    </iframe>
-  <% end %>
-  <% if current_user %>
-    <%= link_to "Send Message", conversations_path(sender_id: current_user.id, recipient_id: post.creator_id, num_messages_to_show: 10), method: 'post', class: "btn btn-xs btn-primary" %> <br> <br>
-  <% end %>
-  <h4>Confirmed Reservations for this Vehicle:</h4>
-  <% Reservation.where(post_id: post.id, confirmed: true, approved: true).find_each do |reservation| %>
-    <label>Name:</label> <%= reservation.rname %> <br>
-    <label>Reservation Start Time:</label> <%= reservation.start_time %> <br>
-    <label>Reservation End Time:</label> <%= reservation.end_time %> <br>
-  <% end %>
-  <h4>Denied Reservations for this Vehicle:</h4>
-  <% Reservation.where(post_id: post.id, confirmed: true, approved: false).find_each do |reservation| %>
-    <label>Name:</label> <%= reservation.rname %> <br>
-    <label>Reservation Start Time:</label> <%= reservation.start_time %> <br>
-    <label>Reservation End Time:</label> <%= reservation.end_time %> <br>
+<% if post.start_location %>
+  <label>Starting Location:</label> <button id=<%= "map#{post.id}" %> class="map-link"> <%= post.start_location.address %> </button> <br>
+  <% lat_long = "#{post.start_location.latitude},#{post.start_location.longitude}&zoom=13" %>
+  <% map_link = "https://www.google.com/maps/embed/v1/place?key=AIzaSyACRTQrluJMiM7ILeSMxjaqxsJ45LeJscE&q=" + lat_long %>
+  <iframe width="300" height="300" frameborder="0" style="border:0" class="something" id=<%= "map#{post.id}map" %>
+    src=<%= map_link %>
+    allowfullscreen>
+  </iframe>
+<% end %>
+<% if current_user %>
+  <%= link_to "Send Message", conversations_path(sender_id: current_user.id, recipient_id: post.creator_id, num_messages_to_show: 10), method: 'post', class: "btn btn-xs btn-primary" %> <br> <br>
+<% end %>
+<h4>Confirmed Reservations for this Vehicle:</h4>
+<% Reservation.where(post_id: post.id, confirmed: true, approved: true).find_each do |reservation| %>
+  <label>Name:</label> <%= link_to "#{reservation.rname}", "/users/#{reservation.user_id}" %> <br>
+  <label>Reservation Start Time:</label> <%= reservation.start_time %> <br>
+  <label>Reservation End Time:</label> <%= reservation.end_time %> <br>
+<% end %>
+<h4>Denied Reservations for this Vehicle:</h4>
+<% Reservation.where(post_id: post.id, confirmed: true, approved: false).find_each do |reservation| %>
+  <label>Name:</label> <%= reservation.rname %> <br>
+  <label>Reservation Start Time:</label> <%= reservation.start_time %> <br>
+  <label>Reservation End Time:</label> <%= reservation.end_time %> <br>
+<% end %>
+
   <% if post.auto_book == "auto_book" %>
     <%= link_to "Book Now", '/posts/' + post.id.to_s, class: "btn btn-xs btn-primary" %>
     <br>

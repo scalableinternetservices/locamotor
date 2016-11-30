@@ -48,6 +48,7 @@ class PostsController < ApplicationController
       @photos = @post.photos
     end
 
+    response.headers["PostID"] = @post.id
     redirect_to "/main/home"
   end
 
