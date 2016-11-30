@@ -13,6 +13,7 @@ gem 'bootstrap-sass', '3.3.6'
 #Memcached
 gem 'dalli'
 gem 'connection_pool'
+gem 'dalli-elasticache'
 
 # Adding photos to posts
 gem 'paperclip', '5.1.0'

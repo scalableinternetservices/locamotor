@@ -50,7 +50,9 @@ Rails.application.configure do
   config.log_tags = [ :request_id ]
 
   # Use a different cache store in production.
-  config.cache_store = :dalli_store, nil, { :namespace => :Locamotor, :expires_in => 1.day, :compress => true }
+  endpoint    = "locamotor-memcache.dgkfha.cfg.usw2.cache.amazonaws.com:11211"
+  elasticache = Dalli::ElastiCache.new(endpoint)
+  config.cache_store = :dalli_store, elasticache.servers, { :namespace => :Locamotor, :expires_in => 1.day, :compress => true }
 
   # Use a real queuing backend for Active Job (and separate queues per environment)
   # config.active_job.queue_adapter     = :resque
