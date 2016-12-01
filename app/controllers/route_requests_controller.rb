@@ -66,8 +66,24 @@ class RouteRequestsController < ApplicationController
   def create
     routes_args = params[:routes]
 
-    # Get general
+    @route_request = current_user.route_requests.build()
+    @route_request.start_time = DateTime.parse(routes_args[:start_time])
+
     general_start_location = GeneralLocation.GetGeneralAddress(routes_args[:start_city], routes_args[:start_state])
+
+    # Get general location
+    general_location_array = GeneralLocation.where(address: "#{general_start_location}")
+
+    if general_location_array.size > 0
+      puts "This general location exists, it is #{general_start_location  }"
+      general_location = general_location_array[0]
+    else
+      # There is no route
+      # TODO: send message to user saying we can not find a route
+      puts "Creating this general location"
+      general_location = GeneralLocation.new(address: general_address)
+      general_location.save
+    end
 
     # Get the starting and ending full locations
     start_location = FullLocation.GetFullAddress(routes_args[:start_street], routes_args[:start_city], routes_args[:start_state])
@@ -76,11 +92,31 @@ class RouteRequestsController < ApplicationController
     # Get distances
     start_distance_away = routes_args[:start_max_distance].to_i
     allowed_end_distance_away = routes_args[:end_max_distance].to_i
-    start_time = routes_args[:start_time]
 
-    ProcessRouteRequestJob.perform_later(general_start_location, start_location, end_location, start_distance_away, allowed_end_distance_away, current_user.id, start_time)
+    # Get all full locations within this general location.
+    # We will only look for posts within 1 mile of the user
+    valid_starting_locations = Array.new()
+    general_location.get_full_locations_near_as_location(start_location, start_distance_away, valid_starting_locations)
 
-    redirect_to "/main/home"
+    if valid_starting_locations.size < 1
+      # There is no route, do something
+      puts "There is no valid starting locations here"
+    end
+
+    # Go through each valid starting full location
+    valid_starting_locations.each do |sl|
+      puts "Looking at #{sl.address}"
+      # Go through each valid post of this starting location
+      sl.posts.each do |current_start_post|
+        current_route = Array.new
+        location_list = Array.new
+        current_route.push(current_start_post)
+        location_list.push(sl)
+        findRoute(current_route, location_list, end_location, allowed_end_distance_away, general_location)
+      end
+    end
+
+    @completedRoutes = @completedRoutes.sort_by{|route| netCost(route)}
   end
 
   def build_route
