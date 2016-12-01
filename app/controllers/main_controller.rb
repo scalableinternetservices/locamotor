@@ -45,7 +45,7 @@ class MainController < ApplicationController
     if !@search_price.nil?
       model_query = model_query.where("price <= ?", @max_price)
     end
-    @posts = model_query.paginate(page: params[:page], per_page: 10)
+    #@posts = model_query.paginate(page: params[:page], per_page: 10)
 
     # Search locations within a city
     if !@search_location_within.nil?
