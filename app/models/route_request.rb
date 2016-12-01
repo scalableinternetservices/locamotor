@@ -58,7 +58,7 @@ class RouteRequest < ApplicationRecord
     general_location_array = GeneralLocation.where(address: "#{general_start_location}")
 
     if general_location_array.size > 0
-      puts "This general location exists, it is #{general_start_location  }"
+      puts "This general location exists, it is #{general_start_location}"
       general_location = general_location_array[0]
     else
       # There is no route

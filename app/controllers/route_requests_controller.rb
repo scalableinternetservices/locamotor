@@ -67,6 +67,7 @@ class RouteRequestsController < ApplicationController
   end
   
   def create
+    puts "we in here doing route request create"
     routes_args = params[:routes]
 
     @route_request = current_user.route_requests.build()
@@ -78,7 +79,7 @@ class RouteRequestsController < ApplicationController
     general_location_array = GeneralLocation.where(address: "#{general_start_location}")
 
     if general_location_array.size > 0
-      puts "This general location exists, it is #{general_start_location  }"
+      puts "This general location exists, it is #{general_start_location}"
       general_location = general_location_array[0]
     else
       # There is no route
