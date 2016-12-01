@@ -1,6 +1,6 @@
 class MainController < ApplicationController
   def home
-    @posts = Post.paginate(page: params[:page], per_page: 10)
+    @posts = Post.all#.paginate(page: params[:page], per_page: 10)
   end
 
   def help
@@ -38,7 +38,7 @@ class MainController < ApplicationController
       model_query = model_query.where("price <= ?", @max_price)
     end
     
-    @posts = model_query.paginate(page: params[:page], per_page: 25)
+    @posts = model_query#.paginate(page: params[:page], per_page: 25)
 
     # search based on id
     if !@search_location.nil?
@@ -52,7 +52,7 @@ class MainController < ApplicationController
       valid_ids = valid_location.ids
 
       # Get the posts where the start_location_id is valid
-      @posts = model_query.where(start_location_id: valid_ids).paginate(page: params[:page], per_page: 10)
+      @posts = model_query.where(start_location_id: valid_ids)#.paginate(page: params[:page], per_page: 10)
     end
 
     if @posts.size > 0
