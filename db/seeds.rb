@@ -7,34 +7,34 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 general_address = GeneralLocation.GetGeneralAddress("Los Angeles", "CA")
-GeneralLocation.create(address: general_address)
+loc = GeneralLocation.create(address: general_address)
 full_address = FullLocation.GetFullAddress("200 N Spring St", "Los Angeles", "CA")
-FullLocation.create(address: full_address, :general_location_id general_address.id)
+FullLocation.create(address: full_address, general_location_id: loc.id)
 
 general_address = GeneralLocation.GetGeneralAddress("Santa Barbara", "CA")
-GeneralLocation.create(address: general_address)
+loc = GeneralLocation.create(address: general_address)
 full_address = FullLocation.GetFullAddress("928 State St", "Santa Barbara", "CA")
-FullLocation.create(address: full_address, :general_location_id general_address.id)
+FullLocation.create(address: full_address, general_location_id: loc.id)
 
 general_address = GeneralLocation.GetGeneralAddress("San Diego", "CA")
-GeneralLocation.create(address: general_address)
+loc = GeneralLocation.create(address: general_address)
 full_address = FullLocation.GetFullAddress("326 Broadway", "San Diego", "CA")
-FullLocation.create(address: full_address, :general_location_id general_address.id)
+FullLocation.create(address: full_address, general_location_id: loc.id)
 
 general_address = GeneralLocation.GetGeneralAddress("Irvine", "CA")
-GeneralLocation.create(address: general_address)
+loc = GeneralLocation.create(address: general_address)
 full_address = FullLocation.GetFullAddress("2 Meadowbrook", "Irvine", "CA")
-FullLocation.create(address: full_address, :general_location_id general_address.id)
+FullLocation.create(address: full_address, general_location_id: loc.id)
 
 general_address = GeneralLocation.GetGeneralAddress("Ventura", "CA")
-GeneralLocation.create(address: general_address)
+loc = GeneralLocation.create(address: general_address)
 full_address = FullLocation.GetFullAddress("4667 Telegraph Rd", "Ventura", "CA")
-FullLocation.create(address: full_address, :general_location_id general_address.id)
+FullLocation.create(address: full_address, general_location_id: loc.id)
 
 general_address = GeneralLocation.GetGeneralAddress("Pasadena", "CA")
-GeneralLocation.create(address: general_address)
+loc = GeneralLocation.create(address: general_address)
 full_address = FullLocation.GetFullAddress("100 Garfield Ave", "Pasadena", "CA")
-FullLocation.create(address: full_address, :general_location_id general_address.id)
+FullLocation.create(address: full_address, general_location_id: loc.id)
 
 100.times do |count|
   User.create(email: "user#{count+1}@gmail.com", password: "1234567", password_confirmation: "1234567")
