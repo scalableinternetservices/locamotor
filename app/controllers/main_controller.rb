@@ -1,7 +1,7 @@
 class MainController < ApplicationController
   def home
     # Get the most recent posts
-    @recent_posts = Post.GetRecent.paginate(page: params[:page], per_page: 10)
+    @recent_posts = Post.GetRecent.reverse.paginate(page: params[:page], per_page: 1)
   end
 
   def help
