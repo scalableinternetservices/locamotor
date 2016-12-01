@@ -41,13 +41,6 @@ FullLocation.create(address: full_address, general_location_id: loc.id)
 end
 
 inserts = []
-10.times do
-  inserts.push "('user1@gmail.com', 'Truck', '2016-11-17 17:00:00', '2016-11-17 17:00:00', 'skeddit', 1, '2016-01-02 01:00:00', '2016-06-05 01:00:00', 'FR', 1, 'auto_book_true', 100, 1, 1)"
-end
-sql = "INSERT INTO posts (email, vehicle, created_at, updated_at, description, price, start_time, end_time, post_type, creator_id, auto_book, max_radius, start_location_id, general_location_id) VALUES #{inserts.join(", ")}"
-ActiveRecord::Base.connection.insert_sql(sql)
-
-inserts = []
 100.times do
   inserts.push "('user1@gmail.com', 'Truck', '2016-11-17 17:00:00', '2016-11-17 17:00:00', 'skeddit', 1, '2016-01-02 01:00:00', '2016-06-05 01:00:00', 'FR', 1, 'auto_book_true', 100, 1, 1)"
 end
@@ -55,42 +48,49 @@ sql = "INSERT INTO posts (email, vehicle, created_at, updated_at, description, p
 ActiveRecord::Base.connection.insert_sql(sql)
 
 inserts = []
-200.times do
+1000.times do
+  inserts.push "('user1@gmail.com', 'Truck', '2016-11-17 17:00:00', '2016-11-17 17:00:00', 'skeddit', 1, '2016-01-02 01:00:00', '2016-06-05 01:00:00', 'FR', 1, 'auto_book_true', 100, 1, 1)"
+end
+sql = "INSERT INTO posts (email, vehicle, created_at, updated_at, description, price, start_time, end_time, post_type, creator_id, auto_book, max_radius, start_location_id, general_location_id) VALUES #{inserts.join(", ")}"
+ActiveRecord::Base.connection.insert_sql(sql)
+
+inserts = []
+2000.times do
   inserts.push "('user1@gmail.com', 'Truck', '2016-11-17 17:00:00', '2016-11-17 17:00:00', 'skeddit', 1, '2016-01-02 01:00:00', '2016-06-05 01:00:00', 'FR', 1, 'auto_book_true', 100, 2, 2)"
 end
 sql = "INSERT INTO posts (email, vehicle, created_at, updated_at, description, price, start_time, end_time, post_type, creator_id, auto_book, max_radius, start_location_id, general_location_id) VALUES #{inserts.join(", ")}"
 ActiveRecord::Base.connection.insert_sql(sql)
 
 inserts = []
-300.times do
+3000.times do
   inserts.push "('user1@gmail.com', 'Truck', '2016-11-17 17:00:00', '2016-11-17 17:00:00', 'skeddit', 1, '2016-01-02 01:00:00', '2016-06-05 01:00:00', 'FR', 1, 'auto_book_true', 100, 3, 3)"
 end
 sql = "INSERT INTO posts (email, vehicle, created_at, updated_at, description, price, start_time, end_time, post_type, creator_id, auto_book, max_radius, start_location_id, general_location_id) VALUES #{inserts.join(", ")}"
 ActiveRecord::Base.connection.insert_sql(sql)
 
 inserts = []
-400.times do
+4000.times do
   inserts.push "('user1@gmail.com', 'Truck', '2016-11-17 17:00:00', '2016-11-17 17:00:00', 'skeddit', 1, '2016-01-02 01:00:00', '2016-06-05 01:00:00', 'FR', 1, 'auto_book_true', 100, 4, 4)"
 end
 sql = "INSERT INTO posts (email, vehicle, created_at, updated_at, description, price, start_time, end_time, post_type, creator_id, auto_book, max_radius, start_location_id, general_location_id) VALUES #{inserts.join(", ")}"
 ActiveRecord::Base.connection.insert_sql(sql)
 
 inserts = []
-500.times do
+5000.times do
   inserts.push "('user1@gmail.com', 'Truck', '2016-11-17 17:00:00', '2016-11-17 17:00:00', 'skeddit', 1, '2016-01-02 01:00:00', '2016-06-05 01:00:00', 'FR', 1, 'auto_book_true', 100, 5, 5)"
 end
 sql = "INSERT INTO posts (email, vehicle, created_at, updated_at, description, price, start_time, end_time, post_type, creator_id, auto_book, max_radius, start_location_id, general_location_id) VALUES #{inserts.join(", ")}"
 ActiveRecord::Base.connection.insert_sql(sql)
 
 inserts = []
-600.times do
+6000.times do
   inserts.push "('user1@gmail.com', 'Truck', '2016-11-17 17:00:00', '2016-11-17 17:00:00', 'skeddit', 1, '2016-01-02 01:00:00', '2016-06-05 01:00:00', 'FR', 1, 'auto_book_true', 100, 6, 6)"
 end
 sql = "INSERT INTO posts (email, vehicle, created_at, updated_at, description, price, start_time, end_time, post_type, creator_id, auto_book, max_radius, start_location_id, general_location_id) VALUES #{inserts.join(", ")}"
 ActiveRecord::Base.connection.insert_sql(sql)
 
 inserts = []
-10000.times do
+100000.times do
   inserts.push "('user1@gmail.com', 'Truck', '2016-11-17 17:00:00', '2016-11-17 17:00:00', 'skeddit', 1, '2016-01-02 01:00:00', '2016-06-05 01:00:00', 'FR', 1, 'auto_book_true', 100, 1, 1)"
 end
 sql = "INSERT INTO posts (email, vehicle, created_at, updated_at, description, price, start_time, end_time, post_type, creator_id, auto_book, max_radius, start_location_id, general_location_id) VALUES #{inserts.join(", ")}"
