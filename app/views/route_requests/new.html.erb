@@ -1,14 +1,23 @@
 <h1>New Route Request</h1>
+<p> Let us help you find a route! </p>
+<p> <span class="label label-danger">Limitations:</span> Only works for routes of 20 miles or less. May take some time to complete, so we will message you when we are done! </p>
+
 <%= form_for @route_request, :url => {:controller => "route_requests", :action => "create"} do |f| %>
   <label for="post_start_time">Select Pickup Time (UTC) </label>
   <input class="form-control" name="routes[start_time]" type="datetime-local" value="2016-01-01T12:00:00" id="post_start_time">
   <div class="form-group">
     <label for="start_location">Start Location</label>
-    <input type="text" name="routes[start_location]" class="form-control" id="start_location" placeholder="Location">
+    <input type="text" name="routes[start_street]" class="form-control" id="street_location" placeholder="Street Address">
+    <input type="text" name="routes[start_city]" class="form-control" id="city_location" placeholder="City">
+    <input type="text" name="routes[start_state]" class="form-control" id="state_location" placeholder="State">
+    <input type="text" name="routes[start_max_distance]" class="form-control" id="location" placeholder="Max distance route can start from starting location (in miles, decimal okay)">
   </div>
   <div class="form-group">
     <label for="end_location">End Location</label>
-    <input type="text" name="routes[end_location]" class="form-control" id="end_location" placeholder="Location">
+    <input type="text" name="routes[end_street]" class="form-control" id="street_location" placeholder="Street Address">
+    <input type="text" name="routes[end_city]" class="form-control" id="city_location" placeholder="City">
+    <input type="text" name="routes[end_state]" class="form-control" id="state_location" placeholder="State">
+    <input type="text" name="routes[end_max_distance]" class="form-control" id="location" placeholder="Max distance route can end from ending location (in miles, decimal okay)">
   </div>
   <%= f.submit "Find Route", class: "btn btn-md btn-primary" %>
 <% end %>

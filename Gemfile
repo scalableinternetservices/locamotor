@@ -7,6 +7,9 @@ gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 # Pagination
 gem 'will_paginate', '~> 3.1.0'
 
+# Background something
+gem 'sucker_punch'
+
 # Geocoder for location
 gem 'geocoder', '1.4.0'
 
