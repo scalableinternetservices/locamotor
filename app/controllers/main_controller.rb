@@ -116,6 +116,7 @@ class MainController < ApplicationController
 
     if @posts.size > 0
       num_range = @posts.count
+      puts "Post count" + num_range.to_s
       rand_choice = rand(num_range)
       i = 0
       @posts.each do |ps|
@@ -125,6 +126,8 @@ class MainController < ApplicationController
         end
         i = i + 1
       end
+    else
+      puts "No Posts"
     end
   end
 end
