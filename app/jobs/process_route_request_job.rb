@@ -1,4 +1,4 @@
-class ProcessRouteRequestJob < ActiveJob::Base
+class ProcessRouteRequestJob < ApplicationJob
   queue_as :default
 
   def perform(general_start_location, start_location, end_location, start_distance_away, allowed_end_distance_away, requester_user_id, start_time)
