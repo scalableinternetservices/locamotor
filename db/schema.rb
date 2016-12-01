@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161201034705) do
+ActiveRecord::Schema.define(version: 20161201113451) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,8 @@ ActiveRecord::Schema.define(version: 20161201034705) do
     t.integer  "recipient_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.index ["recipient_id"], name: "index_conversations_on_recipient_id", using: :btree
+    t.index ["sender_id"], name: "index_conversations_on_sender_id", using: :btree
   end
 
   create_table "full_locations", force: :cascade do |t|
@@ -29,6 +31,8 @@ ActiveRecord::Schema.define(version: 20161201034705) do
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
     t.integer  "general_location_id"
+    t.index ["address"], name: "index_full_locations_on_address", using: :btree
+    t.index ["general_location_id"], name: "index_full_locations_on_general_location_id", using: :btree
   end
 
   create_table "general_locations", force: :cascade do |t|
@@ -37,6 +41,7 @@ ActiveRecord::Schema.define(version: 20161201034705) do
     t.string   "address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["address"], name: "index_general_locations_on_address", using: :btree
   end
 
   create_table "messages", force: :cascade do |t|
@@ -87,6 +92,9 @@ ActiveRecord::Schema.define(version: 20161201034705) do
     t.decimal  "max_radius"
     t.integer  "start_location_id"
     t.integer  "general_location_id"
+    t.index ["claimer_id"], name: "index_posts_on_claimer_id", using: :btree
+    t.index ["creator_id"], name: "index_posts_on_creator_id", using: :btree
+    t.index ["start_location_id"], name: "index_posts_on_start_location_id", using: :btree
   end
 
   create_table "ratings", force: :cascade do |t|
@@ -95,6 +103,8 @@ ActiveRecord::Schema.define(version: 20161201034705) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.decimal  "rated_value"
+    t.index ["rated_id"], name: "index_ratings_on_rated_id", using: :btree
+    t.index ["rater_id"], name: "index_ratings_on_rater_id", using: :btree
   end
 
   create_table "reservations", force: :cascade do |t|
