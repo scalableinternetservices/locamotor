@@ -10,4 +10,7 @@ ready = ->
     else
       $('#' + map_selector).show()
 
+  $('.location_check').click ->
+    $('.location_check').not(this).prop('checked', false);
+
 $(document).on('turbolinks:load', ready)

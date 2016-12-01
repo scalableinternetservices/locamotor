@@ -13,7 +13,6 @@
  *= require_tree .
  *= require_self
  */
- 
 .panel{
 	border-radius: 0px;
 }
