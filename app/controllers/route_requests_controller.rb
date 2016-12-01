@@ -16,6 +16,9 @@ class RouteRequestsController < ApplicationController
   
 
   def findRoute(current_route, location_list, end_location, allowed_end_distance_away, general_location)
+    if @completedRoutes.size > 3
+      return
+    end
     # Get the latest location in location list
     current_location = location_list[-1]
 
@@ -170,6 +173,12 @@ class RouteRequestsController < ApplicationController
         current_route.push(current_start_post)
         location_list.push(sl)
         findRoute(current_route, location_list, end_location, allowed_end_distance_away, general_location)
+        if @completedRoutes.size > 3
+          break
+        end
+      end
+      if @completedRoutes.size > 3
+        break
       end
     end
 
