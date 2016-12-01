@@ -116,12 +116,15 @@ class MainController < ApplicationController
 
     if @posts.size > 0
       num_range = @posts.count
-      puts "Post count" + num_range.to_s
+      puts "Post count " + num_range.to_s
       rand_choice = rand(num_range)
+      puts "Rand Choice " + rand_choice.to_s
       i = 0
       @posts.each do |ps|
+        print "i =  " + i.to_s + " .. "
         if i == rand_choice
           response.headers["RandomPostID"] = ps.id
+          puts "We did it"
           break
         end
         i = i + 1
