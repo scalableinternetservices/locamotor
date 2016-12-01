@@ -12,7 +12,7 @@ class GeneralLocation < ApplicationRecord
     full_location_records = self.full_locations
 
     full_location_records.each do |fl|
-      if fl.distance_to(search_address) < distance
+      if fl.distance_to(search_address) <= distance
         valid_location_list.push(fl.id)
       end
     end

@@ -71,7 +71,7 @@ end
 # Spectrum 7
 inserts = []
 20.times do |counter|
-  inserts.push "('user#{counter}@gmail.com', 'Truck', '2016-11-17 17:00:00', '2016-11-17 17:00:00', 'skeddit', 1, '2016-01-02 01:00:00', '2016-06-05 01:00:00', 'FR', 1, 'auto_book_true', #{counter * 0.5}, 7, 4)"
+  inserts.push "('user#{counter}@gmail.com', 'Truck', '2016-11-17 17:00:00', '2016-11-17 17:00:00', 'skeddit', 1, '2016-01-02 01:00:00', '2016-06-05 01:00:00', 'FR', 1, 'auto_book_true', #{counter * 0.25}, 7, 4)"
 end
 sql = "INSERT INTO posts (email, vehicle, created_at, updated_at, description, price, start_time, end_time, post_type, creator_id, auto_book, max_radius, start_location_id, general_location_id) VALUES #{inserts.join(", ")}"
 ActiveRecord::Base.connection.insert_sql(sql)
@@ -79,7 +79,7 @@ ActiveRecord::Base.connection.insert_sql(sql)
 # Strawberry 8
 inserts = []
 20.times do |counter|
-  inserts.push "('user#{counter}@gmail.com', 'Truck', '2016-11-17 17:00:00', '2016-11-17 17:00:00', 'skeddit', 1, '2016-01-02 01:00:00', '2016-06-05 01:00:00', 'FR', 1, 'auto_book_true', #{counter * 0.5}, 8, 4)"
+  inserts.push "('user#{counter}@gmail.com', 'Truck', '2016-11-17 17:00:00', '2016-11-17 17:00:00', 'skeddit', 1, '2016-01-02 01:00:00', '2016-06-05 01:00:00', 'FR', 1, 'auto_book_true', #{counter * 0.25}, 8, 4)"
 end
 sql = "INSERT INTO posts (email, vehicle, created_at, updated_at, description, price, start_time, end_time, post_type, creator_id, auto_book, max_radius, start_location_id, general_location_id) VALUES #{inserts.join(", ")}"
 ActiveRecord::Base.connection.insert_sql(sql)
@@ -87,7 +87,7 @@ ActiveRecord::Base.connection.insert_sql(sql)
 # 4115 Campus Drive 9
 inserts = []
 20.times do |counter|
-  inserts.push "('user#{counter}@gmail.com', 'Truck', '2016-11-17 17:00:00', '2016-11-17 17:00:00', 'skeddit', 1, '2016-01-02 01:00:00', '2016-06-05 01:00:00', 'FR', 1, 'auto_book_true', #{counter * 0.5}, 9, 4)"
+  inserts.push "('user#{counter}@gmail.com', 'Truck', '2016-11-17 17:00:00', '2016-11-17 17:00:00', 'skeddit', 1, '2016-01-02 01:00:00', '2016-06-05 01:00:00', 'FR', 1, 'auto_book_true', #{counter * 0.25}, 9, 4)"
 end
 sql = "INSERT INTO posts (email, vehicle, created_at, updated_at, description, price, start_time, end_time, post_type, creator_id, auto_book, max_radius, start_location_id, general_location_id) VALUES #{inserts.join(", ")}"
 ActiveRecord::Base.connection.insert_sql(sql)
@@ -95,7 +95,7 @@ ActiveRecord::Base.connection.insert_sql(sql)
 # 111 Peters Canyon Rd 10
 inserts = []
 20.times do |counter|
-  inserts.push "('user#{counter}@gmail.com', 'Truck', '2016-11-17 17:00:00', '2016-11-17 17:00:00', 'skeddit', 1, '2016-01-02 01:00:00', '2016-06-05 01:00:00', 'FR', 1, 'auto_book_true', #{counter * 0.5}, 10, 4)"
+  inserts.push "('user#{counter}@gmail.com', 'Truck', '2016-11-17 17:00:00', '2016-11-17 17:00:00', 'skeddit', 1, '2016-01-02 01:00:00', '2016-06-05 01:00:00', 'FR', 1, 'auto_book_true', #{counter * 0.25}, 10, 4)"
 end
 sql = "INSERT INTO posts (email, vehicle, created_at, updated_at, description, price, start_time, end_time, post_type, creator_id, auto_book, max_radius, start_location_id, general_location_id) VALUES #{inserts.join(", ")}"
 ActiveRecord::Base.connection.insert_sql(sql)
@@ -103,7 +103,7 @@ ActiveRecord::Base.connection.insert_sql(sql)
 # 100 Shady Canyon Dr 11
 inserts = []
 20.times do |counter|
-  inserts.push "('user#{counter}@gmail.com', 'Truck', '2016-11-17 17:00:00', '2016-11-17 17:00:00', 'skeddit', 1, '2016-01-02 01:00:00', '2016-06-05 01:00:00', 'FR', 1, 'auto_book_true', #{counter * 0.5}, 11, 4)"
+  inserts.push "('user#{counter}@gmail.com', 'Truck', '2016-11-17 17:00:00', '2016-11-17 17:00:00', 'skeddit', 1, '2016-01-02 01:00:00', '2016-06-05 01:00:00', 'FR', 1, 'auto_book_true', #{counter * 0.25}, 11, 4)"
 end
 sql = "INSERT INTO posts (email, vehicle, created_at, updated_at, description, price, start_time, end_time, post_type, creator_id, auto_book, max_radius, start_location_id, general_location_id) VALUES #{inserts.join(", ")}"
 ActiveRecord::Base.connection.insert_sql(sql)
@@ -111,7 +111,7 @@ ActiveRecord::Base.connection.insert_sql(sql)
 # One Ethel Coplen Way 12
 inserts = []
 20.times do |counter|
-  inserts.push "('user#{counter}@gmail.com', 'Truck', '2016-11-17 17:00:00', '2016-11-17 17:00:00', 'skeddit', 1, '2016-01-02 01:00:00', '2016-06-05 01:00:00', 'FR', 1, 'auto_book_true', #{counter * 0.5}, 12, 4)"
+  inserts.push "('user#{counter}@gmail.com', 'Truck', '2016-11-17 17:00:00', '2016-11-17 17:00:00', 'skeddit', 1, '2016-01-02 01:00:00', '2016-06-05 01:00:00', 'FR', 1, 'auto_book_true', #{counter * 0.25}, 12, 4)"
 end
 sql = "INSERT INTO posts (email, vehicle, created_at, updated_at, description, price, start_time, end_time, post_type, creator_id, auto_book, max_radius, start_location_id, general_location_id) VALUES #{inserts.join(", ")}"
 ActiveRecord::Base.connection.insert_sql(sql)
@@ -119,7 +119,7 @@ ActiveRecord::Base.connection.insert_sql(sql)
 # 3750 Barranca Pkwy 13
 inserts = []
 20.times do |counter|
-  inserts.push "('user#{counter}@gmail.com', 'Truck', '2016-11-17 17:00:00', '2016-11-17 17:00:00', 'skeddit', 1, '2016-01-02 01:00:00', '2016-06-05 01:00:00', 'FR', 1, 'auto_book_true', #{counter * 0.5}, 13, 4)"
+  inserts.push "('user#{counter}@gmail.com', 'Truck', '2016-11-17 17:00:00', '2016-11-17 17:00:00', 'skeddit', 1, '2016-01-02 01:00:00', '2016-06-05 01:00:00', 'FR', 1, 'auto_book_true', #{counter * 0.25}, 13, 4)"
 end
 sql = "INSERT INTO posts (email, vehicle, created_at, updated_at, description, price, start_time, end_time, post_type, creator_id, auto_book, max_radius, start_location_id, general_location_id) VALUES #{inserts.join(", ")}"
 ActiveRecord::Base.connection.insert_sql(sql)
@@ -155,7 +155,7 @@ ActiveRecord::Base.connection.insert_sql(sql)
 
 inserts = []
 400.times do
-  inserts.push "('user1@gmail.com', 'Truck', '2016-11-17 17:00:00', '2016-11-17 17:00:00', 'skeddit', 1, '2016-01-02 01:00:00', '2016-06-05 01:00:00', 'FR', 1, 'auto_book_true', 100, 4, 4)"
+  inserts.push "('user1@gmail.com', 'Truck', '2016-11-17 17:00:00', '2016-11-17 17:00:00', 'skeddit', 1, '2016-01-02 01:00:00', '2016-06-05 01:00:00', 'FR', 1, 'auto_book_true', 3, 4, 4)"
 end
 sql = "INSERT INTO posts (email, vehicle, created_at, updated_at, description, price, start_time, end_time, post_type, creator_id, auto_book, max_radius, start_location_id, general_location_id) VALUES #{inserts.join(", ")}"
 ActiveRecord::Base.connection.insert_sql(sql)
