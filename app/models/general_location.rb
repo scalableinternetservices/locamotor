@@ -13,7 +13,7 @@ class GeneralLocation < ApplicationRecord
 
     full_location_records.each do |fl|
       puts "checking?"
-      if fl.distance_to(search_address) < distance
+      if fl.distance_to(search_address) <= distance
         puts "we are adding something here"
         valid_location_list.push(fl.id)
       else

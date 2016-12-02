@@ -30,7 +30,7 @@ class MainController < ApplicationController
     @search_location_across = params[:search_location_across]
     @search_location_within = params[:search_location_within]
 
-    model_query = Post
+    model_query = Post.includes(:creator, :photos, :reservations)
     if !@vehicle_types.nil?
       model_query = model_query.where(:vehicle => @vehicle_types)
     end
@@ -47,6 +47,9 @@ class MainController < ApplicationController
     end
     @posts = model_query.paginate(page: params[:page], per_page: 10)
 
+    puts "hi here guys"
+
+
     # Search locations within a city
     if !@search_location_within.nil?
       # Get distance
@@ -57,7 +60,7 @@ class MainController < ApplicationController
       general_location = GeneralLocation.GetGeneralAddress(params[:city], params[:state])
 
       # Get all the general location
-      general_location_records = GeneralLocation.where(address: general_location)#GeneralLocation.where(address: general_location)
+      general_location_records = GeneralLocation.joins(:full_locations).where(address: general_location)#GeneralLocation.where(address: general_location)
 
       # Check if there are any general locations near the search address
       if general_location_records.size > 0
