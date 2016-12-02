@@ -120,7 +120,7 @@ class MainController < ApplicationController
     if @posts.size > 0
       num_range = @posts.count
       puts "Post count" + num_range.to_s
-      rand_choice = rand(num_range)
+      rand_choice = rand(10)
       i = 0
       @posts.each do |ps|
         if i == rand_choice
