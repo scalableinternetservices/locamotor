@@ -6,8 +6,12 @@
   <% else %>
     <h3><span class="label label-warning">Looking For:</span></h3>
   <% end %>
-  <% poster = User.find(post.creator_id) %>
-  <label>Contact:</label> <%= link_to "#{poster.email}", "/users/#{post.creator_id}" %> <br>
+  <% if defined? post.the_email%>
+    <label>Contact:</label> <%= link_to "#{post.the_email}", "/users/#{post.creator_id}" %> <br>
+  <% else %>
+    <% poster = User.find(post.creator_id) %>
+    <label>Contact:</label> <%= link_to "#{poster.email}", "/users/#{post.creator_id}" %> <br>
+  <% end %>
   <label>Type:</label> <%= post.vehicle %> <br>
   <label>Start Time:</label> <%= post.start_time %> <br>
   <label>End Time:</label> <%= post.end_time %> <br>

@@ -30,7 +30,7 @@ class MainController < ApplicationController
     @search_location_across = params[:search_location_across]
     @search_location_within = params[:search_location_within]
 
-    model_query = Post.includes(:creator, :photos, :reservations)
+    model_query = Post.left_outer_joins(:creator).distinct.select('posts.*, users.email AS the_email')
     if !@vehicle_types.nil?
       model_query = model_query.where(:vehicle => @vehicle_types)
     end
@@ -116,22 +116,26 @@ class MainController < ApplicationController
       end
     end
 
+    puts "almost done guys"
+    response.headers["RandomPostID"] = 1
+    # if !@posts.nil? && @posts.size > 0
+    #   num_range = @posts.count
+    #   puts "Post count" + num_range.to_s
+    #   rand_choice = rand(10)
+    #   i = 0
+    #   @posts.ids
+    #   # @posts.each do |ps|
+    #   #   if i == rand_choice
+    #   #      = ps.id
+    #   #     break
+    #   #   end
+    #   #   i = i + 1
+    #   # end
+    # else
+    #   puts "No Posts"
+    # end
 
-    if @posts.size > 0
-      num_range = @posts.count
-      puts "Post count" + num_range.to_s
-      rand_choice = rand(10)
-      i = 0
-      @posts.each do |ps|
-        if i == rand_choice
-          response.headers["RandomPostID"] = ps.id
-          break
-        end
-        i = i + 1
-      end
-    else
-      puts "No Posts"
-    end
+    puts "done"
   end
 end
 
