@@ -123,11 +123,12 @@ ActiveRecord::Schema.define(version: 20161201113451) do
 
   create_table "route_requests", force: :cascade do |t|
     t.datetime "start_time"
-    t.integer  "start_location_id"
-    t.integer  "end_location_id"
     t.integer  "user_id"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.string   "start_location_name"
+    t.string   "end_location_name"
+    t.string   "list_as_string"
   end
 
   create_table "users", force: :cascade do |t|

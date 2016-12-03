@@ -41,21 +41,22 @@ class PostsController < ApplicationController
     end
 
     full_address = FullLocation.GetFullAddress(post_args[:street], post_args[:city], post_args[:state])
-    puts full_address
-    @location = FullLocation.new(address: full_address)
-    @location.general_location_id = @general_location.id
 
-    if @location.valid?
-      puts "location was valid"
-      @location.save
+    full_location_array = FullLocation.where(address: "#{full_address}")
+
+    # See if this full locaiton already exists
+    if full_location_array.size > 0
+      puts "This general location exists"
+      @location = full_location_array[0]
     else
-      puts "Location was not valid"
-      @location.errors.full_messages.to_sentence
-      puts "why not valid"
+      puts "Creating this general location"
+      @location = FullLocation.new(address: full_address)
+      @location.general_location_id = @general_location.id
+      @location.save
     end
 
+    # Assign post to the location
     @post.start_location_id = @location.id 
-    # @post.general_location_id = @general_location.id
 
     # For Rent or Renting Out
     @post.post_type = post_args[:post_type] == "Renting out" ? "FR" : "RR"

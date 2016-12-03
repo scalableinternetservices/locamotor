@@ -85,7 +85,6 @@ class MainController < ApplicationController
 
     # Search location across cities
     if !@search_location_across.nil?
-      puts "Doing across"
       # Get distance
       distance = params[:max_distance_a].to_i
 

@@ -9,7 +9,7 @@
 
   <!-- Server side setup -->
   <servers>
-    <server host="www.locamotor-load.pyaxtkrft7.us-west-2.elasticbeanstalk.com" port="80" type="tcp"></server>
+    <server host="www.locamotor-new-locations.pyaxtkrft7.us-west-2.elasticbeanstalk.com" port="80" type="tcp"></server>
   </servers>
 
 
