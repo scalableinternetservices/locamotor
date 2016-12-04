@@ -1,8 +1,6 @@
 <h1>Search Results</h1>
-<%= will_paginate @posts %>
 
 <% @posts.reverse_each do |post| %>
   <%= render partial: "shared/post_display", locals: {post: post} %>
 
-<%= will_paginate @posts %>
 <% end %>

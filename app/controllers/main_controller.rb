@@ -1,6 +1,6 @@
 class MainController < ApplicationController
   def home
-    @posts = Post.all#.paginate(page: params[:page], per_page: 10)
+    @posts = Post.last(100).reverse#.paginate(page: params[:page], per_page: 10)
   end
 
   def help
