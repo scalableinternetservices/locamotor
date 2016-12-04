@@ -43,7 +43,7 @@ class MainController < ApplicationController
     # search based on id
     if !@search_location.nil?
       # Get all the locations within the correct distance of the start location
-      valid_location = Location.near("Irvine, CA", 100, order: 'distance')
+      valid_location = Location.near(params[:location_start], params[:max_distance], order: 'distance')
 
       # So this puts lets the next statement work for some reason...
       puts valid_location
