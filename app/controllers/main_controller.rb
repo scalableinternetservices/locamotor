@@ -58,18 +58,18 @@ class MainController < ApplicationController
       @posts = model_query.paginate(page: params[:page], per_page: 10)
     end
 
-    if @posts.size > 0
-      num_range = @posts.count
-      rand_choice = rand(num_range)
-      i = 0
-      @posts.each do |ps|
-        if i == rand_choice
-          response.headers["RandomPostID"] = ps.id
-          break
-        end
-        i = i + 1
-      end
-    end
+    # if @posts.size > 0
+    #   num_range = @posts.count
+    #   rand_choice = rand(num_range)
+    #   i = 0
+    #   @posts.each do |ps|
+    #     if i == rand_choice
+    #       response.headers["RandomPostID"] = ps.id
+    #       break
+    #     end
+    #     i = i + 1
+    #   end
+    # end
   end
 end
 
