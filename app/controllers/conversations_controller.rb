@@ -8,9 +8,12 @@ class ConversationsController < ApplicationController
 
   def create
     puts "conversations controller create"
-    if Conversation.between(params[:sender_id], params[:recipient_id]).present?
-      @conversation = Conversation.between(params[:sender_id], params[:recipient_id]).first
+    @conversation = Conversation.between(params[:sender_id], params[:recipient_id])
+    if @conversation.present?
+      puts "found old"
+      @conversation = @conversation.first
      else
+      puts "create new"
       @conversation = Conversation.create!(conversation_params)
      end
 
