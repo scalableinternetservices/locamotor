@@ -1,7 +1,7 @@
 class MainController < ApplicationController
   def home
     # Get the most recent posts
-    @recent_posts = Post.GetRecent.reverse.paginate(page: params[:page], per_page: 1)
+    @recent_posts = Post.GetRecent.reverse.paginate(page: params[:page], per_page: 10)
   end
 
   def help
@@ -44,8 +44,6 @@ class MainController < ApplicationController
     if !@search_price.nil?
       model_query = model_query.where("price <= ?", @max_price)
     end
-    
-    @posts = model_query.paginate(page: params[:page], per_page: 25)
 
     # search based on id
     if !@search_location.nil?
@@ -60,11 +58,13 @@ class MainController < ApplicationController
 
       # Get the posts where the start_location_id is valid
       @posts = model_query.where(start_location_id: valid_ids).paginate(page: params[:page], per_page: 10)
+    else
+      @posts = model_query.paginate(page: params[:page], per_page: 10)
     end
 
     if @posts.size > 0
       num_range = @posts.count
-      rand_choice = rand(num_range)
+      rand_choice = rand(10)
       i = 0
       @posts.each do |ps|
         if i == rand_choice
