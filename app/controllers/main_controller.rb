@@ -57,14 +57,15 @@ class MainController < ApplicationController
       valid_ids = valid_location.ids
 
       # Get the posts where the start_location_id is valid
-      @posts = Rails.cache.fetch(model_query.to_s, expires_in: 60.seconds) do
-        model_query.where(start_location_id: valid_ids).paginate(page: params[:page], per_page: 10)
+      @posts = Rails.cache.fetch(params[:location_start], expires_in: 60.seconds) do
+        model_query.where(start_location_id: valid_ids)#.paginate(page: params[:page], per_page: 10)
       end
     else
-      @posts = Rails.cache.fetch(model_query.to_s, expires_in: 60.seconds) do
-        @posts = model_query.paginate(page: params[:page], per_page: 10)
+      @posts = Rails.cache.fetch(params[:location_start], expires_in: 60.seconds) do
+        @posts = model_query#.paginate(page: params[:page], per_page: 10)
       end
     end
+    @posts=@posts.paginate(page: params[:page], per_page: 10)
 
 
     # if @posts.size > 0
