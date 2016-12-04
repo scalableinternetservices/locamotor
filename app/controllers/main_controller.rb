@@ -57,23 +57,30 @@ class MainController < ApplicationController
       valid_ids = valid_location.ids
 
       # Get the posts where the start_location_id is valid
-      @posts = model_query.where(start_location_id: valid_ids).paginate(page: params[:page], per_page: 10)
+      @posts = Rails.cache.fetch(model_query.to_s, expires_in: 60.seconds) do
+        model_query.where(start_location_id: valid_ids).paginate(page: params[:page], per_page: 10)
+      end
     else
-      @posts = model_query.paginate(page: params[:page], per_page: 10)
-    end
-
-    if @posts.size > 0
-      num_range = @posts.count
-      rand_choice = rand(10)
-      i = 0
-      @posts.each do |ps|
-        if i == rand_choice
-          response.headers["RandomPostID"] = ps.id
-          break
-        end
-        i = i + 1
+      @posts = Rails.cache.fetch(model_query.to_s, expires_in: 60.seconds) do
+        @posts = model_query.paginate(page: params[:page], per_page: 10)
       end
     end
+
+
+    # if @posts.size > 0
+    #   num_range = @posts.count
+    #   rand_choice = rand(10)
+    #   i = 0
+    #   @posts.each do |ps|
+    #     if i == rand_choice
+    #       response.headers["RandomPostID"] = ps.id
+    #       break
+    #     end
+    #     i = i + 1
+    #   end
+    # end
+
+
   end
 end
 
