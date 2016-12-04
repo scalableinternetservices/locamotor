@@ -1,6 +1,9 @@
 class MainController < ApplicationController
+
+  require 'will_paginate/array' 
+
   def home
-    @posts = Post.last(100).reverse#.paginate(page: params[:page], per_page: 10)
+    @posts = Post.last(100).reverse.paginate(page: params[:page], per_page: 10)
   end
 
   def help
@@ -52,7 +55,7 @@ class MainController < ApplicationController
       valid_ids = valid_location.ids
 
       # Get the posts where the start_location_id is valid
-      @posts = model_query.where(start_location_id: valid_ids)#.paginate(page: params[:page], per_page: 10)
+      @posts = model_query.where(start_location_id: valid_ids).paginate(page: params[:page], per_page: 10)
     end
 
     if @posts.size > 0
