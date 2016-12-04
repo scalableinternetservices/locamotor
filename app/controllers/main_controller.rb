@@ -65,7 +65,7 @@ class MainController < ApplicationController
         @posts = model_query#.paginate(page: params[:page], per_page: 10)
       end
     end
-    @posts=@posts.paginate(page: params[:page], per_page: 10)
+    @posts=@posts.last(1000).paginate(page: params[:page], per_page: 10)
 
 
     # if @posts.size > 0
