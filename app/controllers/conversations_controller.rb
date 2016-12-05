@@ -2,8 +2,8 @@ class ConversationsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @users = User.all
-    @conversations = Conversation.all
+    # @users = User.all
+    @conversations = Conversation.joins("INNER JOIN users ON users.id = conversations.sender_id OR users.id= conversations.recipient_id")
   end
 
   def create
@@ -12,10 +12,20 @@ class ConversationsController < ApplicationController
     if @conversation.present?
       puts "found old"
       @conversation = @conversation.first
-     else
+    else
       puts "create new"
       @conversation = Conversation.create!(conversation_params)
-     end
+      sender = User.find(params[:sender_id])
+      recipient = User.find(params[:recipient_id])
+      @conversation.sender_email = sender.email
+
+      @conversation.recipient_email = recipient.email
+
+      @conversation.save
+    end
+    
+    puts "Sender email is #{@conversation.sender_email}"
+    puts "recipient email is #{@conversation.recipient_email}"
 
     response.headers["ConversationID"] = @conversation.id
     redirect_to conversation_messages_path(@conversation.id, num_messages_to_show: params[:num_messages_to_show])
