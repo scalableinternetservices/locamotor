@@ -1,7 +1,7 @@
 class Post < ApplicationRecord
   belongs_to :creator, :class_name => "User"
   # belongs_to :claimer, :class_name => "User"
-  belongs_to :start_location, :class_name => "Location"
+  belongs_to :start_location, :class_name => "FullLocation"
 
   has_many :photos
 
@@ -26,4 +26,11 @@ class Post < ApplicationRecord
   validates :post_type, presence: true
 
 #  validates :auto_book, presence: true
+
+  # Get the 10 most recent posts every 10 seconds, cache results
+  def self.GetRecent
+    Rails.cache.fetch("most_recent", expires_in: 10.seconds) do
+      Post.last(100)
+    end
+  end
 end

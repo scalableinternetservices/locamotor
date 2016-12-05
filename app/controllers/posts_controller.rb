@@ -23,14 +23,41 @@ class PostsController < ApplicationController
     @post.description = post_args[:description]
     @post.max_radius = post_args[:max_radius]
 
-
-
     @post.auto_book = params[:auto_book]
-    @location = Location.new(address: post_args[:location])
 
-    @location.save
+    # Get general location as a string
+    general_address = GeneralLocation.GetGeneralAddress(post_args[:city], post_args[:state])
+    puts general_address
 
+    # See if this general location already exists
+    general_location_array = GeneralLocation.where(address: "#{general_address}")
+    if general_location_array.size > 0
+      puts "This general location exists"
+      @general_location = general_location_array[0]
+    else
+      puts "Creating this general location"
+      @general_location = GeneralLocation.new(address: general_address)
+      @general_location.save
+    end
+
+    full_address = FullLocation.GetFullAddress(post_args[:street], post_args[:city], post_args[:state])
+
+    full_location_array = FullLocation.where(address: "#{full_address}")
+
+    # See if this full locaiton already exists
+    if full_location_array.size > 0
+      puts "This general location exists"
+      @location = full_location_array[0]
+    else
+      puts "Creating this general location"
+      @location = FullLocation.new(address: full_address)
+      @location.general_location_id = @general_location.id
+      @location.save
+    end
+
+    # Assign post to the location
     @post.start_location_id = @location.id 
+
     # For Rent or Renting Out
     @post.post_type = post_args[:post_type] == "Renting out" ? "FR" : "RR"
 
@@ -46,6 +73,9 @@ class PostsController < ApplicationController
       end
       
       @photos = @post.photos
+    else
+      puts "that thing wasn't valid"
+      puts @post.errors.full_messages.to_sentence
     end
 
     response.headers["PostID"] = @post.id

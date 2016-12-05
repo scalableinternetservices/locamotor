@@ -11,14 +11,10 @@
   <%= link_to "View Requests", '/route_requests/index', class: "btn btn-lg btn-primary" %>
 </div>
 
-<% Post.last(10).reverse_each do |post| %>
-  <%= render partial: "shared/post_display", locals: {post: post} %>
-  <% if post.auto_book == "auto_book" %>
-    <%= link_to "Book Now", '/posts/' + post.id.to_s, class: "btn btn-xs btn-primary" %>
-    <br>
-  <% else %>
-    <%= link_to "Request Reservation", '/posts/' + post.id.to_s, class: "btn btn-xs btn-primary" %>
-    <br>
+<%= will_paginate @recent_posts %>
+<% @recent_posts.reverse_each do |post| %>
+  <% cache(post, expires_in: 30.seconds) do %>
+    <%= render partial: "shared/post_display", locals: {post: post} %>
   <% end %>
-  <br><br>
 <% end %>
+<%= will_paginate @recent_posts %>

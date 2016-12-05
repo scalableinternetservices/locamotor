@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   get 'main/about'
   get 'search', to: 'main#search'
   get 'search/results', to: 'main#results'
+  get 'search/all', to: 'main#all_posts'
   get '/posts/:id', to: 'posts#show'
   patch '/posts/:id/claim', to: 'posts#claim'
   patch '/reservations/:id/approval', to: 'reservations#approval'

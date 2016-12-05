@@ -1,25 +1,29 @@
 <% post %>
   <% @photos = post.photos %>
 
-<% if post.post_type == "FR" %>
-  <h3><span class="label label-info">For Rent:</span></h3>
-<% else %>
-  <h3><span class="label label-warning">Looking For:</span></h3>
-<% end %>
-<% poster = User.find(post.creator_id) %>
-<label>Contact:</label> <%= link_to "#{poster.email}", "/users/#{post.creator_id}" %> <br>
-<label>Type:</label> <%= post.vehicle %> <br>
-<label>Start Time:</label> <%= post.start_time %> <br>
-<label>End Time:</label> <%= post.end_time %> <br>
-<label>Price:</label> $<%= "%.2f" % post.price unless post.price.nil? %> <br>
-<label>Contact:</label> <%= post.email %> <br>
-<% if post.description != '' %>
-  <label>Additional Details:</label> <%= post.description %> <br> 
-<% end %>
+  <% if post.post_type == "FR" %>
+    <h3><span class="label label-info">For Rent:</span></h3>
+  <% else %>
+    <h3><span class="label label-warning">Looking For:</span></h3>
+  <% end %>
+  <% if defined? post.the_email%>
+    <label>Contact:</label> <%= link_to "#{post.the_email}", "/users/#{post.creator_id}" %> <br>
+  <% else %>
+    <% poster = User.find(post.creator_id) %>
+    <label>Contact:</label> <%= link_to "#{poster.email}", "/users/#{post.creator_id}" %> <br>
+  <% end %>
+  <label>Type:</label> <%= post.vehicle %> <br>
+  <label>Start Time:</label> <%= post.start_time %> <br>
+  <label>End Time:</label> <%= post.end_time %> <br>
+  <label>Price:</label> $<%= "%.2f" % post.price unless post.price.nil? %> <br>
+  <label>Contact:</label> <%= post.email %> <br>
+  <% if post.description != '' %>
+    <label>Additional Details:</label> <%= post.description %> <br> 
+  <% end %>
 
-<div id="photos">
-  <%= render 'photos/list' %>
-</div>
+  <div id="photos">
+    <%= render 'photos/list' %>
+  </div>
 
 <% if post.start_location %>
   <label>Starting Location:</label> <button id=<%= "map#{post.id}" %> class="map-link"> <%= post.start_location.address %> </button> <br>
@@ -47,3 +51,13 @@
   <label>Reservation Start Time:</label> <%= reservation.start_time %> <br>
   <label>Reservation End Time:</label> <%= reservation.end_time %> <br>
 <% end %>
+
+  <% if post.auto_book == "auto_book" %>
+    <%= link_to "Book Now", '/posts/' + post.id.to_s, class: "btn btn-xs btn-primary" %>
+    <br>
+  <% else %>
+    <%= link_to "Request Reservation", '/posts/' + post.id.to_s, class: "btn btn-xs btn-primary" %>
+    <br>
+  <% end %>
+  <br><br>
+

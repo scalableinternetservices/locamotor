@@ -4,8 +4,10 @@
   </div>
 <% end %>
 
+<% current_id = current_user.id %>
+
 <div class="ui segment">
-  <%= render partial: "shared/message_display", collection: @messages, as: :message %>
+  <%= render partial: "shared/message_display", locals: {current_id: current_id} ,collection: @messages, as: :message %>
 </div>
 
 <br>
