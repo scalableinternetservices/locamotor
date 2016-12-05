@@ -90,8 +90,8 @@ class RouteRequestsController < ApplicationController
     end
 
     # Get the starting and ending full locations
-    start_location = FullLocation.GetFullAddress(routes_args[:start_street], routes_args[:start_city], routes_args[:start_state])
-    end_location = FullLocation.GetFullAddress(routes_args[:end_street], routes_args[:end_city], routes_args[:end_state])
+    @start_location = FullLocation.GetFullAddress(routes_args[:start_street], routes_args[:start_city], routes_args[:start_state])
+    @end_location = FullLocation.GetFullAddress(routes_args[:end_street], routes_args[:end_city], routes_args[:end_state])
 
     # Get distances
     start_distance_away = routes_args[:start_max_distance].to_i
@@ -100,7 +100,7 @@ class RouteRequestsController < ApplicationController
     # Get all full locations within this general location.
     # We will only look for posts within 1 mile of the user
     valid_starting_locations = Array.new()
-    general_location.get_full_locations_near_as_location(start_location, start_distance_away, valid_starting_locations)
+    general_location.get_full_locations_near_as_location(@start_location, start_distance_away, valid_starting_locations)
 
     if valid_starting_locations.size < 1
       # There is no route, do something
@@ -116,7 +116,7 @@ class RouteRequestsController < ApplicationController
         location_list = Array.new
         current_route.push(current_start_post)
         location_list.push(sl)
-        findRoute(current_route, location_list, end_location, allowed_end_distance_away, general_location)
+        findRoute(current_route, location_list, @end_location, allowed_end_distance_away, general_location)
       end
     end
 

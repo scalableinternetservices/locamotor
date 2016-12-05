@@ -13,9 +13,9 @@ class UsersController < ApplicationController
 
     # Find out if current user has already rated the user who we will be showing
     @can_rate = true
-    # if Rating.rating_by_of(current_user.id, params[:id]).present? or current_user.id.to_i == params[:id].to_i
-    #     @can_rate = true
-    # end
+    if Rating.rating_by_of(current_user.id, params[:id]).present? or current_user.id.to_i == params[:id].to_i
+        @can_rate = false
+    end
 
     @request_set = Post.where("creator_id = #{params[:id]} and post_type = 'RR'").paginate(page: params[:request_page], per_page: 3)
     @offer_set = Post.where("creator_id = #{params[:id]} and post_type = 'FR'").paginate(page: params[:offer_page], per_page: 3)

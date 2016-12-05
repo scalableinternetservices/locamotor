@@ -11,7 +11,7 @@
     <span class="label label-success"><%= "User Rating: #{this_user.get_rating.round(2)} / 5" %>&nbsp <%= "(#{this_user.get_num_reviews} reviews)" %></span> <br> <br>
   </div>
 
-  <% if ! @can_rate %>
+  <% if @can_rate %>
     <%= form_for @rating, html: {class: 'form-inline', multipart: true} do |f| %>
       <div class="form-group rating-row">
         <div class="input-group">
