@@ -1,3 +1,4 @@
+<% cache("#{message.content}#{message.created_at}" , expires_in: 60.seconds) do %>
 <% if message.content %>
   <div>
     <% if message.user_id == current_id %>
@@ -11,5 +12,5 @@
     <%= message.content %>
   </div>
   <br>
-
+<% end %>
 <% end %>
