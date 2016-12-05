@@ -4,17 +4,6 @@
   <div class="item">
     <% @conversations.each do |conversation| %>
         <%= link_to conversation.recipient_email, conversation_messages_path(conversation, num_messages_to_show: 10)%> <br>
-        <% last_message = conversation.messages[conversation.messages.length - 1] %>
-        <% if last_message != nil %>
-          <% if last_message.user_id == current_id %>
-            <div class="text-preview"> You: <%= last_message.content %> </div> <br>
-          <% else %>
-            <div class="text-preview"> <%= conversation.recipient_email %>: <%= last_message.content %> </div> <br>
-          <% end %>
-        <% else %>
-          <div class="text-preview"> No messages </div> <br>
-        <% end %>
-
     <% end %>
   </div>
 </div>
