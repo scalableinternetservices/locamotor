@@ -3,7 +3,8 @@ class ConversationsController < ApplicationController
 
   def index
     # @users = User.all
-    @conversations = Conversation.joins("INNER JOIN users ON users.id = conversations.sender_id OR users.id= conversations.recipient_id")
+    current_id = current_user.id
+    @conversations = Conversation.where("sender_id = #{current_id} OR recipient_id = #{current_id}")
   end
 
   def create
